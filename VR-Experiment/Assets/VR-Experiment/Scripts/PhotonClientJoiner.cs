@@ -10,7 +10,6 @@ public class PhotonClientJoiner : MonoBehaviourPun
     [SerializeField] private XROrigin _xrOrigin;
 
     [SerializeField] private List<Behaviour> _xrComponents = new List<Behaviour>();
-    [SerializeField] private List<Behaviour> _photonComponents = new List<Behaviour>();
 
     void Start()
     {
@@ -25,22 +24,12 @@ public class PhotonClientJoiner : MonoBehaviourPun
             {
                 xrComponent.enabled = true;
             }
-
-            foreach(Behaviour photonComponent in _photonComponents)
-            {
-                photonComponent.enabled = false;
-            }
         }
         else
         {
             foreach(Behaviour xrComponent in _xrComponents)
             {
                 xrComponent.enabled = false;
-            }
-
-            foreach(Behaviour photonComponent in _photonComponents)
-            {
-                photonComponent.enabled = true;
             }
         }
     }
