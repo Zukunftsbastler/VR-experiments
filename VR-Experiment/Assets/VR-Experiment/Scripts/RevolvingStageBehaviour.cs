@@ -2,30 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PresenterBehaviour : MonoBehaviour
+public class RevolvingStageBehaviour : MonoBehaviour
 {
-    [SerializeField] private float _hoverAmplitude;
     [Tooltip("Distance local to this transform.")]
     [SerializeField] private float _hoverHeight;
+    [Tooltip("Distance the product hoves up and down relative to the hover height.")]
+    [SerializeField] private float _hoverAmplitude;
     [Tooltip("One cycle (up, down up) equals 360. \nSpeed in cycles per second.")]
     [SerializeField] private float _hoverSpeed;
     [Tooltip("One full rotation equals 360. \nSpeed in rotation per seconds.")]
     [SerializeField] private float _rotationSpeed;
-
-    private GameObject _activeItem;
+    
+    private GameObject _activeProduct;
     private float _hoverFrequenz;
 
-    public bool HasActiveItem => _activeItem != null;
-    public GameObject ActiveItem {
+    public bool HasActiveItem => _activeProduct != null;
+    public GameObject ActiveProduct {
         get 
         {
-            return _activeItem;
+            return _activeProduct;
         } 
         
         set 
         {
-            _activeItem = value;
-            _activeItem.transform.parent = transform;
+            _activeProduct = value;
+            _activeProduct.transform.parent = transform;
         } 
     }
 
@@ -40,7 +41,7 @@ public class PresenterBehaviour : MonoBehaviour
             //hover item
             _hoverFrequenz += _hoverSpeed * Mathf.Deg2Rad * Time.deltaTime;
             float hoverHeight = _hoverHeight + _hoverAmplitude * Mathf.Sin(_hoverFrequenz);
-            _activeItem.transform.position = transform.position + Vector3.up * hoverHeight;
+            _activeProduct.transform.position = transform.position + Vector3.up * hoverHeight;
         }
     }
 }

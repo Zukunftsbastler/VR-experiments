@@ -6,7 +6,21 @@ using UnityEngine.SceneManagement;
 
 public class ConnectToServer : MonoBehaviourPunCallbacks
 {
-    void Start()
+    [SerializeField] private GameObject[] _avatarPrefabs = new GameObject[2];
+
+    public void SetAvatarOne(bool isActive)
+    {
+        GameObject prefab = isActive ? _avatarPrefabs[1] : null;
+        PlayerWrapper.Instance.SetAvatar(prefab);
+    }
+
+    public void SetAvatarTwo(bool isActive)
+    {
+        GameObject prefab = isActive ? _avatarPrefabs[2] : null;
+        PlayerWrapper.Instance.SetAvatar(prefab);
+    }
+
+    public void ConnectToPhoton()
     {
         PhotonNetwork.ConnectUsingSettings();
     }

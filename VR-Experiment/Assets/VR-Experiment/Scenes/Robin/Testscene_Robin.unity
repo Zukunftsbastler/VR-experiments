@@ -306,7 +306,7 @@ GameObject:
   - component: {fileID: 148335309}
   - component: {fileID: 148335308}
   m_Layer: 0
-  m_Name: Presenter
+  m_Name: RevolvingStage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -449,7 +449,7 @@ GameObject:
   - component: {fileID: 191450852}
   - component: {fileID: 191450851}
   m_Layer: 0
-  m_Name: ClientSpawner
+  m_Name: PlayerTracker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1792,7 +1792,7 @@ GameObject:
   - component: {fileID: 1130113503}
   - component: {fileID: 1130113504}
   m_Layer: 0
-  m_Name: ItemSpawner
+  m_Name: ProductSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1825,11 +1825,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff79f957c5a5cc64ebaf9df4527f5276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemPrefab:
+  _productPrefab:
   - {fileID: 5542099660057401299, guid: ab46f156504b2e648bd9b8d60095fdbf, type: 3}
   - {fileID: 2640038431607438363, guid: 3e9f0ba044a5fc9468f79082fea3c05b, type: 3}
   - {fileID: 8491626468423978648, guid: 33cefe1e542ec2a40955b89ed57ce7a5, type: 3}
-  _presenter: {fileID: 148335308}
+  _stage: {fileID: 0}
 --- !u!1 &1248681787
 GameObject:
   m_ObjectHideFlags: 0
