@@ -11,9 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/VR-Experiment/Scenes/Robin/JoinRoom_Robin.unity
     guid: 5b15862a702989a4e8c3da7e9f35dd79
-  - enabled: 1
+  - enabled: 0
     path: Assets/VR-Experiment/Scenes/Robin/Testscene_Robin.unity
     guid: 58f9c6544bae53947b0d9d9a4bb54110
+  - enabled: 1
+    path: Assets/VR-Experiment/Scenes/Gil/TestScene_Messe.unity
+    guid: 5f029eeb1c348a041ab8ba5a86bdabfb
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bc04b292409a2234785e6dd2192c0b9c, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 2328d3b25cb9dae4e9235b85db5f6aae, type: 2}
