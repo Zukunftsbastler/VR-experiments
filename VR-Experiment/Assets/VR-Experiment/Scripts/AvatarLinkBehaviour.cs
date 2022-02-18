@@ -8,10 +8,15 @@ public class AvatarLinkBehaviour : MonoBehaviour
     [SerializeField] private TransformFollow _leftHandFollow;
     [SerializeField] private TransformFollow _rightHandFollow;
 
-    public void LinkRigToAvatar(Transform head, Transform leftHand, Transform rightHand)
+    public void LinkRigToAvatar(XRRig rig)
     {
-        _headFollow.followTarget = head;
-        _leftHandFollow.followTarget = leftHand;
-        _rightHandFollow.followTarget = rightHand;
+        LinkRigToAvatar(rig.Head, rig.LeftHand, rig.RightHand);
+    }
+
+    public void LinkRigToAvatar(Transform rigHead, Transform rigLeftHand, Transform rigRightHand)
+    {
+        _headFollow.followTarget = rigHead;
+        _leftHandFollow.followTarget = rigLeftHand;
+        _rightHandFollow.followTarget = rigRightHand;
     }
 }

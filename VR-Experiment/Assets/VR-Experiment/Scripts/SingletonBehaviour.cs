@@ -19,7 +19,7 @@ public abstract class SingletonBehaviour<T> : MonoBehaviour where T : MonoBehavi
         }
     }
 
-    protected virtual void Awake()
+    private void Awake()
     {
         if(_instance != null && _instance != this)
         {
@@ -28,5 +28,11 @@ public abstract class SingletonBehaviour<T> : MonoBehaviour where T : MonoBehavi
         }
 
         _instance = this as T;
+        OnAwake();
+    }
+
+    protected virtual void OnAwake()
+    {
+
     }
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1273174, g: 0.13414761, b: 0.12107885, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -156,8 +156,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c37551138e5f004f9a6be30eb5cb5c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followTarget: {fileID: 0}
-  _settings: 3
+  followTarget: {fileID: 641826861}
+  _positionSetting: 3
+  _rotationSetting: 0
 --- !u!114 &308260406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,6 +348,7 @@ GameObject:
   m_Component:
   - component: {fileID: 459257530}
   - component: {fileID: 459257529}
+  - component: {fileID: 459257531}
   m_Layer: 0
   m_Name: XR Origin
   m_TagString: Untagged
@@ -386,6 +388,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &459257531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459257528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc446ea278ac7b449a73a7449ed3035f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _head: {fileID: 641826861}
+  _leftHand: {fileID: 612176143}
+  _rightHand: {fileID: 852972850}
 --- !u!1 &500489427
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,17 +9,26 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
 {
     public void SetVisitor(bool isActive)
     {
-        Debug.Log($"SetVisitor: {isActive}");
+        Role role = isActive ? Role.Visitor : Role.None;
+        PlayerWrapper.Instance.SetRole(role);
     }
 
     public void SetPresenter(bool isActive)
     {
-        Debug.Log($"SetPresenter: {isActive}");
+        Role role = isActive ? Role.Presenter : Role.None;
+        PlayerWrapper.Instance.SetRole(role);
     }
 
     public void JoinRoom()
     {
-        PhotonNetwork.JoinRoom("VR-Experiment");
+        if(PlayerWrapper.Instance.CanConnectToRoom)
+        {
+            PhotonNetwork.JoinRoom("VR-Experiment");
+        }
+        else
+        {
+            Debug.LogWarning($"You need to choose a role befor you can join a room.");
+        }
     }
 
     public override void OnJoinedRoom()

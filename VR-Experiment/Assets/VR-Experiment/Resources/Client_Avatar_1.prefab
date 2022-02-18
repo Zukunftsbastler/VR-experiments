@@ -208,7 +208,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followTarget: {fileID: 0}
-  _settings: 0
+  _positionSetting: 1
+  _rotationSetting: 1
 --- !u!135 &3998897221702086006
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -335,7 +336,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followTarget: {fileID: 0}
-  _settings: 0
+  _positionSetting: 1
+  _rotationSetting: 1
 --- !u!135 &3998897222054692429
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -464,7 +466,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followTarget: {fileID: 0}
-  _settings: 0
+  _positionSetting: 1
+  _rotationSetting: 1
 --- !u!82 &6034995512049071541
 AudioSource:
   m_ObjectHideFlags: 0

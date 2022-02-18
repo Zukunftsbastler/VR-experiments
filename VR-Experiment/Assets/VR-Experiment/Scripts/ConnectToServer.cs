@@ -10,19 +10,26 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
 
     public void SetAvatarOne(bool isActive)
     {
-        GameObject prefab = isActive ? _avatarPrefabs[1] : null;
-        PlayerWrapper.Instance.SetAvatar(prefab);
+        GameObject prefab = isActive ? _avatarPrefabs[0] : null;
+        PlayerWrapper.Instance.SetAvatar(prefab, true);
     }
 
     public void SetAvatarTwo(bool isActive)
     {
-        GameObject prefab = isActive ? _avatarPrefabs[2] : null;
-        PlayerWrapper.Instance.SetAvatar(prefab);
+        GameObject prefab = isActive ? _avatarPrefabs[1] : null;
+        PlayerWrapper.Instance.SetAvatar(prefab, true);
     }
 
     public void ConnectToPhoton()
     {
-        PhotonNetwork.ConnectUsingSettings();
+        if(PlayerWrapper.Instance.CanConnectToPhoton)
+        {
+            PhotonNetwork.ConnectUsingSettings();
+        }
+        else
+        {
+            Debug.LogWarning($"You need to choose an avatar befor you can connect to photon.");
+        }
     }
 
     public override void OnConnectedToMaster()
@@ -34,6 +41,8 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {
         base.OnJoinedLobby();
+
+        PlayerWrapper.Instance.SetNetworkInfo(new PlayerNetworkInfo_Photon(PhotonNetwork.LocalPlayer));
         SceneManager.LoadScene("JoinRoom_Robin");
     }
 }
