@@ -5,10 +5,18 @@ using UnityEngine;
 
 public class PlayerSpawner : MonoBehaviour
 {
-    [SerializeField] List<Transform> _spawnPoints = new List<Transform>();
+    [SerializeField] private PhotonRoomInstatiation _photonRoom;
+    [SerializeField] private List<Transform> _spawnPoints = new List<Transform>();
 
     void Start()
     {
+        StartCoroutine(SpawnPlayer());
+    }
+
+    private IEnumerator SpawnPlayer()
+    {
+        yield return _photonRoom.IsConnectedToPhoton;
+
         int globalSlot = PlayerWrapper.Instance.GetGlobalSlot();
         Transform spawnPoint;
 

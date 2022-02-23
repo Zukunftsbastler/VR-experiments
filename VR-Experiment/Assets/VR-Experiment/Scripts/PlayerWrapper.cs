@@ -14,6 +14,7 @@ public class PlayerWrapper : SingletonBehaviour<PlayerWrapper>
     private PlayerNetworkInfo _networkInfo = null;
 
     private XRRig _rig = null;
+    private PlayerHud _hud = null;
 
     private string _avatarName = null;
     private AvatarLinkBehaviour _avatarLink = null;
@@ -22,6 +23,10 @@ public class PlayerWrapper : SingletonBehaviour<PlayerWrapper>
 
     public bool CanConnectToPhoton => _avatarName != null;
     public bool CanConnectToRoom => _role != Role.None;
+    public bool CanOccupyBooths => _role > Role.Visitor;
+
+    private XRRig Rig => _rig ??= FindObjectOfType<XRRig>();
+    public PlayerHud Hud => _hud ??= FindObjectOfType<PlayerHud>();
 
     private void OnEnable()
     {
@@ -31,6 +36,13 @@ public class PlayerWrapper : SingletonBehaviour<PlayerWrapper>
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    public void SetPlayerData(PlayerNetworkInfo networkInfo, GameObject avatarPrefab, Role role)
+    {
+        SetNetworkInfo(networkInfo);
+        SetAvatar(avatarPrefab, false);
+        SetRole(role);
     }
 
     public void SetNetworkInfo(PlayerNetworkInfo networkInfo)
@@ -77,7 +89,8 @@ public class PlayerWrapper : SingletonBehaviour<PlayerWrapper>
     public void SpawnPlayer(Transform spawnPoint)
     {
         //Destroy local avatar
-        Destroy(_avatarLink.gameObject);
+        if(_avatarLink != null)
+            Destroy(_avatarLink.gameObject);
 
         //spawn avatar via network
         GameObject avatar;
@@ -88,13 +101,13 @@ public class PlayerWrapper : SingletonBehaviour<PlayerWrapper>
         }
 
         //Teleport Rig
-        _rig.TeleportRig(spawnPoint);
+        Rig.TeleportRig(spawnPoint);
     }
 
     private void LinkAvatarToRig(GameObject avatar)
     {
         _avatarLink = avatar.GetComponent<AvatarLinkBehaviour>();
-        _avatarLink.LinkRigToAvatar(_rig);
+        _avatarLink.LinkRigToAvatar(Rig);
     }
 
     protected override void OnAwake()

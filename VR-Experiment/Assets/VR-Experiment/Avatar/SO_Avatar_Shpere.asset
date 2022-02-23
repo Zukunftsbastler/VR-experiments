@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d7ef50694e88fe40a0217708da91097, type: 3}
+  m_Name: SO_Avatar_Shpere
+  m_EditorClassIdentifier: 
+  _preview: {fileID: 2800000, guid: f3bef7d055547a64c99a82f1c141f271, type: 3}
+  _asset: {fileID: 864833769845586125, guid: fef3212fc3d998a46bae81a43d8eb716, type: 3}
