@@ -49,13 +49,13 @@ public class BoothBehaviour : MonoBehaviourPun, IInventoryCallbackListener
     [PunRPC]
     private void RPC_OnOccupationChange(int actorNumber)
     {
-        if(actorNumber < 0)
+        if (actorNumber < 0)
         {
             _owner = null;
             _inventoryUI.SetInventory(null);
             _occupationUI.UpdateButtons(PlayerWrapper.Instance.CanOccupyBooths, false);
 
-            if(_stage.HasActiveItem)
+            if (_stage.HasActiveItem)
             {
                 DestroyImmediate(_stage.ActiveProduct);
             }
@@ -77,22 +77,23 @@ public class BoothBehaviour : MonoBehaviourPun, IInventoryCallbackListener
     {
         SO_Product product = _inventory.Products.First(p => p.Id.Equals(productId));
 
-        if(product == null)
+        if (product == null)
         {
             Debug.LogWarning($"{gameObject.name} product with id '{productId}' has not been found.");
             return;
         }
 
-        if(_stage.HasActiveItem)
+        if (_stage.HasActiveItem)
         {
             DestroyImmediate(_stage.ActiveProduct);
         }
 
-        _stage.ActiveProduct = Instantiate(product.Asset, _stage.transform.position, Quaternion.identity);
+        //_stage.ActiveProduct = Instantiate(product.Asset, _stage.transform.position, Quaternion.identity);
+        _stage.ActiveProduct = PhotonNetwork.Instantiate(product.Id, _stage.transform.position, Quaternion.identity);
 
-        photonView.RPC(nameof(RPC_OnProductInteractionRecognized), _owner, 
-            productId, 
-            (byte)ProductInteraction.Spawned, 
+        photonView.RPC(nameof(RPC_OnProductInteractionRecognized), _owner,
+            productId,
+            (byte)ProductInteraction.Spawned,
             PlayerWrapper.Instance.GetGlobalSlot());
     }
 
@@ -102,7 +103,7 @@ public class BoothBehaviour : MonoBehaviourPun, IInventoryCallbackListener
         SO_Product product = _inventory.Products.First(p => p.Id.Equals(productId));
         //Player interactor = GetPlayerByActorNumber(interactionActor);
 
-        switch((ProductInteraction)interaction)
+        switch ((ProductInteraction)interaction)
         {
             case ProductInteraction.None:
                 break;
