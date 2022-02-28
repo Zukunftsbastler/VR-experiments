@@ -61,7 +61,7 @@ public class PlayerWrapper : SingletonBehaviour<PlayerWrapper>
 
             if(avatarPrefab != null)
             {
-                GameObject avatar = Instantiate(avatarPrefab, _rig.transform.position, Quaternion.identity);
+                GameObject avatar = Instantiate(avatarPrefab, Rig.transform.position, Quaternion.identity);
                 avatar.transform.SetParent(this.transform);
 
                 LinkAvatarToRig(avatar);

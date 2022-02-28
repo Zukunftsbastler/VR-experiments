@@ -3,32 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using VR_Experiment.Enums;
 
 public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
 {
-    public void SetVisitor(bool isActive)
+    [SerializeField] private Text _uiConsole;
+    [SerializeField] private GameObject[] _avatarPrefabs = new GameObject[2];
+
+    private void Start()
     {
-        Role role = isActive ? Role.Visitor : Role.None;
-        PlayerWrapper.Instance.SetRole(role);
+        PhotonNetwork.ConnectUsingSettings();
     }
 
-    public void SetPresenter(bool isActive)
+    // --- Photon Feedback ------------------------------------------------------------------------------
+    public override void OnConnectedToMaster()
     {
-        Role role = isActive ? Role.Presenter : Role.None;
-        PlayerWrapper.Instance.SetRole(role);
+        base.OnConnectedToMaster();
+        PhotonNetwork.JoinLobby();
     }
 
-    public void JoinRoom()
+    public override void OnJoinedLobby()
     {
-        if(PlayerWrapper.Instance.CanConnectToRoom)
-        {
-            PhotonNetwork.JoinRoom("VR-Experiment");
-        }
-        else
-        {
-            Debug.LogWarning($"You need to choose a role befor you can join a room.");
-        }
+        base.OnJoinedLobby();
+
+        PlayerWrapper.Instance.SetNetworkInfo(new PlayerNetworkInfo_Photon(PhotonNetwork.LocalPlayer));
     }
 
     public override void OnJoinedRoom()
@@ -50,6 +49,58 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
     {
         base.OnCreateRoomFailed(returnCode, message);
 
+        PhotonNetwork.JoinRoom("VR-Experiment");
+    }
+
+    // --- UI Feedback ----------------------------------------------------------------------------------
+
+    public void SetAvatarOne(bool isActive)
+    {
+        GameObject prefab = isActive ? _avatarPrefabs[0] : null;
+        PlayerWrapper.Instance.SetAvatar(prefab, true);
+    }
+
+    public void SetAvatarTwo(bool isActive)
+    {
+        GameObject prefab = isActive ? _avatarPrefabs[1] : null;
+        PlayerWrapper.Instance.SetAvatar(prefab, true);
+    }
+
+    // --------------------------------------------------------------------
+
+    public void SetVisitor(bool isActive)
+    {
+        Role role = isActive ? Role.Visitor : Role.None;
+        PlayerWrapper.Instance.SetRole(role);
+    }
+
+    public void SetPresenter(bool isActive)
+    {
+        Role role = isActive ? Role.Presenter : Role.None;
+        PlayerWrapper.Instance.SetRole(role);
+    }
+
+    // --------------------------------------------------------------------
+
+    public void JoinRoom()
+    {
+        if(PhotonNetwork.IsConnected == false)
+            return;
+
+        if(PlayerWrapper.Instance.CanConnectToPhoton == false)
+        {
+            _uiConsole.text = $"You need to choose an avatar befor you can join a room.";
+            Debug.LogWarning($"You need to choose an avatar befor you can join a room.");
+            return;
+        }
+
+        if(PlayerWrapper.Instance.CanConnectToRoom == false)
+        {
+            _uiConsole.text = $"You need to choose a role befor you can join a room.";
+            Debug.LogWarning($"You need to choose a role befor you can join a room.");
+            return;
+        }
+        
         PhotonNetwork.JoinRoom("VR-Experiment");
     }
 }

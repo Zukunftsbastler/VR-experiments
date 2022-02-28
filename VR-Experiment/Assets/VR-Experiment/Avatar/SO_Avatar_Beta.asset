@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d7ef50694e88fe40a0217708da91097, type: 3}
-  m_Name: SO_Avatar_Cube
+  m_Name: SO_Avatar_Beta
   m_EditorClassIdentifier: 
-  _preview: {fileID: 2800000, guid: 63cffd4883991be4ba1e6562a1a1e430, type: 3}
+  _preview: {fileID: 21300000, guid: 51c1791267bc1354997a2045a929284f, type: 3}
   _asset: {fileID: 6430999526397770637, guid: dd6fecd22bcd02743956c5f7bce68a85, type: 3}

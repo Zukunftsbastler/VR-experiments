@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,6 +29,24 @@ public class TransformFollow : MonoBehaviour
     [SerializeField] private RotationSetting _rotationSetting;
 
 
+    private void OnEnable()
+    {
+        Application.onBeforeRender += OnBeforRender;
+    }
+
+    private void OnBeforRender()
+    {
+        if(followTarget != null)
+        {
+            UpdatePosition();
+            UpdateRotation();
+        }
+    }
+
+    private void OnDisable()
+    {
+        Application.onBeforeRender -= OnBeforRender;
+    }
 
     private void FixedUpdate()
     {
