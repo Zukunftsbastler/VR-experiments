@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98ee72aa7f57c4e409b168a4109e91ea, type: 3}
+  m_Name: SO_Orion_ynf_1
+  m_EditorClassIdentifier: 
+  _id: Orion_ynf_1
+  _info: This is one of orions toys. Kinda intressting looking if I'm honest.
+  _preview: {fileID: 21300000, guid: 464883c791528804496b8c8ef7126e52, type: 3}
+  _asset: {fileID: 2630877133288229765, guid: 1928d0415a2a02a4fb7f87b0ef6fb31b, type: 3}
