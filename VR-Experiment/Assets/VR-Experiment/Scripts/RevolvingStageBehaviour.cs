@@ -26,7 +26,7 @@ public class RevolvingStageBehaviour : MonoBehaviour
         set 
         {
             _activeProduct = value;
-            _activeProduct.transform.parent = transform;
+            //_activeProduct.transform.parent = transform;
         } 
     }
 
