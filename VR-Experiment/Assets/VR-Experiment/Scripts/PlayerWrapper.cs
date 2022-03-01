@@ -11,22 +11,24 @@ using Photon.Pun;
 
 public class PlayerWrapper : SingletonBehaviour<PlayerWrapper>
 {
+    private const string AVATAR_KEY = "avatar";
+    private const string ROLE_KEY = "role";
+    private const string PRODUCT_KEY = "product";
+
     private PlayerNetworkInfo _networkInfo = null;
 
     private XRRig _rig = null;
     private PlayerHud _hud = null;
 
-    private string _avatarName = null;
     private AvatarLinkBehaviour _avatarLink = null;
 
-    private Role _role = Role.None;
+    public bool CanConnectToPhoton => GetLocalAvatar() != null;
+    public bool CanConnectToRoom => GetLocalRole() != Role.None;
+    public bool CanOccupyBooths => GetLocalRole() > Role.Visitor;
 
-    public bool CanConnectToPhoton => _avatarName != null;
-    public bool CanConnectToRoom => _role != Role.None;
-    public bool CanOccupyBooths => _role > Role.Visitor;
-
-    private XRRig Rig => _rig ??= FindObjectOfType<XRRig>();
+    public XRRig Rig => _rig ??= FindObjectOfType<XRRig>();
     public PlayerHud Hud => _hud ??= FindObjectOfType<PlayerHud>();
+
 
     private void OnEnable()
     {
@@ -38,6 +40,7 @@ public class PlayerWrapper : SingletonBehaviour<PlayerWrapper>
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
+    // --- Set Properties --------------------------------------------------------------------------------------------------
     public void SetPlayerData(PlayerNetworkInfo networkInfo, GameObject avatarPrefab, Role role)
     {
         SetNetworkInfo(networkInfo);
@@ -48,13 +51,23 @@ public class PlayerWrapper : SingletonBehaviour<PlayerWrapper>
     public void SetNetworkInfo(PlayerNetworkInfo networkInfo)
     {
         _networkInfo = networkInfo;
+
+        if(_networkInfo is PlayerNetworkInfo_Photon photonInfo)
+        {
+            photonInfo.Client.SetCustomProperties(new ExitGames.Client.Photon.Hashtable()
+            {
+                {AVATAR_KEY, default(string)},
+                {ROLE_KEY, default(Role)},
+                {PRODUCT_KEY, default(string)},
+            });
+        }
     }
 
     public void SetAvatar(GameObject avatarPrefab, bool updateAvatar)
     {
         if(updateAvatar)
         {
-            if(_avatarName != null)
+            if(_avatarLink != null)
             {
                 Destroy(_avatarLink.gameObject);
             }
@@ -68,16 +81,51 @@ public class PlayerWrapper : SingletonBehaviour<PlayerWrapper>
             }
         }
 
-        _avatarName = avatarPrefab != null ? avatarPrefab.name : null;
+        string avatarName = avatarPrefab != null ? avatarPrefab.name : null;
+
+        if(_networkInfo is PlayerNetworkInfo_Photon photonInfo)
+        {
+            photonInfo.Client.SetCustomProperties(new ExitGames.Client.Photon.Hashtable()
+            {
+                {AVATAR_KEY, avatarName}
+            });
+        }
     }
 
     public void SetRole(Role role)
     {
-        _role = role;
+        if(GetLocalRole() == role)
+            return;
+
+        if(_networkInfo is PlayerNetworkInfo_Photon photonInfo)
+        {
+            photonInfo.Client.SetCustomProperties(new ExitGames.Client.Photon.Hashtable()
+            {
+                { ROLE_KEY, role }
+            });
+        }
     }
 
+    public void SetActiveProduct(string productId)
+    {
+        if(GetLocalActiveProduct().Equals(productId))
+            return;
+
+        if(_networkInfo is PlayerNetworkInfo_Photon photonInfo)
+        {
+            photonInfo.Client.SetCustomProperties(new ExitGames.Client.Photon.Hashtable()
+            {
+                { PRODUCT_KEY, productId }
+            });
+        }
+    }
+
+    // --- Get Properties --------------------------------------------------------------------------------------------------
     public int GetGlobalSlot()
     {
+        if(_networkInfo == null)
+            return -1;
+
         if(_networkInfo is PlayerNetworkInfo_Photon photonInfo)
         {
             return photonInfo.Client.ActorNumber;
@@ -86,6 +134,94 @@ public class PlayerWrapper : SingletonBehaviour<PlayerWrapper>
         return -1;
     }
 
+    public string GetLocalAvatar()
+    {
+        if(_networkInfo == null)
+            return default;
+
+        if(_networkInfo is PlayerNetworkInfo_Photon photonInfo)
+        {
+            return GetAvatar(photonInfo.Client);
+        }
+
+        return default;
+    }
+
+    public Role GetLocalRole()
+    {
+        if(_networkInfo == null)
+            return default;
+
+        if(_networkInfo is PlayerNetworkInfo_Photon photonInfo)
+        {
+            return GetRole(photonInfo.Client);
+        }
+
+        return default;
+    }
+
+    public string GetLocalActiveProduct()
+    {
+        if(_networkInfo == null)
+            return default;
+
+        if(_networkInfo is PlayerNetworkInfo_Photon photonInfo)
+        {
+            return GetActiveProduct(photonInfo.Client);
+        }
+
+        return default;
+    }
+
+    public static string GetAvatar(Player player)
+    {
+        string avatarName;
+        if(player.CustomProperties.TryGetValue(AVATAR_KEY, out object avatarValue))
+        {
+            avatarName = (string)avatarValue;
+        }
+        else
+        {
+            Debug.LogError($"No CustomProperty found for key: {nameof(AVATAR_KEY)}, '{AVATAR_KEY}'.");
+            avatarName = default;
+        }
+
+        return avatarName;
+    }
+
+    public static Role GetRole(Player player)
+    {
+        Role role;
+        if(player.CustomProperties.TryGetValue(ROLE_KEY, out object roleValue))
+        {
+            role = (Role)roleValue;
+        }
+        else
+        {
+            Debug.LogError($"No CustomProperty found for key: {nameof(ROLE_KEY)}, '{ROLE_KEY}'.");
+            role = default;
+        }
+
+        return role;
+    }
+
+    public static string GetActiveProduct(Player player)
+    {
+        string productId;
+        if(player.CustomProperties.TryGetValue(PRODUCT_KEY, out object productValue))
+        {
+            productId = (string)productValue;
+        }
+        else
+        {
+            Debug.LogError($"No CustomProperty found for key: {nameof(PRODUCT_KEY)}, '{PRODUCT_KEY}'.");
+            productId = default;
+        }
+
+        return productId;
+    }
+
+    // --- Others --------------------------------------------------------------------------------------------------
     public void SpawnPlayer(Transform spawnPoint)
     {
         //Destroy local avatar
@@ -96,7 +232,7 @@ public class PlayerWrapper : SingletonBehaviour<PlayerWrapper>
         GameObject avatar;
         if(_networkInfo is PlayerNetworkInfo_Photon)
         {
-            avatar = PhotonNetwork.Instantiate(_avatarName, spawnPoint.position, Quaternion.identity);
+            avatar = PhotonNetwork.Instantiate(GetLocalAvatar(), spawnPoint.position, Quaternion.identity);
             LinkAvatarToRig(avatar);
         }
 
@@ -122,7 +258,7 @@ public class PlayerWrapper : SingletonBehaviour<PlayerWrapper>
 
         if(_avatarLink != null)
         {
-            _avatarLink.LinkRigToAvatar(_rig);
+            _avatarLink.LinkRigToAvatar(Rig);
         }
     }
 }

@@ -4048,7 +4048,7 @@ GameObject:
   - component: {fileID: 692800581}
   - component: {fileID: 692800582}
   m_Layer: 0
-  m_Name: Hud_Cam
+  m_Name: Hud Cam
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VR_Experiment.Enums;
 
 public class TransformFollow : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class TransformFollow : MonoBehaviour
         Full_Position,
         X_Position,
         Y_Position,
-        Z_Position,
+        Z_Position
     }
 
     private enum RotationSetting
@@ -21,26 +22,19 @@ public class TransformFollow : MonoBehaviour
         X_Rotation,
         Y_Rodation,
         Z_Rotation,
+        LookAtTarget
     }
 
     public Transform followTarget;
     [Space]
+    [SerializeField] private UpdateType _updateFollowType = UpdateType.UpdateAndBeforRender;
+    [Space]
     [SerializeField] private PositionSetting _positionSetting;
     [SerializeField] private RotationSetting _rotationSetting;
-
 
     private void OnEnable()
     {
         Application.onBeforeRender += OnBeforRender;
-    }
-
-    private void OnBeforRender()
-    {
-        if(followTarget != null)
-        {
-            UpdatePosition();
-            UpdateRotation();
-        }
     }
 
     private void OnDisable()
@@ -50,7 +44,16 @@ public class TransformFollow : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(followTarget != null)
+        if(followTarget != null && _updateFollowType != UpdateType.BeforRender)
+        {
+            UpdatePosition();
+            UpdateRotation();
+        }
+    }
+
+    private void OnBeforRender()
+    {
+        if(followTarget != null && _updateFollowType != UpdateType.Update)
         {
             UpdatePosition();
             UpdateRotation();
@@ -104,6 +107,9 @@ public class TransformFollow : MonoBehaviour
             case RotationSetting.Z_Rotation:
                 Vector3 newZ_Rot = new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, followTarget.rotation.eulerAngles.z);
                 transform.rotation = Quaternion.Euler(newZ_Rot);
+                break;
+            case RotationSetting.LookAtTarget:
+                transform.LookAt(followTarget);
                 break;
             default:
                 Debug.LogWarning($"<b>{gameObject.name}</b> - {_rotationSetting} are not implemented jet.");

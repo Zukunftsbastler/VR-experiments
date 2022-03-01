@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class AvatarHandAnimator : MonoBehaviour
+public class AvatarHandAnimation : MonoBehaviour
 {
     [Header("Left Hand")]
     [SerializeField] private Animator _lHAnimator;

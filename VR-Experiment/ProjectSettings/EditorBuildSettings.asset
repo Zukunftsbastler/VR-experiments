@@ -6,9 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/VR-Experiment/Scenes/Robin/ConnectToPhoton_Robin.unity
-    guid: d5542d244362dfa46ac38f1780f9ebcc
-  - enabled: 1
     path: Assets/VR-Experiment/Scenes/Robin/JoinRoom_Robin.unity
     guid: 5b15862a702989a4e8c3da7e9f35dd79
   - enabled: 1
