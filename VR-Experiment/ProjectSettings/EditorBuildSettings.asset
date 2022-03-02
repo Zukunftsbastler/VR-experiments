@@ -5,21 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/VR-Experiment/Scenes/Robin/ConnectToPhoton_Robin.unity
-    guid: d5542d244362dfa46ac38f1780f9ebcc
-  - enabled: 0
+  - enabled: 1
     path: Assets/VR-Experiment/Scenes/Robin/JoinRoom_Robin.unity
     guid: 5b15862a702989a4e8c3da7e9f35dd79
-  - enabled: 0
+  - enabled: 1
     path: Assets/VR-Experiment/Scenes/Robin/Expo_Robin.unity
     guid: 46d6ecf9ffb3e934abcbea67b7dc9968
-  - enabled: 1
-    path: Assets/VR-Experiment/Scenes/Gil/JoinRoom_Gil.unity
-    guid: dc57611bb4b1c554fb0b2ed92d51026f
-  - enabled: 1
-    path: Assets/VR-Experiment/Scenes/Gil/Expo_Gil.unity
-    guid: a9ee3794498e2f842a8e69d20fc91f62
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bc04b292409a2234785e6dd2192c0b9c, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 2328d3b25cb9dae4e9235b85db5f6aae, type: 2}

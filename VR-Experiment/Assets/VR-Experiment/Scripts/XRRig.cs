@@ -20,10 +20,13 @@ public class XRRig : MonoBehaviour
         _xROrigin = GetComponent<XROrigin>();
     }
 
-    public void TeleportRig(Transform point)
+    public void TeleportRig(Vector3 position, Vector3 orientation)
     {
         Vector3 heightAdjustment = _xROrigin.Origin.transform.up * _xROrigin.CameraInOriginSpaceHeight;
-        Vector3 cameraDestination = point.position + heightAdjustment;
+        Vector3 cameraDestination = position + heightAdjustment;
         _xROrigin.MoveCameraToWorldLocation(cameraDestination);
+
+        float signedAngle = Vector3.SignedAngle(_xROrigin.transform.forward, orientation, Vector3.up);
+        _xROrigin.RotateAroundCameraPosition(Vector3.up, signedAngle);
     }
 }

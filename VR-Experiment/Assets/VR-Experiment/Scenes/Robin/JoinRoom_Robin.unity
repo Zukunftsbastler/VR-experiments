@@ -1542,6 +1542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followTarget: {fileID: 1093315622}
+  _updateFollowType: 0
   _positionSetting: 3
   _rotationSetting: 0
 --- !u!1 &1093315621
@@ -2528,7 +2529,7 @@ MonoBehaviour:
   m_Camera: {fileID: 1093315626}
   m_OriginBaseGameObject: {fileID: 1301017401}
   m_CameraFloorOffsetObject: {fileID: 1250704656}
-  m_RequestedTrackingOriginMode: 0
+  m_RequestedTrackingOriginMode: 2
   m_CameraYOffset: 1.1176
 --- !u!4 &1301017403
 Transform:

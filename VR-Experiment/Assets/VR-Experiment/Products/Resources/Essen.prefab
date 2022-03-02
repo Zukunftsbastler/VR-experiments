@@ -155,9 +155,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1901644951746586912, guid: ab46f156504b2e648bd9b8d60095fdbf, type: 3}
+      propertyPath: _info
+      value: 
+      objectReference: {fileID: 11400000, guid: 950eeea68a57ec8498c247f0be90cd8b, type: 2}
     - target: {fileID: 5542099660057401299, guid: ab46f156504b2e648bd9b8d60095fdbf, type: 3}
       propertyPath: m_Name
-      value: Essen Variant
+      value: Essen
       objectReference: {fileID: 0}
     - target: {fileID: 6513804414643226963, guid: ab46f156504b2e648bd9b8d60095fdbf, type: 3}
       propertyPath: m_Enabled

@@ -38,18 +38,18 @@ public class BoothBehaviour : MonoBehaviourPun, IInventoryCallbackListener
 
     public void Occupy()
     {
-        photonView.RPC(nameof(RPC_OnOccupationChange), RpcTarget.All, PlayerWrapper.Instance.GetGlobalSlot());
+        photonView.RPC(nameof(RPC_OnOccupationChange), RpcTarget.All, true);
     }
 
     public void Leave()
     {
-        photonView.RPC(nameof(RPC_OnOccupationChange), RpcTarget.All, -1);
+        photonView.RPC(nameof(RPC_OnOccupationChange), RpcTarget.All, false);
     }
 
     [PunRPC]
-    private void RPC_OnOccupationChange(int actorNumber)
+    private void RPC_OnOccupationChange(bool isActive, PhotonMessageInfo info)
     {
-        if (actorNumber < 0)
+        if (isActive == false)
         {
             _owner = null;
             _inventoryUI.SetInventory(null);
@@ -62,7 +62,7 @@ public class BoothBehaviour : MonoBehaviourPun, IInventoryCallbackListener
         }
         else
         {
-            _owner = GetPlayerByActorNumber(actorNumber);
+            _owner = info.Sender;
             _inventoryUI.SetInventory(_inventory);
             _occupationUI.UpdateButtons(false, _owner.IsLocal);
         }
@@ -89,7 +89,7 @@ public class BoothBehaviour : MonoBehaviourPun, IInventoryCallbackListener
         }
 
         //_stage.ActiveProduct = Instantiate(product.Asset, _stage.transform.position, Quaternion.identity);
-        _stage.ActiveProduct = PhotonNetwork.Instantiate(product.Id, _stage.transform.position, Quaternion.identity);
+        _stage.ActiveProduct = Instantiate(product.Asset, _stage.transform.position, Quaternion.identity);
 
         photonView.RPC(nameof(RPC_OnProductInteractionRecognized), _owner,
             productId,
@@ -113,10 +113,5 @@ public class BoothBehaviour : MonoBehaviourPun, IInventoryCallbackListener
             default:
                 break;
         }
-    }
-
-    private Player GetPlayerByActorNumber(int actorNumber)
-    {
-        return PhotonNetwork.PlayerList.FirstOrDefault(p => p.ActorNumber == actorNumber);
     }
 }
