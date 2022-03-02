@@ -6,13 +6,12 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.XR.Interaction.Toolkit;
 
-[RequireComponent(typeof(PhotonTransformView))]
-public class NetworkedGrabbing : MonoBehaviourPunCallbacks, IPunOwnershipCallbacks
+[RequireComponent(typeof(PhotonTransformView),typeof(XRGrabInteractable))]
+public class NetworkedGrabInteractable : MonoBehaviourPunCallbacks, IPunOwnershipCallbacks
 {
-    private XRGrabInteractable _interActable;
-    private PhotonTransformView _photonView;
     private Rigidbody _rb;
     private bool _isBehingHeld;
+    XRGrabInteractable _interActable;
     public bool IsBehingHeld
     {
         get => _isBehingHeld;
@@ -23,21 +22,30 @@ public class NetworkedGrabbing : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
         }
     }
 
-    private void Awake()
+    protected void Awake()
     {
         _interActable = GetComponent<XRGrabInteractable>();
         _rb = GetComponent<Rigidbody>();
+
         Assert.IsNotNull(_interActable, $"XRGrabInteractable is null, please add it to {this.gameObject}");
         Assert.IsNotNull(_rb, $"Theres no Rigidbody attached to {this.gameObject}. Make sure its added.");
+        Assert.IsNotNull(photonView, $"Photonview is null!");
+
         _interActable.selectEntered.AddListener(OnSelectEntered);
+
+        _interActable.interactionLayers = InteractionLayerMask.GetMask("Interactable");
         _interActable.selectExited.AddListener(OnSelectExit);
-        _photonView.photonView.OwnershipTransfer = OwnershipOption.Request;
     }
 
-    public void OnSelectEntered(SelectEnterEventArgs en)
+    private void OnSelectEntered(SelectEnterEventArgs args)
     {
-        _photonView.photonView.RPC("StartNetworkGrabbing", RpcTarget.AllBuffered);
-        if (_photonView.photonView.Owner != PhotonNetwork.LocalPlayer)
+        if (IsBehingHeld)
+        {
+            Debug.Log($"This object is already held, skipping");
+            return;
+        }
+        photonView.RPC("StartNetworkGrabbing", RpcTarget.AllBuffered);
+        if (photonView.Owner != PhotonNetwork.LocalPlayer)
         {
             TransferOwnership();
         }
@@ -45,7 +53,7 @@ public class NetworkedGrabbing : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
 
     public void OnSelectExit(SelectExitEventArgs ex)
     {
-        _photonView.photonView.RPC("StopNetworkGrabbing", RpcTarget.AllBuffered);
+        photonView.RPC("StopNetworkGrabbing", RpcTarget.AllBuffered);
         Debug.Log($"OnSelectExit!");
     }
 
@@ -53,25 +61,35 @@ public class NetworkedGrabbing : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
     public void StartNetworkGrabbing()
     {
         IsBehingHeld = true;
+        _interActable.interactionLayers = photonView.IsMine ? InteractionLayerMask.GetMask("Interactable") : InteractionLayerMask.GetMask($"NotInteractable");
+        Debug.Log($"Starting Network Grabbing!");
+    }
+
+    [PunRPC]
+    public void NetWorkGrabFailed()
+    {
+        Debug.Log($"{photonView.Owner.NickName} Grab Failed! Is already Grabbed");
     }
 
     [PunRPC]
     public void StopNetworkGrabbing()
     {
         IsBehingHeld = false;
+        _interActable.interactionLayers = InteractionLayerMask.GetMask("Interactable");
+        Debug.Log($"Stopping Network Grabbing");
     }
 
     private void TransferOwnership()
     {
-        _photonView.photonView.RequestOwnership();
+        photonView.RequestOwnership();
     }
 
     public void OnOwnershipRequest(PhotonView targetView, Player requestingPlayer)
     {
-        Debug.Log($"OwnerShip requested for: {targetView.name} name {requestingPlayer.NickName}");
-        if (targetView == _photonView.photonView)
+        if (targetView == photonView)
         {
-            _photonView.photonView.TransferOwnership(requestingPlayer);
+            Debug.Log($"OwnerShip requested for: {targetView.name} name {requestingPlayer.NickName}");
+            photonView.TransferOwnership(requestingPlayer);
         }
     }
 
@@ -81,7 +99,5 @@ public class NetworkedGrabbing : MonoBehaviourPunCallbacks, IPunOwnershipCallbac
     }
 
     public void OnOwnershipTransferFailed(PhotonView targetView, Player senderOfFailedRequest)
-    {
-
-    }
+    { }
 }
