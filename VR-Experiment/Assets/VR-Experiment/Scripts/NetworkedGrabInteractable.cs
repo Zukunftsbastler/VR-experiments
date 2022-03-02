@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.XR.Interaction.Toolkit;
 
-[RequireComponent(typeof(PhotonTransformView),typeof(XRGrabInteractable))]
+[RequireComponent(typeof(PhotonTransformView), typeof(XRGrabInteractable))]
 public class NetworkedGrabInteractable : MonoBehaviourPunCallbacks, IPunOwnershipCallbacks
 {
     private Rigidbody _rb;
@@ -44,7 +44,7 @@ public class NetworkedGrabInteractable : MonoBehaviourPunCallbacks, IPunOwnershi
             Debug.Log($"This object is already held, skipping");
             return;
         }
-        photonView.RPC("StartNetworkGrabbing", RpcTarget.AllBuffered);
+        photonView.RPC(nameof(RPC_StartNetworkGrabbing), RpcTarget.AllBuffered);
         if (photonView.Owner != PhotonNetwork.LocalPlayer)
         {
             TransferOwnership();
@@ -53,12 +53,12 @@ public class NetworkedGrabInteractable : MonoBehaviourPunCallbacks, IPunOwnershi
 
     public void OnSelectExit(SelectExitEventArgs ex)
     {
-        photonView.RPC("StopNetworkGrabbing", RpcTarget.AllBuffered);
+        photonView.RPC(nameof(RPC_StopNetworkGrabbing), RpcTarget.AllBuffered);
         Debug.Log($"OnSelectExit!");
     }
 
     [PunRPC]
-    public void StartNetworkGrabbing()
+    protected void RPC_StartNetworkGrabbing()
     {
         IsBehingHeld = true;
         _interActable.interactionLayers = photonView.IsMine ? InteractionLayerMask.GetMask("Interactable") : InteractionLayerMask.GetMask($"NotInteractable");
@@ -66,13 +66,13 @@ public class NetworkedGrabInteractable : MonoBehaviourPunCallbacks, IPunOwnershi
     }
 
     [PunRPC]
-    public void NetWorkGrabFailed()
+    protected void RPC_OnNetworkGrabFailed()
     {
         Debug.Log($"{photonView.Owner.NickName} Grab Failed! Is already Grabbed");
     }
 
     [PunRPC]
-    public void StopNetworkGrabbing()
+    protected void RPC_StopNetworkGrabbing()
     {
         IsBehingHeld = false;
         _interActable.interactionLayers = InteractionLayerMask.GetMask("Interactable");
