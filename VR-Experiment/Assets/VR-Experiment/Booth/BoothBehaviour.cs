@@ -89,7 +89,7 @@ public class BoothBehaviour : MonoBehaviourPun, IInventoryCallbackListener
         }
 
         //_stage.ActiveProduct = Instantiate(product.Asset, _stage.transform.position, Quaternion.identity);
-        _stage.ActiveProduct = PhotonNetwork.Instantiate(product.Id, _stage.transform.position, Quaternion.identity);
+        _stage.ActiveProduct = Instantiate(product.Asset, _stage.transform.position, Quaternion.identity);
 
         photonView.RPC(nameof(RPC_OnProductInteractionRecognized), _owner,
             productId,

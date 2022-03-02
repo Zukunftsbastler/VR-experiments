@@ -7,16 +7,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using VR_Experiment.Enums;
 
-public class AvatarInfoUI : MonoBehaviourPun
+public class AvatarInfoUI : MonoBehaviourPun, IInRoomCallbacks
 {
     [Header("Connection")]
     [SerializeField] private UpdateType _updateFollowType = UpdateType.UpdateAndBeforRender;
     [SerializeField] private Transform _target;
     [SerializeField] private LineRenderer _visualization;
     [SerializeField, Range(0f, 15f)] private float _range = 5f;
-
-    public TransformFollow uiFollow;
-    public Text _debugText;
+    [Space]
+    [SerializeField] private TransformFollow uiFollow;
+    [SerializeField] private Text _debugText;
 
     private bool _isActive;
 
@@ -25,11 +25,13 @@ public class AvatarInfoUI : MonoBehaviourPun
     private void OnEnable()
     {
         Application.onBeforeRender += OnBeforRender;
+        PhotonNetwork.AddCallbackTarget(this);
     }
 
     private void OnDisable()
     {
         Application.onBeforeRender -= OnBeforRender;
+        PhotonNetwork.RemoveCallbackTarget(this);
     }
 
     private void FixedUpdate()
@@ -52,8 +54,7 @@ public class AvatarInfoUI : MonoBehaviourPun
             transform.position = _target.position;
             uiFollow.followTarget = PlayerWrapper.Instance.Rig.Head;
 
-            Role role = PlayerWrapper.GetRole(photonView.Owner);
-            _debugText.text = $"Client {photonView.OwnerActorNr} Info: \n Role: '{role}'";
+            SetInfoUI();
         }
     }
 
@@ -66,6 +67,13 @@ public class AvatarInfoUI : MonoBehaviourPun
             ToggleUI();
     }
 
+    private void SetInfoUI()
+    {
+        Role role = PlayerWrapper.GetRole(photonView.Owner);
+        string product = PlayerWrapper.GetActiveProduct(photonView.Owner);
+        _debugText.text = $"Client {photonView.OwnerActorNr} Info: \nRole: '{role}' \nProduct: '{product}'";
+    }
+
     private void OnBeforRender()
     {
         if(_isActive && _updateFollowType != UpdateType.Update)
@@ -73,4 +81,20 @@ public class AvatarInfoUI : MonoBehaviourPun
             UpdateVisualization();
         }
     }
+
+    void IInRoomCallbacks.OnPlayerEnteredRoom(Player newPlayer) { }
+
+    void IInRoomCallbacks.OnPlayerLeftRoom(Player otherPlayer) { }
+
+    void IInRoomCallbacks.OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged) { }
+
+    void IInRoomCallbacks.OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    {
+        if(_isActive && photonView.Owner.Equals(targetPlayer))
+        {
+            SetInfoUI();
+        }
+    }
+
+    void IInRoomCallbacks.OnMasterClientSwitched(Player newMasterClient) { }
 }

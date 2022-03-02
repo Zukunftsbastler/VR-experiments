@@ -143,6 +143,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1901644951746586912, guid: ab46f156504b2e648bd9b8d60095fdbf, type: 3}
+      propertyPath: _info
+      value: 
+      objectReference: {fileID: 11400000, guid: 27fe4b9c3874d014e8f2ddac580d3e33, type: 2}
     - target: {fileID: 5542099660057401299, guid: ab46f156504b2e648bd9b8d60095fdbf, type: 3}
       propertyPath: m_Name
       value: Orion_ynf_1
