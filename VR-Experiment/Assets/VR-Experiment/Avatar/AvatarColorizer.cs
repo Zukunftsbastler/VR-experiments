@@ -12,13 +12,14 @@ public class AvatarColorizer : MonoBehaviour
     {
         Photon.Pun.PhotonView pv = GetComponent<Photon.Pun.PhotonView>();
 
-        if(pv == null)
+        if (pv == null)
         {
             Debug.LogError("No photonView found.");
             return;
         }
 
-        Color skinColor = PlayerSpawner.Instance.GetColorByActorNumber(pv.OwnerActorNr);
+        //Color skinColor = PlayerSpawner.Instance.GetColorByActorNumber(pv.OwnerActorNr);
+        Color skinColor = Resources.Load<SO_PlayerColor>("PlayerColor").GetPlayerColorByActorNumber(pv.OwnerActorNr);
 
         _head.material.color = skinColor;
         _leftHand.material.color = skinColor;

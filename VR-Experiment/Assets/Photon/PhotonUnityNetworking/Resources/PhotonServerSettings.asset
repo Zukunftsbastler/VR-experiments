@@ -48,6 +48,9 @@ MonoBehaviour:
   - StopNetworkGrabbing
   - RPC_RecievePlayerInfo
   - RPC_RequestPlayerInfo
+  - RPC_OnNetworkGrabFailed
+  - RPC_StartNetworkGrabbing
+  - RPC_StopNetworkGrabbing
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
