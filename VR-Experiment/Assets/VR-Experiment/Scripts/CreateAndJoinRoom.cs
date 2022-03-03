@@ -33,7 +33,7 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
-        PhotonNetwork.LoadLevel("Expo_Robin");
+        PhotonNetwork.LoadLevel("Expo_Gil");
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)
