@@ -36,9 +36,9 @@ public class BoothColumnUI : MonoBehaviour
         }
     }
 
-    public void OnProductToggleUIInvoked(bool isActive, string productId)
+    public void OnProductToggleUIInvoked(bool isActive, string productName)
     {
-        _callbackListener.OnInventoryProductInvoked(isActive, productId);
+        _callbackListener.OnInventoryProductInvoked(isActive, productName);
     }
 
     private void ClearProductUIs()

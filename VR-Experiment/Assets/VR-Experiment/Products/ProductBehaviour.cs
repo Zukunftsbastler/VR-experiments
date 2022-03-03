@@ -1,45 +1,61 @@
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProductBehaviour : MonoBehaviour
+public class ProductBehaviour : NetworkedGrabInteractable
 {
     public TransformFollow transfromFollow;
+    public SO_Product info;
     [Space]
-    [SerializeField] private SO_Product _info;
     [SerializeField] private MeshFilter _meshFilter;
+    [SerializeField] private MeshRenderer _meshRenderer;
+    [SerializeField] private MeshCollider _meshCollider;
     [SerializeField] private Rigidbody _rigidbody;
 
     public event Action<string> productGrabbed;
 
-    private void Start()
+
+    protected override void Awake()
     {
-        _meshFilter.mesh = _info.LowPoly;
+        base.Awake();
     }
 
-    public void GrabedByPlayer(bool isGrabbed)
+    private void Start()
     {
-        string productId;
+        _meshFilter.mesh = info.LowPoly;
+        _meshRenderer.materials = info.Materials;
+        _meshCollider.sharedMesh = _meshFilter.mesh;
+    }
 
-        if(isGrabbed)
-        {
-            productGrabbed?.Invoke(_info.Id);
+    [PunRPC]
+    protected override void RPC_StartNetworkGrabbing()
+    {
+        base.RPC_StartNetworkGrabbing();
 
-            productId = _info.Id;
-            _meshFilter.mesh = _info.HeightPoly;
+        productGrabbed?.Invoke(info.Name);
+        _meshFilter.mesh = info.HighPoly;
+        transfromFollow.enabled = false;
+        PlayerWrapper.Instance.SetActiveProduct(info.Name);
+    }
 
-            transfromFollow.enabled = false;
-        }
-        else
-        {
-            productId = null;
-            _meshFilter.mesh = _info.LowPoly;
+    [PunRPC]
+    protected override void RPC_OnNetworkGrabFailed()
+    {
+        base.RPC_OnNetworkGrabFailed();
+    }
 
-            _rigidbody.isKinematic = false;
-            _rigidbody.useGravity = true;
-        }
+    [PunRPC]
+    protected override void RPC_StopNetworkGrabbing()
+    {
+        base.RPC_StopNetworkGrabbing();
 
-        PlayerWrapper.Instance.SetActiveProduct(productId);
+        _meshFilter.mesh = info.LowPoly;
+
+        _rigidbody.isKinematic = false;
+        _rigidbody.useGravity = true;
+
+        //todo: start destroy delay
     }
 }

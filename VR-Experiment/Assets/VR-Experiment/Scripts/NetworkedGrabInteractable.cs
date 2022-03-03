@@ -6,28 +6,26 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.XR.Interaction.Toolkit;
 
-[RequireComponent(typeof(PhotonTransformView), typeof(XRGrabInteractable))]
+[RequireComponent(typeof(PhotonRigidbodyView), typeof(XRGrabInteractable))]
 public class NetworkedGrabInteractable : MonoBehaviourPunCallbacks, IPunOwnershipCallbacks
 {
-    private Rigidbody _rb;
     private bool _isBehingHeld;
-    XRGrabInteractable _interActable;
+    private XRGrabInteractable _interActable;
+
     public bool IsBehingHeld
     {
         get => _isBehingHeld;
         set
         {
-            _rb.isKinematic = value;
             _isBehingHeld = value;
         }
     }
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         _interActable = GetComponent<XRGrabInteractable>();
-        _rb = GetComponent<Rigidbody>();
+
         Assert.IsNotNull(_interActable, $"XRGrabInteractable is null, please add it to {this.gameObject}");
-        Assert.IsNotNull(_rb, $"Theres no Rigidbody attached to {this.gameObject}. Make sure its added.");
         Assert.IsNotNull(photonView, $"Photonview is null!");
 
         _interActable.selectEntered.AddListener(OnSelectEntered);
@@ -57,7 +55,7 @@ public class NetworkedGrabInteractable : MonoBehaviourPunCallbacks, IPunOwnershi
     }
 
     [PunRPC]
-    protected void RPC_StartNetworkGrabbing()
+    protected virtual void RPC_StartNetworkGrabbing()
     {
         IsBehingHeld = true;
         _interActable.interactionLayers = photonView.IsMine ? InteractionLayerMask.GetMask("Interactable") : InteractionLayerMask.GetMask($"NotInteractable");
@@ -65,13 +63,13 @@ public class NetworkedGrabInteractable : MonoBehaviourPunCallbacks, IPunOwnershi
     }
 
     [PunRPC]
-    protected void RPC_OnNetworkGrabFailed()
+    protected virtual void RPC_OnNetworkGrabFailed()
     {
         Debug.Log($"{photonView.Owner.NickName} Grab Failed! Is already Grabbed");
     }
 
     [PunRPC]
-    protected void RPC_StopNetworkGrabbing()
+    protected virtual void RPC_StopNetworkGrabbing()
     {
         IsBehingHeld = false;
         _interActable.interactionLayers = InteractionLayerMask.GetMask("Interactable");

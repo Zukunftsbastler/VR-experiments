@@ -9,13 +9,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1430606857662750922}
-  - component: {fileID: 3107569664108688255}
   - component: {fileID: 5108207434472812416}
   - component: {fileID: 1229969781254193051}
   - component: {fileID: 1901644951746586912}
   - component: {fileID: 1514760553422880344}
+  - component: {fileID: 3107569664108688255}
+  - component: {fileID: 7882969490595365218}
   m_Layer: 6
-  m_Name: Auto
+  m_Name: ProductAsset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,28 +37,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3107569664108688255
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5542099660057401299}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!54 &5108207434472812416
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -88,12 +67,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_Colliders:
-  - {fileID: 7991212426766214404}
+  - {fileID: 6009345156375088275}
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 2
   m_SelectMode: 0
   m_CustomReticle: {fileID: 0}
   m_FirstHoverEntered:
@@ -179,7 +158,7 @@ MonoBehaviour:
       m_Calls: []
   m_AttachTransform: {fileID: 0}
   m_AttachEaseInTime: 0.15
-  m_MovementType: 2
+  m_MovementType: 0
   m_VelocityDamping: 1
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
@@ -212,7 +191,7 @@ MonoBehaviour:
   m_ThrowVelocityScale: 1.5
   m_ThrowAngularVelocityScale: 1
   m_ForceGravityOnDetach: 0
-  m_RetainTransformParent: 1
+  m_RetainTransformParent: 0
   m_AttachPointCompatibilityMode: 0
 --- !u!114 &1901644951746586912
 MonoBehaviour:
@@ -227,8 +206,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transfromFollow: {fileID: 1514760553422880344}
-  _info: {fileID: 11400000, guid: 500328c09c5e28040af3a432ab6a656a, type: 2}
+  info: {fileID: 0}
   _meshFilter: {fileID: 4920618093122465558}
+  _meshRenderer: {fileID: 6513804414643226963}
+  _meshCollider: {fileID: 6009345156375088275}
   _rigidbody: {fileID: 5108207434472812416}
 --- !u!114 &1514760553422880344
 MonoBehaviour:
@@ -246,6 +227,45 @@ MonoBehaviour:
   _updateFollowType: 0
   _positionSetting: 1
   _rotationSetting: 1
+--- !u!114 &3107569664108688255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5542099660057401299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 7882969490595365218}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &7882969490595365218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5542099660057401299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 1
+  m_TeleportIfDistanceGreaterThan: 1
 --- !u!1 &8194510602964715803
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,7 +277,7 @@ GameObject:
   - component: {fileID: 5321856667983981207}
   - component: {fileID: 4920618093122465558}
   - component: {fileID: 6513804414643226963}
-  - component: {fileID: 7991212426766214404}
+  - component: {fileID: 6009345156375088275}
   m_Layer: 6
   m_Name: Mesh
   m_TagString: Untagged
@@ -274,7 +294,7 @@ Transform:
   m_GameObject: {fileID: 8194510602964715803}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 1430606857662750922}
   m_RootOrder: 0
@@ -328,8 +348,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &7991212426766214404
-SphereCollider:
+--- !u!64 &6009345156375088275
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -338,6 +358,7 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}

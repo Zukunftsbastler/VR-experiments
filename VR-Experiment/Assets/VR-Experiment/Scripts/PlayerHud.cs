@@ -8,7 +8,7 @@ public class PlayerHud : MonoBehaviour
 
     public void DisplayProductNotification(int actorNumber, string interaction, SO_Product product)
     {
-        string title = $"Client {actorNumber} {interaction} '{product.Id}'";
+        string title = $"Client {actorNumber} {interaction} '{product.Name}'";
 
         PopUpMessage popUp = Instantiate(_popUpPrefab, transform).GetComponent<PopUpMessage>();
         popUp.DisplayMessage(null, title, product.Info);

@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IInventoryCallbackListener
 {
-    public void OnInventoryProductInvoked(bool isActive, string productId);
+    public void OnInventoryProductInvoked(bool isActive, string productName);
 }

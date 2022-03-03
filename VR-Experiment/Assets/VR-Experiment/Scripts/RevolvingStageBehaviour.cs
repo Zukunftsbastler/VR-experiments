@@ -68,13 +68,13 @@ public class RevolvingStageBehaviour : MonoBehaviour, IInventoryCallbackListener
         _productSelectionUI.SetInventory(inventory);
     }
 
-    public void OnInventoryProductInvoked(bool isActive, string productId)
+    public void OnInventoryProductInvoked(bool isActive, string productName)
     {
-        SO_Product productToSpawn = _inventory.Products.FirstOrDefault(p => p.Id.Equals(productId));
-
         if(isActive)
         {
-            ActiveProduct = PhotonNetwork.Instantiate(productId, _productAnchor.position, Quaternion.identity).GetComponent<ProductBehaviour>();
+            SO_Product productToSpawn = _inventory.Products.FirstOrDefault(p => p.Name.Equals(productName));
+            ActiveProduct = PhotonNetwork.Instantiate(productToSpawn.Id, _productAnchor.position, Quaternion.identity).GetComponent<ProductBehaviour>();
+            ActiveProduct.info = productToSpawn;
         }
         else
         {
@@ -97,10 +97,13 @@ public class RevolvingStageBehaviour : MonoBehaviour, IInventoryCallbackListener
         }
     }
 
-    private IEnumerator SpawnDelayed(string productId)
+    private IEnumerator SpawnDelayed(string productName)
     {
         yield return new WaitForSeconds(_respawndelay);
-        ActiveProduct = PhotonNetwork.Instantiate(productId, _productAnchor.position, Quaternion.identity).GetComponent<ProductBehaviour>();
+
+        SO_Product productToSpawn = _inventory.Products.FirstOrDefault(p => p.Name.Equals(productName));
+        ActiveProduct = PhotonNetwork.Instantiate(productToSpawn.Id, _productAnchor.position, Quaternion.identity).GetComponent<ProductBehaviour>();
+        ActiveProduct.info = productToSpawn;
     }
 
     private void OnProductGrabbed(string productId)

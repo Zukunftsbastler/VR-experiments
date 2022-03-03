@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98ee72aa7f57c4e409b168a4109e91ea, type: 3}
   m_Name: SO_Essen
   m_EditorClassIdentifier: 
-  _id: Essen
+  _name: Essen
   _info: "Essen ist f\xFCr den Menschen \xDCberlebenswichtig"
   _preview: {fileID: 21300000, guid: ed95a8e5b67486b4b96d834e8c419391, type: 3}
-  _asset: {fileID: 3840431035804009462, guid: 34e86484bab282940805d883df86ca26, type: 3}
+  _asset: {fileID: 5542099660057401299, guid: ab46f156504b2e648bd9b8d60095fdbf, type: 3}
   _lowPoly: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
-  _heightPoly: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  _highPoly: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  _materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
