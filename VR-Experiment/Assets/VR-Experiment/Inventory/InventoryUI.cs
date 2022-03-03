@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[Obsolete]
 public class InventoryUI : MonoBehaviour
 {
     [SerializeField] private GameObject _productUIPrefab;
@@ -34,7 +36,7 @@ public class InventoryUI : MonoBehaviour
 
     public void OnProductUIInvoked(string productId)
     {
-        _callbackListener.OnInventoryProductInvoked(productId);
+        _callbackListener.OnInventoryProductInvoked(true, productId);
     }
 
     private void ClearProductUIs()

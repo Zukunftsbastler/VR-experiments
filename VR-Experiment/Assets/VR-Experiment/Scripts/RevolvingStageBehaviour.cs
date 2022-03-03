@@ -1,9 +1,18 @@
+using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class RevolvingStageBehaviour : MonoBehaviour
+public class RevolvingStageBehaviour : MonoBehaviour, IInventoryCallbackListener
 {
+    [SerializeField] private PhotonRoomInstatiation _photonRoom;
+    [SerializeField] private BoothColumnUI _productSelectionUI;
+    [SerializeField] private Transform _productAnchor;
+    [SerializeField] private float _respawndelay = .5f;
+    [Space]
+    [Header("Product Animation")]
     [Tooltip("Distance local to this transform.")]
     [SerializeField] private float _hoverHeight;
     [Tooltip("Distance the product hoves up and down relative to the hover height.")]
@@ -13,11 +22,13 @@ public class RevolvingStageBehaviour : MonoBehaviour
     [Tooltip("One full rotation equals 360. \nSpeed in rotation per seconds.")]
     [SerializeField] private float _rotationSpeed;
     
-    private GameObject _activeProduct;
+    private ProductBehaviour _activeProduct;
     private float _hoverFrequenz;
 
+    private SO_ProductInventory _inventory;
+
     public bool HasActiveItem => _activeProduct != null;
-    public GameObject ActiveProduct {
+    public ProductBehaviour ActiveProduct {
         get 
         {
             return _activeProduct;
@@ -26,8 +37,14 @@ public class RevolvingStageBehaviour : MonoBehaviour
         set 
         {
             _activeProduct = value;
-            //_activeProduct.transform.parent = transform;
+            _activeProduct.transfromFollow.followTarget = _productAnchor;
+            _activeProduct.productGrabbed += OnProductGrabbed;
         } 
+    }
+
+    private void Start()
+    {
+        StartCoroutine(SetUp());
     }
 
     void Update()
@@ -35,13 +52,63 @@ public class RevolvingStageBehaviour : MonoBehaviour
         if(HasActiveItem)
         {
             //spin platform
-            float yRotation = transform.eulerAngles.y + _rotationSpeed * Time.deltaTime;
-            transform.rotation = Quaternion.AngleAxis(yRotation, Vector3.up);
+            float yRotation = _productAnchor.eulerAngles.y + _rotationSpeed * Time.deltaTime;
+            _productAnchor.rotation = Quaternion.AngleAxis(yRotation, Vector3.up);
 
             //hover item
             _hoverFrequenz += _hoverSpeed * Mathf.Deg2Rad * Time.deltaTime;
             float hoverHeight = _hoverHeight + _hoverAmplitude * Mathf.Sin(_hoverFrequenz);
-            _activeProduct.transform.position = transform.position + Vector3.up * hoverHeight;
+            _productAnchor.position = transform.position + Vector3.up * hoverHeight;
         }
+    }
+
+    public void SetInventory(SO_ProductInventory inventory)
+    {
+        _inventory = inventory;
+        _productSelectionUI.SetInventory(inventory);
+    }
+
+    public void OnInventoryProductInvoked(bool isActive, string productId)
+    {
+        SO_Product productToSpawn = _inventory.Products.FirstOrDefault(p => p.Id.Equals(productId));
+
+        if(isActive)
+        {
+            ActiveProduct = PhotonNetwork.Instantiate(productId, _productAnchor.position, Quaternion.identity).GetComponent<ProductBehaviour>();
+        }
+        else
+        {
+            ActiveProduct.productGrabbed -= OnProductGrabbed;
+            PhotonNetwork.Destroy(ActiveProduct.GetComponent<PhotonView>());
+        }
+    }
+
+    private IEnumerator SetUp()
+    {
+        yield return _photonRoom.IsConnectedToPhoton;
+
+        if(PlayerWrapper.Instance.CanInteractWithBooths)
+        {
+            _productSelectionUI.SetCallbackListener(this);
+        }
+        else
+        {
+            _productSelectionUI.gameObject.SetActive(false);
+        }
+    }
+
+    private IEnumerator SpawnDelayed(string productId)
+    {
+        yield return new WaitForSeconds(_respawndelay);
+        ActiveProduct = PhotonNetwork.Instantiate(productId, _productAnchor.position, Quaternion.identity).GetComponent<ProductBehaviour>();
+    }
+
+    private void OnProductGrabbed(string productId)
+    {
+        //Unsubscribe from previous product
+        ActiveProduct.productGrabbed -= OnProductGrabbed;
+
+        //spawn new product
+        StartCoroutine(SpawnDelayed(productId));
     }
 }

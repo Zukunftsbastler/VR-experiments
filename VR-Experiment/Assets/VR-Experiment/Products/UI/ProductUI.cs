@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[Obsolete]
 public class ProductUI : MonoBehaviour
 {
     [SerializeField] private Button _productButton;

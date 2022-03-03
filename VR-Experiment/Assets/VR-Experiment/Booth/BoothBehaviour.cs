@@ -1,10 +1,12 @@
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[Obsolete]
 public class BoothBehaviour : MonoBehaviourPun, IInventoryCallbackListener
 {
     private enum ProductInteraction : byte
@@ -68,7 +70,7 @@ public class BoothBehaviour : MonoBehaviourPun, IInventoryCallbackListener
         }
     }
 
-    public void OnInventoryProductInvoked(string productId)
+    public void OnInventoryProductInvoked(bool isActive, string productId)
     {
         SpawnProduct(productId);
     }
@@ -88,8 +90,7 @@ public class BoothBehaviour : MonoBehaviourPun, IInventoryCallbackListener
             DestroyImmediate(_stage.ActiveProduct);
         }
 
-        //_stage.ActiveProduct = Instantiate(product.Asset, _stage.transform.position, Quaternion.identity);
-        _stage.ActiveProduct = Instantiate(product.Asset, _stage.transform.position, Quaternion.identity);
+        _stage.ActiveProduct = Instantiate(product.Asset, _stage.transform.position, Quaternion.identity).GetComponent<ProductBehaviour>();
 
         photonView.RPC(nameof(RPC_OnProductInteractionRecognized), _owner,
             productId,

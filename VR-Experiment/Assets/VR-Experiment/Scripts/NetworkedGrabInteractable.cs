@@ -12,6 +12,7 @@ public class NetworkedGrabInteractable : MonoBehaviourPunCallbacks, IPunOwnershi
     private Rigidbody _rb;
     private bool _isBehingHeld;
     XRGrabInteractable _interActable;
+
     public bool IsBehingHeld
     {
         get => _isBehingHeld;
@@ -44,14 +45,16 @@ public class NetworkedGrabInteractable : MonoBehaviourPunCallbacks, IPunOwnershi
             Debug.Log($"This object is already held, skipping");
             return;
         }
+
         photonView.RPC("StartNetworkGrabbing", RpcTarget.AllBuffered);
+
         if (photonView.Owner != PhotonNetwork.LocalPlayer)
         {
             TransferOwnership();
         }
     }
 
-    public void OnSelectExit(SelectExitEventArgs ex)
+    public void OnSelectExit(SelectExitEventArgs args)
     {
         photonView.RPC("StopNetworkGrabbing", RpcTarget.AllBuffered);
         Debug.Log($"OnSelectExit!");

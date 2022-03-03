@@ -16,3 +16,5 @@ MonoBehaviour:
   _info: This is one of orions toys. Kinda intressting looking if I'm honest.
   _preview: {fileID: 21300000, guid: 464883c791528804496b8c8ef7126e52, type: 3}
   _asset: {fileID: 2630877133288229765, guid: 1928d0415a2a02a4fb7f87b0ef6fb31b, type: 3}
+  _lowPoly: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  _heightPoly: {fileID: 227594493323665841, guid: e6c0a813f15dd4746810845a1a48060e, type: 3}

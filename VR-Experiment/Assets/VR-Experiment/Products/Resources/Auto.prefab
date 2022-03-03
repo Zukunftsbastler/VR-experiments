@@ -9,9 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1430606857662750922}
+  - component: {fileID: 3107569664108688255}
   - component: {fileID: 5108207434472812416}
   - component: {fileID: 1229969781254193051}
   - component: {fileID: 1901644951746586912}
+  - component: {fileID: 1514760553422880344}
   m_Layer: 6
   m_Name: Auto
   m_TagString: Untagged
@@ -34,6 +36,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3107569664108688255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5542099660057401299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!54 &5108207434472812416
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -202,7 +226,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df213171603dee44b8592736099ecf51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transfromFollow: {fileID: 1514760553422880344}
   _info: {fileID: 11400000, guid: 500328c09c5e28040af3a432ab6a656a, type: 2}
+  _meshFilter: {fileID: 4920618093122465558}
+  _rigidbody: {fileID: 5108207434472812416}
+--- !u!114 &1514760553422880344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5542099660057401299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c37551138e5f004f9a6be30eb5cb5c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  followTarget: {fileID: 0}
+  _updateFollowType: 0
+  _positionSetting: 1
+  _rotationSetting: 1
 --- !u!1 &8194510602964715803
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,7 +286,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8194510602964715803}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 0}
 --- !u!23 &6513804414643226963
 MeshRenderer:
   m_ObjectHideFlags: 0

@@ -16,3 +16,5 @@ MonoBehaviour:
   _info: "Kleid ist ein haupts\xE4chlich von weiblichen Menschen getragenes Kleidungsst\xFCck."
   _preview: {fileID: 21300000, guid: 0f7adec15d8ade94688d73ce1cd7d124, type: 3}
   _asset: {fileID: 3732530999700561984, guid: d615df81bde4694438c2a0fde6ccca0b, type: 3}
+  _lowPoly: {fileID: -2228417370725966487, guid: 20ec4b7c278309247a2577f2ae6f5f75, type: 3}
+  _heightPoly: {fileID: -2228417370725966487, guid: 20ec4b7c278309247a2577f2ae6f5f75, type: 3}

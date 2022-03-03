@@ -16,3 +16,5 @@ MonoBehaviour:
   _info: Auto ist ein Luxusgegenstand, der dazu verwendet wird, von A nach B zu kommen
   _preview: {fileID: 21300000, guid: dd07b97f9cf87be48a2d4be0bd215d20, type: 3}
   _asset: {fileID: 5542099660057401299, guid: ab46f156504b2e648bd9b8d60095fdbf, type: 3}
+  _lowPoly: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  _heightPoly: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}

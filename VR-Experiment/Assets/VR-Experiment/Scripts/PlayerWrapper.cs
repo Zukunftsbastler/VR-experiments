@@ -24,7 +24,9 @@ public class PlayerWrapper : SingletonBehaviour<PlayerWrapper>
 
     public bool CanConnectToPhoton => GetLocalAvatar() != null;
     public bool CanConnectToRoom => GetLocalRole() != Role.None;
+    [Obsolete]
     public bool CanOccupyBooths => GetLocalRole() > Role.Visitor;
+    public bool CanInteractWithBooths => GetLocalRole() > Role.Visitor;
 
     public XRRig Rig => _rig ??= FindObjectOfType<XRRig>();
     public PlayerHud Hud => _hud ??= FindObjectOfType<PlayerHud>();

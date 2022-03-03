@@ -16,3 +16,5 @@ MonoBehaviour:
   _info: "Essen ist f\xFCr den Menschen \xDCberlebenswichtig"
   _preview: {fileID: 21300000, guid: ed95a8e5b67486b4b96d834e8c419391, type: 3}
   _asset: {fileID: 3840431035804009462, guid: 34e86484bab282940805d883df86ca26, type: 3}
+  _lowPoly: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  _heightPoly: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
