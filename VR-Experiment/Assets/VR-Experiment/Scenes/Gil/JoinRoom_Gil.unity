@@ -1542,6 +1542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followTarget: {fileID: 1093315622}
+  _updateFollowType: 0
   _positionSetting: 3
   _rotationSetting: 0
 --- !u!1 &1093315621

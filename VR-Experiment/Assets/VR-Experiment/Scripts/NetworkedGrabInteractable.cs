@@ -26,13 +26,12 @@ public class NetworkedGrabInteractable : MonoBehaviourPunCallbacks, IPunOwnershi
     {
         _interActable = GetComponent<XRGrabInteractable>();
         _rb = GetComponent<Rigidbody>();
-
         Assert.IsNotNull(_interActable, $"XRGrabInteractable is null, please add it to {this.gameObject}");
         Assert.IsNotNull(_rb, $"Theres no Rigidbody attached to {this.gameObject}. Make sure its added.");
         Assert.IsNotNull(photonView, $"Photonview is null!");
 
         _interActable.selectEntered.AddListener(OnSelectEntered);
-
+        IsBehingHeld = false;
         _interActable.interactionLayers = InteractionLayerMask.GetMask("Interactable");
         _interActable.selectExited.AddListener(OnSelectExit);
     }
