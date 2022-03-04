@@ -10,6 +10,7 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
 {
     [SerializeField] private Text _uiConsole;
     [SerializeField] private GameObject[] _avatarPrefabs = new GameObject[2];
+    [SerializeField] private string _roomName = "VR-Experiment";
 
     private void Start()
     {
@@ -42,14 +43,14 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
 
         Debug.LogWarning($"Joining Room Failed. Creating room: VR-Experiment");
 
-        PhotonNetwork.CreateRoom("VR-Experiment");
+        PhotonNetwork.CreateRoom(_roomName);
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
         base.OnCreateRoomFailed(returnCode, message);
 
-        PhotonNetwork.JoinRoom("VR-Experiment");
+        PhotonNetwork.JoinRoom(_roomName);
     }
 
     // --- UI Feedback ----------------------------------------------------------------------------------
@@ -101,6 +102,6 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
             return;
         }
         
-        PhotonNetwork.JoinRoom("VR-Experiment");
+        PhotonNetwork.JoinRoom(_roomName);
     }
 }

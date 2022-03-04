@@ -730,6 +730,7 @@ MonoBehaviour:
   _avatarPrefabs:
   - {fileID: 864833769845586125, guid: fef3212fc3d998a46bae81a43d8eb716, type: 3}
   - {fileID: 6430999526397770637, guid: dd6fecd22bcd02743956c5f7bce68a85, type: 3}
+  _testRoomName: VR-Experiment_Gil
 --- !u!4 &701966405
 Transform:
   m_ObjectHideFlags: 0
