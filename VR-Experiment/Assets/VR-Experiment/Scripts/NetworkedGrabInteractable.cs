@@ -10,7 +10,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class NetworkedGrabInteractable : MonoBehaviourPun, IPunOwnershipCallbacks
 {
     private bool _isBehingHeld;
-    private XRGrabInteractable _interActable;
+    protected XRGrabInteractable _interActable;
 
     public bool IsBehingHeld
     {
