@@ -6,19 +6,17 @@ using UnityEngine;
 public class BoothLogic : MonoBehaviourPun
 {
     [SerializeField] private List<RevolvingStageBehaviour> _productStages;
-    [Space]
-    [SerializeField] private SO_ProductInventory _standartInventory;
 
     private void Start()
     {
-        SetStageInventories(_standartInventory);
+        SetStageInventories();
     }
 
-    public void SetStageInventories(SO_ProductInventory inventory)
+    public void SetStageInventories()
     {
         foreach(RevolvingStageBehaviour stage in _productStages)
         {
-            stage.SetInventory(inventory);
+            stage.SetInventory();
         }
     }
 }

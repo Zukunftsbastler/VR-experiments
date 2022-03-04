@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 98ee72aa7f57c4e409b168a4109e91ea, type: 3}
-  m_Name: SO_Orion_Toy_3
+  m_Name: SO_Orion_Toy_1
   m_EditorClassIdentifier: 
-  _name: Toy 3
+  _name: Toy 1
   _info: This is one of orions toys. Kinda intressting looking if I'm honest.
   _preview: {fileID: 21300000, guid: 464883c791528804496b8c8ef7126e52, type: 3}
-  _asset: {fileID: 5542099660057401299, guid: ab46f156504b2e648bd9b8d60095fdbf, type: 3}
-  _lowPoly: {fileID: -8643779544264424255, guid: 85cb94577adf5ba4a935fd0f7e24b42b, type: 3}
-  _highPoly: {fileID: -6640009454295070224, guid: 4baa47a1d3da4f846b252a18bb403dba, type: 3}
+  _asset: {fileID: 7837376403633415218, guid: 0669b2cde32c05e43a0591fbd148fcea, type: 3}
+  _lowPoly: {fileID: 8328808847450846616, guid: b677433f354e26a47b1596c93619791a, type: 3}
+  _highPoly: {fileID: 227594493323665841, guid: 427633cb68e9a334aa4df59045df66f6, type: 3}
   _materials:
-  - {fileID: -5320024178438789707, guid: 4baa47a1d3da4f846b252a18bb403dba, type: 3}
-  - {fileID: 4606140682514022187, guid: 4baa47a1d3da4f846b252a18bb403dba, type: 3}
+  - {fileID: 4202669435192574614, guid: 427633cb68e9a334aa4df59045df66f6, type: 3}
+  - {fileID: -8863482124825134610, guid: 427633cb68e9a334aa4df59045df66f6, type: 3}

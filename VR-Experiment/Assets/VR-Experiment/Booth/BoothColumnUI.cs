@@ -20,14 +20,11 @@ public class BoothColumnUI : MonoBehaviour
         _callbackListener = callbackListener;
     }
 
-    public void SetInventory(SO_ProductInventory inventory)
+    public void SetInventory()
     {
         ClearProductUIs();
 
-        if(inventory == null)
-            return;
-
-        foreach(SO_Product product in inventory.Products)
+        foreach(SO_Product product in Inventory.Products)
         {
             ProductToggleUI productUI = Instantiate(_productToggleUIPrefab, _container).GetComponent<ProductToggleUI>();
             productUI.SetProduct(product, OnProductToggleUIInvoked);

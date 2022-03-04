@@ -25,8 +25,6 @@ public class RevolvingStageBehaviour : MonoBehaviour, IInventoryCallbackListener
     private ProductBehaviour _activeProduct;
     private float _hoverFrequenz;
 
-    private SO_ProductInventory _inventory;
-
     public bool HasActiveItem => _activeProduct != null;
     public ProductBehaviour ActiveProduct {
         get 
@@ -62,19 +60,21 @@ public class RevolvingStageBehaviour : MonoBehaviour, IInventoryCallbackListener
         }
     }
 
-    public void SetInventory(SO_ProductInventory inventory)
+    public void SetInventory()
     {
-        _inventory = inventory;
-        _productSelectionUI.SetInventory(inventory);
+        _productSelectionUI.SetInventory();
     }
 
     public void OnInventoryProductInvoked(bool isActive, string productName)
     {
         if(isActive)
         {
-            SO_Product productToSpawn = _inventory.Products.FirstOrDefault(p => p.Name.Equals(productName));
-            ActiveProduct = PhotonNetwork.Instantiate(productToSpawn.Id, _productAnchor.position, Quaternion.identity).GetComponent<ProductBehaviour>();
-            ActiveProduct.info = productToSpawn;
+            object[] instantiationData = new object[]
+            {
+                productName
+            };
+            SO_Product productToSpawn = Inventory.GetProductByName(productName);
+            ActiveProduct = PhotonNetwork.Instantiate(productToSpawn.Id, _productAnchor.position, Quaternion.identity, data: instantiationData).GetComponent<ProductBehaviour>();
         }
         else
         {
@@ -101,9 +101,12 @@ public class RevolvingStageBehaviour : MonoBehaviour, IInventoryCallbackListener
     {
         yield return new WaitForSeconds(_respawndelay);
 
-        SO_Product productToSpawn = _inventory.Products.FirstOrDefault(p => p.Name.Equals(productName));
-        ActiveProduct = PhotonNetwork.Instantiate(productToSpawn.Id, _productAnchor.position, Quaternion.identity).GetComponent<ProductBehaviour>();
-        ActiveProduct.info = productToSpawn;
+        object[] instantiationData = new object[]
+        {
+            productName
+        };
+        SO_Product productToSpawn = Inventory.GetProductByName(productName);
+        ActiveProduct = PhotonNetwork.Instantiate(productToSpawn.Id, _productAnchor.position, Quaternion.identity, data: instantiationData).GetComponent<ProductBehaviour>();
     }
 
     private void OnProductGrabbed(string productId)

@@ -1479,9 +1479,9 @@ MonoBehaviour:
   m_AudioClipForOnHoverExited: {fileID: 0}
   m_PlayAudioClipOnHoverCanceled: 0
   m_AudioClipForOnHoverCanceled: {fileID: 0}
-  m_PlayHapticsOnSelectEntered: 0
-  m_HapticSelectEnterIntensity: 0
-  m_HapticSelectEnterDuration: 0
+  m_PlayHapticsOnSelectEntered: 1
+  m_HapticSelectEnterIntensity: 0.5
+  m_HapticSelectEnterDuration: 3
   m_PlayHapticsOnSelectExited: 0
   m_HapticSelectExitIntensity: 0
   m_HapticSelectExitDuration: 0
@@ -2473,6 +2473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _popUpPrefab: {fileID: 4997979742665435781, guid: 3eae2ab51c59b754690b5569e6a7f376, type: 3}
+  _talkingpointsPrefab: {fileID: 8008982680847799028, guid: 3a683fd1bac60674eacd03613693354b, type: 3}
 --- !u!1001 &403420611
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8392,7 +8393,6 @@ MonoBehaviour:
   - {fileID: 1339538846}
   - {fileID: 1464915363}
   - {fileID: 1086975459}
-  _standartInventory: {fileID: 11400000, guid: 70dc4e564f9a7334ea279059343448d4, type: 2}
 --- !u!1001 &1274108343
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14240,8 +14240,8 @@ MonoBehaviour:
   m_PlayAudioClipOnHoverCanceled: 0
   m_AudioClipForOnHoverCanceled: {fileID: 0}
   m_PlayHapticsOnSelectEntered: 1
-  m_HapticSelectEnterIntensity: 0.3
-  m_HapticSelectEnterDuration: 1
+  m_HapticSelectEnterIntensity: 0.5
+  m_HapticSelectEnterDuration: 3
   m_PlayHapticsOnSelectExited: 0
   m_HapticSelectExitIntensity: 0
   m_HapticSelectExitDuration: 0

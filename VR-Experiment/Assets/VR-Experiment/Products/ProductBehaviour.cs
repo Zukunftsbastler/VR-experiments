@@ -4,10 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProductBehaviour : NetworkedGrabInteractable
+public class ProductBehaviour : NetworkedGrabInteractable, IPunInstantiateMagicCallback
 {
     public TransformFollow transfromFollow;
-    public SO_Product info;
     [Space]
     [SerializeField] private MeshFilter _meshFilter;
     [SerializeField] private MeshRenderer _meshRenderer;
@@ -16,17 +15,11 @@ public class ProductBehaviour : NetworkedGrabInteractable
 
     public event Action<string> productGrabbed;
 
+    private SO_Product _info;
 
     protected override void Awake()
     {
         base.Awake();
-    }
-
-    private void Start()
-    {
-        _meshFilter.mesh = info.LowPoly;
-        _meshRenderer.materials = info.Materials;
-        _meshCollider.sharedMesh = _meshFilter.mesh;
     }
 
     [PunRPC]
@@ -34,10 +27,10 @@ public class ProductBehaviour : NetworkedGrabInteractable
     {
         base.RPC_StartNetworkGrabbing();
 
-        productGrabbed?.Invoke(info.Name);
-        _meshFilter.mesh = info.HighPoly;
+        productGrabbed?.Invoke(_info.Name);
+        _meshFilter.mesh = _info.HighPoly;
         transfromFollow.enabled = false;
-        PlayerWrapper.Instance.SetActiveProduct(info.Name);
+        PlayerWrapper.Instance.SetActiveProduct(_info.Name);
     }
 
     [PunRPC]
@@ -51,11 +44,21 @@ public class ProductBehaviour : NetworkedGrabInteractable
     {
         base.RPC_StopNetworkGrabbing();
 
-        _meshFilter.mesh = info.LowPoly;
+        _meshFilter.mesh = _info.LowPoly;
 
         _rigidbody.isKinematic = false;
         _rigidbody.useGravity = true;
 
         //todo: start destroy delay
+    }
+
+    void IPunInstantiateMagicCallback.OnPhotonInstantiate(PhotonMessageInfo info)
+    {
+        string productName = (string) info.photonView.InstantiationData[0];
+        _info = Inventory.GetProductByName(productName);
+
+        _meshFilter.mesh = _info.LowPoly;
+        _meshRenderer.materials = _info.Materials;
+        //_meshCollider.sharedMesh = _meshFilter.mesh;
     }
 }

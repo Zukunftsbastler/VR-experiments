@@ -25,7 +25,7 @@ public class PopUpMessage : MonoBehaviour
 
     public void DisplayMessage(Sprite avatarPreview, string title, string message)
     {
-        //_avatarPreview.sprite = avatarPreview;
+        _avatarPreview.sprite = avatarPreview;
         _title.text = title;
         _message.text = message;
     }

@@ -18,14 +18,11 @@ public class InventoryUI : MonoBehaviour
         _productUIs = new List<ProductUI>();
     }
 
-    public void SetInventory(SO_ProductInventory inventory)
+    public void SetInventory()
     {
         ClearProductUIs();
 
-        if(inventory == null)
-            return;
-
-        foreach(SO_Product product in inventory.Products)
+        foreach(SO_Product product in Inventory.Products)
         {
             ProductUI productUI = Instantiate(_productUIPrefab, transform).GetComponent<ProductUI>();
             productUI.SetProduct(product, OnProductUIInvoked);

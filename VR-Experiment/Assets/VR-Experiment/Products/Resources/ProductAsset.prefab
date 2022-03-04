@@ -206,7 +206,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transfromFollow: {fileID: 1514760553422880344}
-  info: {fileID: 0}
   _meshFilter: {fileID: 4920618093122465558}
   _meshRenderer: {fileID: 6513804414643226963}
   _meshCollider: {fileID: 6009345156375088275}
@@ -224,7 +223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followTarget: {fileID: 0}
-  _updateFollowType: 0
+  _updateFollowType: 1
   _positionSetting: 1
   _rotationSetting: 1
 --- !u!114 &3107569664108688255
@@ -243,7 +242,7 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 2
   observableSearch: 2
   ObservedComponents:
   - {fileID: 7882969490595365218}
@@ -361,4 +360,4 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}

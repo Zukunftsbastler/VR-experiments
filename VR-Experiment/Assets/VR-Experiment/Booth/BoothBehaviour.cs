@@ -20,8 +20,6 @@ public class BoothBehaviour : MonoBehaviourPun, IInventoryCallbackListener
     [SerializeField] private BoothOccupationUI _occupationUI;
     [SerializeField] private InventoryUI _inventoryUI;
     [SerializeField] private RevolvingStageBehaviour _stage;
-    [Space]
-    [SerializeField] private SO_ProductInventory _inventory;
 
     private Player _owner;
 
@@ -54,7 +52,7 @@ public class BoothBehaviour : MonoBehaviourPun, IInventoryCallbackListener
         if (isActive == false)
         {
             _owner = null;
-            _inventoryUI.SetInventory(null);
+            _inventoryUI.SetInventory();
             _occupationUI.UpdateButtons(PlayerWrapper.Instance.CanOccupyBooths, false);
 
             if (_stage.HasActiveItem)
@@ -65,7 +63,7 @@ public class BoothBehaviour : MonoBehaviourPun, IInventoryCallbackListener
         else
         {
             _owner = info.Sender;
-            _inventoryUI.SetInventory(_inventory);
+            _inventoryUI.SetInventory();
             _occupationUI.UpdateButtons(false, _owner.IsLocal);
         }
     }
@@ -77,7 +75,7 @@ public class BoothBehaviour : MonoBehaviourPun, IInventoryCallbackListener
 
     public void SpawnProduct(string productId)
     {
-        SO_Product product = _inventory.Products.First(p => p.Id.Equals(productId));
+        SO_Product product = Inventory.GetProductByName(productId);
 
         if (product == null)
         {
@@ -101,7 +99,7 @@ public class BoothBehaviour : MonoBehaviourPun, IInventoryCallbackListener
     [PunRPC]
     private void RPC_OnProductInteractionRecognized(string productId, byte interaction, int interactionActor)
     {
-        SO_Product product = _inventory.Products.First(p => p.Id.Equals(productId));
+        SO_Product product = Inventory.GetProductByName(productId);
         //Player interactor = GetPlayerByActorNumber(interactionActor);
 
         switch ((ProductInteraction)interaction)

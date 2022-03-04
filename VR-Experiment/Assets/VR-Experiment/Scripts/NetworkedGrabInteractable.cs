@@ -7,7 +7,7 @@ using UnityEngine.Assertions;
 using UnityEngine.XR.Interaction.Toolkit;
 
 [RequireComponent(typeof(PhotonRigidbodyView), typeof(XRGrabInteractable))]
-public class NetworkedGrabInteractable : MonoBehaviourPunCallbacks, IPunOwnershipCallbacks
+public class NetworkedGrabInteractable : MonoBehaviourPun, IPunOwnershipCallbacks
 {
     private bool _isBehingHeld;
     private XRGrabInteractable _interActable;
@@ -19,6 +19,16 @@ public class NetworkedGrabInteractable : MonoBehaviourPunCallbacks, IPunOwnershi
         {
             _isBehingHeld = value;
         }
+    }
+
+    private void OnEnable()
+    {
+        PhotonNetwork.AddCallbackTarget(this);
+    }
+
+    private void OnDisable()
+    {
+        PhotonNetwork.RemoveCallbackTarget(this);
     }
 
     protected virtual void Awake()
@@ -81,7 +91,7 @@ public class NetworkedGrabInteractable : MonoBehaviourPunCallbacks, IPunOwnershi
         photonView.RequestOwnership();
     }
 
-    public void OnOwnershipRequest(PhotonView targetView, Player requestingPlayer)
+    void IPunOwnershipCallbacks.OnOwnershipRequest(PhotonView targetView, Player requestingPlayer)
     {
         if (targetView == photonView)
         {
@@ -90,11 +100,11 @@ public class NetworkedGrabInteractable : MonoBehaviourPunCallbacks, IPunOwnershi
         }
     }
 
-    public void OnOwnershipTransfered(PhotonView targetView, Player previousOwner)
+    void IPunOwnershipCallbacks.OnOwnershipTransfered(PhotonView targetView, Player previousOwner)
     {
         Debug.Log($"OwnerShip granted to {targetView.name} from {previousOwner.NickName}");
     }
 
-    public void OnOwnershipTransferFailed(PhotonView targetView, Player senderOfFailedRequest)
+    void IPunOwnershipCallbacks.OnOwnershipTransferFailed(PhotonView targetView, Player senderOfFailedRequest)
     { }
 }

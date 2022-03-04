@@ -33,7 +33,7 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
-        PhotonNetwork.LoadLevel("Expo_Gil");
+        PhotonNetwork.LoadLevel("Expo_Robin");
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)
@@ -42,14 +42,14 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
 
         Debug.LogWarning($"Joining Room Failed. Creating room: VR-Experiment");
 
-        PhotonNetwork.CreateRoom("VR-Experiment");
+        PhotonNetwork.CreateRoom("VR-Experiment_All_Alone");
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
         base.OnCreateRoomFailed(returnCode, message);
 
-        PhotonNetwork.JoinRoom("VR-Experiment");
+        PhotonNetwork.JoinRoom("VR-Experiment_All_Alone");
     }
 
     // --- UI Feedback ----------------------------------------------------------------------------------
@@ -101,6 +101,6 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
             return;
         }
         
-        PhotonNetwork.JoinRoom("VR-Experiment");
+        PhotonNetwork.JoinRoom("VR-Experiment_All_Alone");
     }
 }

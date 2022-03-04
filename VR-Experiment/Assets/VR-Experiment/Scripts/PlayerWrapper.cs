@@ -58,9 +58,9 @@ public class PlayerWrapper : SingletonBehaviour<PlayerWrapper>
         {
             photonInfo.Client.SetCustomProperties(new ExitGames.Client.Photon.Hashtable()
             {
-                {AVATAR_KEY, default(string)},
-                {ROLE_KEY, default(Role)},
-                {PRODUCT_KEY, default(string)},
+                {AVATAR_KEY, ""},
+                {ROLE_KEY, Role.None},
+                {PRODUCT_KEY, ""},
             });
         }
     }
@@ -83,7 +83,7 @@ public class PlayerWrapper : SingletonBehaviour<PlayerWrapper>
             }
         }
 
-        string avatarName = avatarPrefab != null ? avatarPrefab.name : null;
+        string avatarName = avatarPrefab != null ? avatarPrefab.name : "";
 
         if(_networkInfo is PlayerNetworkInfo_Photon photonInfo)
         {
@@ -108,16 +108,16 @@ public class PlayerWrapper : SingletonBehaviour<PlayerWrapper>
         }
     }
 
-    public void SetActiveProduct(string productId)
+    public void SetActiveProduct(string productName)
     {
-        if(GetLocalActiveProduct() != null && GetLocalActiveProduct().Equals(productId))
+        if(productName.Equals(GetLocalActiveProduct()))
             return;
 
         if(_networkInfo is PlayerNetworkInfo_Photon photonInfo)
         {
             photonInfo.Client.SetCustomProperties(new ExitGames.Client.Photon.Hashtable()
             {
-                { PRODUCT_KEY, productId }
+                { PRODUCT_KEY, productName }
             });
         }
     }
@@ -139,40 +139,40 @@ public class PlayerWrapper : SingletonBehaviour<PlayerWrapper>
     public string GetLocalAvatar()
     {
         if(_networkInfo == null)
-            return default;
+            return "";
 
         if(_networkInfo is PlayerNetworkInfo_Photon photonInfo)
         {
             return GetAvatar(photonInfo.Client);
         }
 
-        return default;
+        return "";
     }
 
     public Role GetLocalRole()
     {
         if(_networkInfo == null)
-            return default;
+            return Role.None;
 
         if(_networkInfo is PlayerNetworkInfo_Photon photonInfo)
         {
             return GetRole(photonInfo.Client);
         }
 
-        return default;
+        return Role.None;
     }
 
     public string GetLocalActiveProduct()
     {
         if(_networkInfo == null)
-            return default;
+            return "";
 
         if(_networkInfo is PlayerNetworkInfo_Photon photonInfo)
         {
             return GetActiveProduct(photonInfo.Client);
         }
 
-        return default;
+        return "";
     }
 
     public static string GetAvatar(Player player)
@@ -185,7 +185,7 @@ public class PlayerWrapper : SingletonBehaviour<PlayerWrapper>
         else
         {
             Debug.LogError($"No CustomProperty found for key: {nameof(AVATAR_KEY)}, '{AVATAR_KEY}'.");
-            avatarName = default;
+            avatarName = "";
         }
 
         return avatarName;
@@ -201,7 +201,7 @@ public class PlayerWrapper : SingletonBehaviour<PlayerWrapper>
         else
         {
             Debug.LogError($"No CustomProperty found for key: {nameof(ROLE_KEY)}, '{ROLE_KEY}'.");
-            role = default;
+            role = Role.None;
         }
 
         return role;
@@ -217,7 +217,7 @@ public class PlayerWrapper : SingletonBehaviour<PlayerWrapper>
         else
         {
             Debug.LogError($"No CustomProperty found for key: {nameof(PRODUCT_KEY)}, '{PRODUCT_KEY}'.");
-            productId = default;
+            productId = "";
         }
 
         return productId;
