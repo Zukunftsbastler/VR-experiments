@@ -1,4 +1,6 @@
 using Photon.Pun;
+using Photon.Realtime;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,7 +29,6 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {
         base.OnJoinedLobby();
-
         PlayerWrapper.Instance.SetNetworkInfo(new PlayerNetworkInfo_Photon(PhotonNetwork.LocalPlayer));
     }
 
@@ -85,23 +86,22 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
 
     public void JoinRoom()
     {
-        if(PhotonNetwork.IsConnected == false)
+        if (PhotonNetwork.IsConnected == false)
             return;
 
-        if(PlayerWrapper.Instance.CanConnectToPhoton == false)
+        if (PlayerWrapper.Instance.CanConnectToPhoton == false)
         {
             _uiConsole.text = $"You need to choose an avatar befor you can join a room.";
             Debug.LogWarning($"You need to choose an avatar befor you can join a room.");
             return;
         }
 
-        if(PlayerWrapper.Instance.CanConnectToRoom == false)
+        if (PlayerWrapper.Instance.CanConnectToRoom == false)
         {
             _uiConsole.text = $"You need to choose a role befor you can join a room.";
             Debug.LogWarning($"You need to choose a role befor you can join a room.");
             return;
         }
-        
         PhotonNetwork.JoinRoom(_roomName);
     }
 }
