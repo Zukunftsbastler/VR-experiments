@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class RevolvingStageBehaviour : MonoBehaviour, IInventoryCallbackListener
+public class RevolvingStageBehaviour : MonoBehaviour, IItemListCallbackListener
 {
     [SerializeField] private PhotonRoomInstatiation _photonRoom;
-    [SerializeField] private BoothColumnUI _productSelectionUI;
+    [SerializeField] private ScrollableItemListUI _productSelectionUI;
     [SerializeField] private Transform _productAnchor;
     [SerializeField] private float _respawndelay = .5f;
     [Space]
@@ -62,10 +62,10 @@ public class RevolvingStageBehaviour : MonoBehaviour, IInventoryCallbackListener
 
     public void SetInventory()
     {
-        _productSelectionUI.SetInventory();
+        _productSelectionUI.SetItems(Inventory.Products.Cast<ScriptableListItem>().ToList());
     }
 
-    public void OnInventoryProductInvoked(bool isActive, string productName)
+    public void OnItemToggleInvoked(bool isActive, string productName)
     {
         if(isActive)
         {

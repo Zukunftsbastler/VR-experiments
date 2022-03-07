@@ -38,6 +38,8 @@ public class NetworkedGrabInteractable : MonoBehaviourPun, IPunOwnershipCallback
         Assert.IsNotNull(_interActable, $"XRGrabInteractable is null, please add it to {this.gameObject}");
         Assert.IsNotNull(photonView, $"Photonview is null!");
 
+        photonView.OwnershipTransfer = OwnershipOption.Request;
+
         _interActable.selectEntered.AddListener(OnSelectEntered);
         IsBehingHeld = false;
         _interActable.interactionLayers = InteractionLayerMask.GetMask("Interactable");

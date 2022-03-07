@@ -216,7 +216,6 @@ GameObject:
   - component: {fileID: 7188349}
   - component: {fileID: 7188352}
   - component: {fileID: 7188351}
-  - component: {fileID: 7188350}
   m_Layer: 0
   m_Name: Content
   m_TagString: Untagged
@@ -243,19 +242,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &7188350
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7188348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fafe2cfe61f6974895a912c3755e8f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AllowSwitchOff: 1
 --- !u!114 &7188351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -848,11 +834,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 142334520}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67ad25de4965aa847b0af4c0308c5fe0, type: 3}
+  m_Script: {fileID: 11500000, guid: 930cb4021dfd8b148b900454c278c826, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _container: {fileID: 7188349}
-  _productToggleUIPrefab: {fileID: 5765871426209343847, guid: 1412e9b1f1a4a384ca908117330916da, type: 3}
+  _groupItemToggleUIPrefab: {fileID: 5765871426209343847, guid: 1412e9b1f1a4a384ca908117330916da, type: 3}
 --- !u!114 &142334523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3101,7 +3087,6 @@ GameObject:
   - component: {fileID: 478460992}
   - component: {fileID: 478460994}
   - component: {fileID: 478460993}
-  - component: {fileID: 478460995}
   m_Layer: 0
   m_Name: Content
   m_TagString: Untagged
@@ -3168,19 +3153,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
---- !u!114 &478460995
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 478460991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fafe2cfe61f6974895a912c3755e8f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AllowSwitchOff: 1
 --- !u!1001 &500369098
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4987,11 +4959,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 797196706}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67ad25de4965aa847b0af4c0308c5fe0, type: 3}
+  m_Script: {fileID: 11500000, guid: 930cb4021dfd8b148b900454c278c826, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _container: {fileID: 478460992}
-  _productToggleUIPrefab: {fileID: 5765871426209343847, guid: 1412e9b1f1a4a384ca908117330916da, type: 3}
+  _groupItemToggleUIPrefab: {fileID: 5765871426209343847, guid: 1412e9b1f1a4a384ca908117330916da, type: 3}
 --- !u!1001 &797580288
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8261,7 +8233,6 @@ GameObject:
   - component: {fileID: 1262835541}
   - component: {fileID: 1262835544}
   - component: {fileID: 1262835543}
-  - component: {fileID: 1262835542}
   m_Layer: 0
   m_Name: Content
   m_TagString: Untagged
@@ -8288,19 +8259,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &1262835542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1262835540}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fafe2cfe61f6974895a912c3755e8f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AllowSwitchOff: 1
 --- !u!114 &1262835543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10130,11 +10088,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1568664870}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67ad25de4965aa847b0af4c0308c5fe0, type: 3}
+  m_Script: {fileID: 11500000, guid: 930cb4021dfd8b148b900454c278c826, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _container: {fileID: 1262835541}
-  _productToggleUIPrefab: {fileID: 5765871426209343847, guid: 1412e9b1f1a4a384ca908117330916da, type: 3}
+  _groupItemToggleUIPrefab: {fileID: 5765871426209343847, guid: 1412e9b1f1a4a384ca908117330916da, type: 3}
 --- !u!114 &1568664873
 MonoBehaviour:
   m_ObjectHideFlags: 0

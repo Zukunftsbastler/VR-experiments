@@ -22,7 +22,7 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
 
     public void ConnectToPhoton()
     {
-        if(PlayerWrapper.Instance.CanConnectToPhoton)
+        if(PlayerWrapper.Instance.HasAvatar)
         {
             PhotonNetwork.ConnectUsingSettings();
         }

@@ -22,14 +22,16 @@ public class PlayerWrapper : SingletonBehaviour<PlayerWrapper>
 
     private AvatarLinkBehaviour _avatarLink = null;
 
-    public bool CanConnectToPhoton => GetLocalAvatar() != null;
-    public bool CanConnectToRoom => GetLocalRole() != Role.None;
+    public bool HasAvatar => string.IsNullOrEmpty(GetLocalAvatar()) == false;
+    public bool HasRole => GetLocalRole() != Role.None;
     [Obsolete]
     public bool CanOccupyBooths => GetLocalRole() > Role.Visitor;
     public bool CanInteractWithBooths => GetLocalRole() > Role.Visitor;
 
     public XRRig Rig => _rig ??= FindObjectOfType<XRRig>();
     public PlayerHud Hud => _hud ??= FindObjectOfType<PlayerHud>();
+
+    public event Action onPropertiesChanged;
 
 
     private void OnEnable()
@@ -56,12 +58,15 @@ public class PlayerWrapper : SingletonBehaviour<PlayerWrapper>
 
         if(_networkInfo is PlayerNetworkInfo_Photon photonInfo)
         {
-            photonInfo.Client.SetCustomProperties(new ExitGames.Client.Photon.Hashtable()
+            bool propertiesHaveChanged = photonInfo.Client.SetCustomProperties(new ExitGames.Client.Photon.Hashtable()
             {
                 {AVATAR_KEY, ""},
                 {ROLE_KEY, Role.None},
                 {PRODUCT_KEY, ""},
             });
+
+            if(propertiesHaveChanged)
+                onPropertiesChanged?.Invoke();
         }
     }
 
@@ -87,10 +92,13 @@ public class PlayerWrapper : SingletonBehaviour<PlayerWrapper>
 
         if(_networkInfo is PlayerNetworkInfo_Photon photonInfo)
         {
-            photonInfo.Client.SetCustomProperties(new ExitGames.Client.Photon.Hashtable()
+            bool propertiesHaveChanged = photonInfo.Client.SetCustomProperties(new ExitGames.Client.Photon.Hashtable()
             {
                 {AVATAR_KEY, avatarName}
             });
+
+            if(propertiesHaveChanged)
+                onPropertiesChanged?.Invoke();
         }
     }
 
@@ -101,10 +109,13 @@ public class PlayerWrapper : SingletonBehaviour<PlayerWrapper>
 
         if(_networkInfo is PlayerNetworkInfo_Photon photonInfo)
         {
-            photonInfo.Client.SetCustomProperties(new ExitGames.Client.Photon.Hashtable()
+            bool propertiesHaveChanged = photonInfo.Client.SetCustomProperties(new ExitGames.Client.Photon.Hashtable()
             {
                 { ROLE_KEY, role }
             });
+
+            if(propertiesHaveChanged)
+                onPropertiesChanged?.Invoke();
         }
     }
 
@@ -115,10 +126,13 @@ public class PlayerWrapper : SingletonBehaviour<PlayerWrapper>
 
         if(_networkInfo is PlayerNetworkInfo_Photon photonInfo)
         {
-            photonInfo.Client.SetCustomProperties(new ExitGames.Client.Photon.Hashtable()
+            bool propertiesHaveChanged = photonInfo.Client.SetCustomProperties(new ExitGames.Client.Photon.Hashtable()
             {
                 { PRODUCT_KEY, productName }
             });
+
+            if(propertiesHaveChanged)
+                onPropertiesChanged?.Invoke();
         }
     }
 

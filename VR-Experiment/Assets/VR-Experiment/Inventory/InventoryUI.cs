@@ -9,10 +9,10 @@ public class InventoryUI : MonoBehaviour
 {
     [SerializeField] private GameObject _productUIPrefab;
 
-    private IInventoryCallbackListener _callbackListener;
+    private IItemListCallbackListener _callbackListener;
     private List<ProductUI> _productUIs;
 
-    public void Initialize(IInventoryCallbackListener callbackListener)
+    public void Initialize(IItemListCallbackListener callbackListener)
     {
         _callbackListener = callbackListener;
         _productUIs = new List<ProductUI>();
@@ -33,7 +33,7 @@ public class InventoryUI : MonoBehaviour
 
     public void OnProductUIInvoked(string productId)
     {
-        _callbackListener.OnInventoryProductInvoked(true, productId);
+        _callbackListener.OnItemToggleInvoked(true, productId);
     }
 
     private void ClearProductUIs()

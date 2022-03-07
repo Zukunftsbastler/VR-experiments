@@ -1,21 +1,33 @@
 using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using VR_Experiment.Enums;
 
 public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private Text _uiConsole;
-    [SerializeField] private GameObject[] _avatarPrefabs = new GameObject[2];
+    [SerializeField] private JoinRoomUI _joinRoomUI;
+    [SerializeField] private string _roomName;
 
     private void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
     }
 
+    public override void OnEnable()
+    {
+        base.OnEnable();
+        _joinRoomUI.joinRoomButtonClicked += JoinRoom;
+        PlayerWrapper.Instance.onPropertiesChanged += LocalPlayerPropertiesChanged;
+    }
+
+    public override void OnDisable()
+    {
+        base.OnDisable();
+        _joinRoomUI.joinRoomButtonClicked -= JoinRoom;
+        PlayerWrapper.Instance.onPropertiesChanged -= LocalPlayerPropertiesChanged;
+    }
+    
     // --- Photon Feedback ------------------------------------------------------------------------------
     public override void OnConnectedToMaster()
     {
@@ -27,6 +39,7 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
     {
         base.OnJoinedLobby();
 
+        _joinRoomUI.gameObject.SetActive(true);
         PlayerWrapper.Instance.SetNetworkInfo(new PlayerNetworkInfo_Photon(PhotonNetwork.LocalPlayer));
     }
 
@@ -42,65 +55,40 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
 
         Debug.LogWarning($"Joining Room Failed. Creating room: VR-Experiment");
 
-        PhotonNetwork.CreateRoom("VR-Experiment_All_Alone");
+        PhotonNetwork.CreateRoom(_roomName);
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
         base.OnCreateRoomFailed(returnCode, message);
 
-        PhotonNetwork.JoinRoom("VR-Experiment_All_Alone");
-    }
-
-    // --- UI Feedback ----------------------------------------------------------------------------------
-
-    public void SetAvatarOne(bool isActive)
-    {
-        GameObject prefab = isActive ? _avatarPrefabs[0] : null;
-        PlayerWrapper.Instance.SetAvatar(prefab, true);
-    }
-
-    public void SetAvatarTwo(bool isActive)
-    {
-        GameObject prefab = isActive ? _avatarPrefabs[1] : null;
-        PlayerWrapper.Instance.SetAvatar(prefab, true);
+        PhotonNetwork.JoinRoom(_roomName);
     }
 
     // --------------------------------------------------------------------
-
-    public void SetVisitor(bool isActive)
-    {
-        Role role = isActive ? Role.Visitor : Role.None;
-        PlayerWrapper.Instance.SetRole(role);
-    }
-
-    public void SetPresenter(bool isActive)
-    {
-        Role role = isActive ? Role.Presenter : Role.None;
-        PlayerWrapper.Instance.SetRole(role);
-    }
-
-    // --------------------------------------------------------------------
-
     public void JoinRoom()
     {
-        if(PhotonNetwork.IsConnected == false)
+        if(PhotonNetwork.IsConnectedAndReady == false)
             return;
 
-        if(PlayerWrapper.Instance.CanConnectToPhoton == false)
+        _joinRoomUI.gameObject.SetActive(false);
+        PhotonNetwork.JoinRoom(_roomName);
+    }
+
+    private void LocalPlayerPropertiesChanged()
+    {
+        string debugText = "";
+
+        if(PlayerWrapper.Instance.HasAvatar == false)
         {
-            _uiConsole.text = $"You need to choose an avatar befor you can join a room.";
-            Debug.LogWarning($"You need to choose an avatar befor you can join a room.");
-            return;
+            debugText += $"You need to choose an avatar befor you can join a room. \n";
         }
 
-        if(PlayerWrapper.Instance.CanConnectToRoom == false)
+        if(PlayerWrapper.Instance.HasRole == false)
         {
-            _uiConsole.text = $"You need to choose a role befor you can join a room.";
-            Debug.LogWarning($"You need to choose a role befor you can join a room.");
-            return;
+            debugText += $"You need to choose a role befor you can join a room. \n";
         }
-        
-        PhotonNetwork.JoinRoom("VR-Experiment_All_Alone");
+
+        _joinRoomUI.SetDebugText(debugText);
     }
 }
