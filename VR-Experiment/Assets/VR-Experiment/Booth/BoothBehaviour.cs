@@ -7,7 +7,7 @@ using System.Linq;
 using UnityEngine;
 
 [Obsolete]
-public class BoothBehaviour : MonoBehaviourPun, IInventoryCallbackListener
+public class BoothBehaviour : MonoBehaviourPun, IItemListCallbackListener
 {
     private enum ProductInteraction : byte
     {
@@ -68,7 +68,7 @@ public class BoothBehaviour : MonoBehaviourPun, IInventoryCallbackListener
         }
     }
 
-    public void OnInventoryProductInvoked(bool isActive, string productId)
+    public void OnItemToggleInvoked(bool isActive, string productId)
     {
         SpawnProduct(productId);
     }

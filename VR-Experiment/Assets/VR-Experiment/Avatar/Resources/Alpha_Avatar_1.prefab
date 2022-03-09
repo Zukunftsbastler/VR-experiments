@@ -379,19 +379,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 778282941892823530}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4973533183849745704}
-        m_TargetAssemblyTypeName: AvatarInfoUI, Assembly-CSharp
-        m_MethodName: DisplayProductInfo
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &2973758552636640422
 GameObject:
   m_ObjectHideFlags: 0
@@ -935,6 +923,7 @@ MonoBehaviour:
   _title: {fileID: 4873893566274072636}
   _role: {fileID: 1752924478897982170}
   _product: {fileID: 4145093072678101224}
+  _productInfoButton: {fileID: 7321367606734919325}
 --- !u!120 &622365094303041575
 LineRenderer:
   m_ObjectHideFlags: 0

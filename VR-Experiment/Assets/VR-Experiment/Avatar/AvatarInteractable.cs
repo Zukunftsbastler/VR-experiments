@@ -18,9 +18,14 @@ public class AvatarInteractable : XRBaseInteractable
             return;
         }
 
-        if(pv.Owner != null && pv.Owner.IsLocal)
+        if(IsLocalPlayer(pv))
         {
-            interactionLayers = InteractionLayerMask.GetMask("NotInteractable");
+            //interactionLayers = InteractionLayerMask.GetMask("NotInteractable");
+        }
+
+        bool IsLocalPlayer(Photon.Pun.PhotonView photonView)
+        {
+            return pv.Owner != null && pv.Owner.IsLocal;
         }
     }
 
@@ -28,7 +33,6 @@ public class AvatarInteractable : XRBaseInteractable
     {
         base.OnSelectEntering(args);
 
-        //TODO: add condition so you can't tag yourself
         _avatarInfoUI.ToggleUI();
     }
 }
