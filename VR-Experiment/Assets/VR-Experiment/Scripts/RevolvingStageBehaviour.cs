@@ -4,11 +4,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Assertions;
 
-public class RevolvingStageBehaviour : MonoBehaviour, IInventoryCallbackListener
+[RequireComponent(typeof(PhotonView))]
+public class RevolvingStageBehaviour : MonoBehaviour, IItemListCallbackListener
 {
     [SerializeField] private PhotonRoomInstatiation _photonRoom;
-    [SerializeField] private BoothColumnUI _productSelectionUI;
+    [SerializeField] private ScrollableItemListUI _productSelectionUI;
     [SerializeField] private Transform _productAnchor;
     [SerializeField] private float _respawndelay = .5f;
     [Space]
@@ -21,27 +23,35 @@ public class RevolvingStageBehaviour : MonoBehaviour, IInventoryCallbackListener
     [SerializeField] private float _hoverSpeed;
     [Tooltip("One full rotation equals 360. \nSpeed in rotation per seconds.")]
     [SerializeField] private float _rotationSpeed;
-    
+
     private ProductBehaviour _activeProduct;
     private float _hoverFrequenz;
 
+    private PhotonView _photonView;
+
     public bool HasActiveItem => _activeProduct != null;
-    public ProductBehaviour ActiveProduct {
-        get 
+    public ProductBehaviour ActiveProduct
+    {
+        get
         {
             return _activeProduct;
-        } 
-        
-        set 
+        }
+
+        set
         {
             _activeProduct = value;
-            _activeProduct.transfromFollow.followTarget = _productAnchor;
-            _activeProduct.productGrabbed += OnProductGrabbed;
-        } 
+
+            if(_activeProduct != null)
+                _activeProduct.transformFollow.followTarget = _productAnchor;
+        }
     }
 
     private void Start()
     {
+        _photonView = GetComponent<PhotonView>();
+
+        Assert.IsNotNull(_photonView, $"{gameObject.name}'s {nameof(_photonView)} is null. Ensure the gameobject has a PhotonView component.");
+
         StartCoroutine(SetUp());
     }
 
@@ -62,24 +72,37 @@ public class RevolvingStageBehaviour : MonoBehaviour, IInventoryCallbackListener
 
     public void SetInventory()
     {
-        _productSelectionUI.SetInventory();
+        _productSelectionUI.SetItems(Inventory.Products.Cast<ScriptableListItem>().ToList());
     }
 
-    public void OnInventoryProductInvoked(bool isActive, string productName)
+    public void OnItemToggleInvoked(bool isActive, string productName)
     {
-        if(isActive)
+        _photonView.RPC(nameof(RPC_OnItemToggleInvoked), RpcTarget.AllBuffered, isActive, productName);
+    }
+
+    [PunRPC]
+    private void RPC_OnItemToggleInvoked(bool isActive, string productName, PhotonMessageInfo info)
+    {
+        //Update UI on other clients
+        if(info.Sender.Equals(PhotonNetwork.LocalPlayer) == false)
         {
-            object[] instantiationData = new object[]
-            {
-                productName
-            };
-            SO_Product productToSpawn = Inventory.GetProductByName(productName);
-            ActiveProduct = PhotonNetwork.Instantiate(productToSpawn.Id, _productAnchor.position, Quaternion.identity, data: instantiationData).GetComponent<ProductBehaviour>();
+            _productSelectionUI.SetItem(productName);
         }
-        else
+
+        //MasterClient handles product spawning
+        if(PhotonNetwork.IsMasterClient)
         {
-            ActiveProduct.productGrabbed -= OnProductGrabbed;
-            PhotonNetwork.Destroy(ActiveProduct.GetComponent<PhotonView>());
+            if(HasActiveItem)
+            {
+                ActiveProduct.productGrabbed -= OnProductGrabbed;
+                PhotonNetwork.Destroy(ActiveProduct.gameObject);
+            }
+
+            if(isActive)
+            {
+                SO_Product productToSpawn = Inventory.GetProductByName(productName);
+                SpawnActiveProduct(productToSpawn);
+            }
         }
     }
 
@@ -87,7 +110,7 @@ public class RevolvingStageBehaviour : MonoBehaviour, IInventoryCallbackListener
     {
         yield return _photonRoom.IsConnectedToPhoton;
 
-        if(PlayerWrapper.Instance.CanInteractWithBooths)
+        if(PlayerWrapper.Instance.CanManageProducts)
         {
             _productSelectionUI.SetCallbackListener(this);
         }
@@ -97,24 +120,42 @@ public class RevolvingStageBehaviour : MonoBehaviour, IInventoryCallbackListener
         }
     }
 
-    private IEnumerator SpawnDelayed(string productName)
+    private IEnumerator RecreateActiveProductRoutine(string productName)
     {
         yield return new WaitForSeconds(_respawndelay);
 
-        object[] instantiationData = new object[]
-        {
-            productName
-        };
         SO_Product productToSpawn = Inventory.GetProductByName(productName);
-        ActiveProduct = PhotonNetwork.Instantiate(productToSpawn.Id, _productAnchor.position, Quaternion.identity, data: instantiationData).GetComponent<ProductBehaviour>();
+        SpawnActiveProduct(productToSpawn);
+    }
+
+    private void SpawnActiveProduct(SO_Product product)
+    {
+        if(product != null)
+        {
+            object[] instantiationData = new object[]
+            {
+                product.Name
+            };
+
+            GameObject go = PhotonNetwork.Instantiate(product.Id, _productAnchor.position, Quaternion.identity, data: instantiationData);
+            ActiveProduct = go.GetComponent<ProductBehaviour>();
+            ActiveProduct.productGrabbed += OnProductGrabbed;
+        }
+        else
+        {
+            _activeProduct = null;
+        }
     }
 
     private void OnProductGrabbed(string productId)
     {
-        //Unsubscribe from previous product
-        ActiveProduct.productGrabbed -= OnProductGrabbed;
+        if(PhotonNetwork.IsMasterClient)
+        {
+            //Unsubscribe from previous product
+            ActiveProduct.productGrabbed -= OnProductGrabbed;
 
-        //spawn new product
-        StartCoroutine(SpawnDelayed(productId));
+            //spawn new product
+            StartCoroutine(RecreateActiveProductRoutine(productId));
+        }
     }
 }

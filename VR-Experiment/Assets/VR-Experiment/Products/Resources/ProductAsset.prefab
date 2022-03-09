@@ -205,7 +205,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df213171603dee44b8592736099ecf51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transfromFollow: {fileID: 1514760553422880344}
+  transformFollow: {fileID: 1514760553422880344}
+  _destroyDelay: 5
   _meshFilter: {fileID: 4920618093122465558}
   _meshRenderer: {fileID: 6513804414643226963}
   _meshCollider: {fileID: 6009345156375088275}

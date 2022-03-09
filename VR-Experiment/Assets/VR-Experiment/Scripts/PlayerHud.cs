@@ -5,19 +5,24 @@ using UnityEngine;
 public class PlayerHud : MonoBehaviour
 {
     [SerializeField] private GameObject _popUpPrefab;
-    [SerializeField] private GameObject _talkingpointsPrefab;
+    [SerializeField] private GameObject _pulletPointsPrefab;
+
+    private BulletPointsMessage _message;
 
     public void DisplayProductNotification(int actorNumber, string interaction, SO_Product product)
     {
         string title = $"Client {actorNumber} {interaction} '{product.Name}'";
 
         PopUpMessage popUp = Instantiate(_popUpPrefab, transform).GetComponent<PopUpMessage>();
-        popUp.DisplayMessage(null, title, product.Info);
+        popUp.DisplayMessage(null, title, product.Info[0]);
     }
 
-    public void DisplayProductTalkingpoints(string talkingPoints)
+    public void DisplayProductBulletPoints(SO_Product product)
     {
-        TalkingpointsMessage message = Instantiate(_talkingpointsPrefab, transform).GetComponent<TalkingpointsMessage>();
-        message.DisplayMessage(talkingPoints);
+        if(_message != null || product == null)
+            return;
+
+        _message = Instantiate(_pulletPointsPrefab, transform).GetComponent<BulletPointsMessage>();
+        _message.DisplayBulletPoints(product);
     }
 }

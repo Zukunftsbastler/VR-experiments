@@ -13,8 +13,16 @@ MonoBehaviour:
   m_Name: SO_Orion_Toy_3
   m_EditorClassIdentifier: 
   _name: Toy 3
-  _info: This is one of orions toys. Kinda intressting looking if I'm honest.
   _preview: {fileID: 21300000, guid: 464883c791528804496b8c8ef7126e52, type: 3}
+  _info:
+  - Batteriebetriebener Doppelvibrator mit Soft Touch Textur.
+  - '2 Motoren: Einer im jedem Vibroarm. Stimuliert gleich von 2 Seiten.'
+  - "10 Vibrationsmodi: F\xFCr variantenreiche Vibrationsmuster."
+  - "Unterschiedlich breite Vibroarme: F\xFCr vielf\xE4ltige Anwendungsm\xF6glichkeiten."
+  - "Im oberen Drittel breitfl\xE4chig geformt: Zur Vergr\xF6\xDFerung der Stimulationsfl\xE4che."
+  - "Sehr biegsam: Erm\xF6glicht den besonders flexiblen Einsatz."
+  - 'Lieferumfang: 1 x Doppelvibrator von Best Mate. Batterien bitte extra bestellen:
+    2 x AAA.'
   _asset: {fileID: 8268763258325405307, guid: 3c5af2d0e8b06964fac4acbeb90a8057, type: 3}
   _lowPoly: {fileID: -8643779544264424255, guid: 85cb94577adf5ba4a935fd0f7e24b42b, type: 3}
   _highPoly: {fileID: -6640009454295070224, guid: 4baa47a1d3da4f846b252a18bb403dba, type: 3}

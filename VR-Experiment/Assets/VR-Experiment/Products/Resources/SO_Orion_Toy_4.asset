@@ -13,11 +13,16 @@ MonoBehaviour:
   m_Name: SO_Orion_Toy_4
   m_EditorClassIdentifier: 
   _name: Toy 4
-  _info: This is one of orions toys. Kinda intressting looking if I'm honest.
   _preview: {fileID: 21300000, guid: 464883c791528804496b8c8ef7126e52, type: 3}
+  _info:
+  - Batteriebetriebene Vagina-Saugschale.
+  - "Angenehm weich: Passt sich m\xFChelos Deiner Vagina an."
+  - 'Mit Stimulationsnoppen: Bringen Deine G-Zone zum Beben.'
+  - 'Entnehmbares Bullet: Mit stufenloser Vibration.'
+  - 'Lieferumfang: 1 x Vagina-Saugschale Venus Lips von You2Toys.'
   _asset: {fileID: 2795924395895667813, guid: 19408528328a1bb4f8f1f62d9089ffb4, type: 3}
   _lowPoly: {fileID: -7510651100898344454, guid: a51e206c07381004284ccbfb94428c69, type: 3}
   _highPoly: {fileID: 8826293915123540722, guid: 6e29502554e20264abf19e436e6c2994, type: 3}
   _materials:
-  - {fileID: 219876172701925455, guid: 6e29502554e20264abf19e436e6c2994, type: 3}
   - {fileID: -8913279546489751175, guid: 6e29502554e20264abf19e436e6c2994, type: 3}
+  - {fileID: 219876172701925455, guid: 6e29502554e20264abf19e436e6c2994, type: 3}
