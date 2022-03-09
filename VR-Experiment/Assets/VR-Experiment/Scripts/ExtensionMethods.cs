@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class gameObject
+public static class ExtensionMethods
 {
     //-----------------------------------------------------------------------------------------------------------------------------------------------
     public static T GetComponentInParent<T>(this Component comp, bool includeInactive) where T : class

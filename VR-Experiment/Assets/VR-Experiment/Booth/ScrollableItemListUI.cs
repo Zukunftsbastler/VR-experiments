@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScrollableItemListUI : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class ScrollableItemListUI : MonoBehaviour
     private List<GroupItemToggleUI> _groupItemToggleUIs = new List<GroupItemToggleUI>();
 
     private GroupItemToggleUI _lastActiveItem;
+
+    private bool HasLastActivItem => _lastActiveItem != null;
 
     public void SetCallbackListener(IItemListCallbackListener callbackListener)
     {
@@ -46,30 +49,36 @@ public class ScrollableItemListUI : MonoBehaviour
 
     public void SetItem(string itemName, bool isActive = true, bool withoutNotify = true)
     {
-        GroupItemToggleUI toggleUI = _groupItemToggleUIs.FirstOrDefault(i => i.ItemName.Equals(itemName));
-        SetItem(toggleUI, isActive, withoutNotify);
+        GroupItemToggleUI activeItem = _groupItemToggleUIs.FirstOrDefault(i => i.ItemName.Equals(itemName));
+        SetItem(activeItem, isActive, withoutNotify);
     }
 
-    public void SetItem(GroupItemToggleUI item, bool isActive = true, bool withoutNotify = true)
+    public void SetItem(GroupItemToggleUI activeItem, bool isActive = true, bool withoutNotify = true)
     {
+        UpdateLastActiveItem(activeItem, isActive);
+
         if(withoutNotify)
         {
-            item.Toggle.SetIsOnWithoutNotify(isActive);
+            activeItem.Toggle.SetIsOnWithoutNotify(isActive);
         }
         else
         {
-            item.Toggle.isOn = isActive;
+            activeItem.Toggle.isOn = isActive;
         }
     }
 
     private void OnItemToggleUIInvoked(bool isActive, GroupItemToggleUI activeItem)
     {
-        if(_lastActiveItem != null)
+        UpdateLastActiveItem(activeItem, isActive);
+        _callbackListener?.OnItemToggleInvoked(isActive, activeItem.ItemName);
+    }
+
+    private void UpdateLastActiveItem(GroupItemToggleUI newActiveItem, bool isActive)
+    {
+        if(HasLastActivItem && _lastActiveItem.Equals(newActiveItem) == false)
             SetItem(_lastActiveItem, false);
 
-        _lastActiveItem = isActive ? activeItem : null;
-
-        _callbackListener.OnItemToggleInvoked(isActive, activeItem.ItemName);
+        _lastActiveItem = isActive ? newActiveItem : null;
     }
 
     private void ClearProductUIs()

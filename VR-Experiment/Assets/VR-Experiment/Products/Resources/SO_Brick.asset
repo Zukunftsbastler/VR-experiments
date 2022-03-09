@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98ee72aa7f57c4e409b168a4109e91ea, type: 3}
+  m_Name: SO_Brick
+  m_EditorClassIdentifier: 
+  _name: Brick
+  _preview: {fileID: 21300000, guid: e4f1fee3de32377429fd1348fae62b10, type: 3}
+  _info:
+  - "Der Begriff \u201EBackstein\u201C steht bevorzugt f\xFCr die mittelalterlichen
+    Bauten, wird aber haupts\xE4chlich im s\xFCddeutschen und Schweizer Raum f\xFCr
+    Mauerziegel gebraucht."
+  - "Einfache Backsteine aus Lehm k\xF6nnen bei nur 900 \xB0C in Ziegeleien gebrannt
+    (\u201Egebacken\u201C) werden."
+  - "Sie sind mechanisch nicht sehr stabil und offenporig, weshalb sie relativ viel
+    Wasser aufnehmen k\xF6nnen."
+  - "Deshalb werden sie \xFCblicherweise verputzt, um die Wetterfestigkeit zu verbessern."
+  - "Der aus Ton (statt Wiesenlehm) bei h\xF6heren Temperaturen gebrannte \u201ETonziegel\u201C
+    ist h\xE4rter und gilt als best\xE4ndiger."
+  _asset: {fileID: 6988159279576306213, guid: 051b05e0d275c59478129a5db8fcfdb7, type: 3}
+  _lowPoly: {fileID: -707102086066601175, guid: 33112ad7379fbe44da0d75033adb6728, type: 3}
+  _highPoly: {fileID: -3906286241694002385, guid: 0bdcef0feae747f4ab5dcf3ed4a937d9, type: 3}
+  _materials:
+  - {fileID: 2100000, guid: ee1b28cf74911a345b7d1a72b5243a8c, type: 2}

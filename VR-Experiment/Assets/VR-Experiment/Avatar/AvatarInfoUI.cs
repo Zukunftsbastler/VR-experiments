@@ -20,6 +20,7 @@ public class AvatarInfoUI : MonoBehaviourPun, IInRoomCallbacks
     [SerializeField] private Text _title;
     [SerializeField] private Text _role;
     [SerializeField] private Text _product;
+    [SerializeField] private Button _productInfoButton;
 
     private bool _isActive;
 
@@ -27,12 +28,16 @@ public class AvatarInfoUI : MonoBehaviourPun, IInRoomCallbacks
 
     private void OnEnable()
     {
+        _productInfoButton.onClick.AddListener(DisplayProductInfo);
+
         Application.onBeforeRender += OnBeforRender;
         PhotonNetwork.AddCallbackTarget(this);
     }
 
     private void OnDisable()
     {
+        _productInfoButton.onClick.RemoveListener(DisplayProductInfo);
+
         Application.onBeforeRender -= OnBeforRender;
         PhotonNetwork.RemoveCallbackTarget(this);
     }
@@ -57,16 +62,18 @@ public class AvatarInfoUI : MonoBehaviourPun, IInRoomCallbacks
             transform.position = _target.position;
             _uiFollow.followTarget = PlayerWrapper.Instance.Rig.Head;
 
+            _productInfoButton.gameObject.SetActive(PlayerWrapper.Instance.CanManageProducts);
+
             SetInfoUI();
         }
     }
 
-    public void DisplayProductInfo()
+    private void DisplayProductInfo()
     {
         string productName = PlayerWrapper.GetActiveProduct(photonView.Owner);
         SO_Product product = Inventory.GetProductByName(productName);
 
-        PlayerWrapper.Instance.Hud.DisplayProductTalkingpoints(product.Info);
+        PlayerWrapper.Instance.Hud.DisplayProductBulletPoints(product);
     }
 
     private void UpdateVisualization()
@@ -88,6 +95,8 @@ public class AvatarInfoUI : MonoBehaviourPun, IInRoomCallbacks
 
         string productName = PlayerWrapper.GetActiveProduct(photonView.Owner);
         _product.text = $"Product: '{productName}'";
+
+        _productInfoButton.interactable = PlayerWrapper.Instance.HasActiveProduct;
     }
 
     private void OnBeforRender()

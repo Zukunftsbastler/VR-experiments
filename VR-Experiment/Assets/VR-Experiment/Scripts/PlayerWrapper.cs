@@ -24,9 +24,10 @@ public class PlayerWrapper : SingletonBehaviour<PlayerWrapper>
 
     public bool HasAvatar => string.IsNullOrEmpty(GetLocalAvatar()) == false;
     public bool HasRole => GetLocalRole() != Role.None;
+    public bool HasActiveProduct => string.IsNullOrEmpty(GetLocalActiveProduct()) == false;
     [Obsolete]
     public bool CanOccupyBooths => GetLocalRole() > Role.Visitor;
-    public bool CanInteractWithBooths => GetLocalRole() > Role.Visitor;
+    public bool CanManageProducts => GetLocalRole() > Role.Visitor;
 
     public XRRig Rig => _rig ??= FindObjectOfType<XRRig>();
     public PlayerHud Hud => _hud ??= FindObjectOfType<PlayerHud>();

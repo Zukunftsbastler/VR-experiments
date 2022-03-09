@@ -13,8 +13,21 @@ MonoBehaviour:
   m_Name: SO_Orion_Toy_2
   m_EditorClassIdentifier: 
   _name: Toy 2
-  _info: This is one of orions toys. Kinda intressting looking if I'm honest.
   _preview: {fileID: 21300000, guid: 464883c791528804496b8c8ef7126e52, type: 3}
+  _info:
+  - Wiederaufladbarer G-Punkt-Vibrator mit 2 Motoren.
+  - "7 Vibrationsmodi: Sorgen f\xFCr abwechslungsreiches Vergn\xFCgen in der gesamten
+    Vagina."
+  - "Pulsierende Klopf-Funktion: Direkt in der gerundeten, soft strukturierten G-Punkt-Spitze
+    sorgen pochend-klopfende Impulse in 3 verschiedenen Modi f\xFCr h\xF6chst raffinierte
+    Stimulationswellen!"
+  - 'Einfache Bedienung: Vibrationen und pulsierende Klopf-Funktion sind einfach
+    per Knopfdruck direkt am Ende des Toys bequem steuerbar.'
+  - "Seidig-softe Oberfl\xE4che: F\xFCr ein h\xF6chst angenehmes Hautgef\xFChl."
+  - "Wasserdicht: Du kannst den Vibrator zum Spielen/Verw\xF6hnen mit in die Badewanne
+    oder unter die Dusche nehmen."
+  - 'Lieferumfang: 1 x wiederaufladbarer Thumping G-Spot Vibrator mit Klopf-Funktion
+    von Sweet Smile. Inklusive Magnetic Charger-Ladekabel.'
   _asset: {fileID: 2000402200733590938, guid: 7b2c99f62128745408db43c82b2fa322, type: 3}
   _lowPoly: {fileID: -5526775922724796091, guid: 405ff86e2cc0fe341a89b6b63217b777, type: 3}
   _highPoly: {fileID: -1721275599552151077, guid: 1657886aae00cf24a8d6b07f69e61dc6, type: 3}
