@@ -13,7 +13,6 @@ public class ProductBehaviour : NetworkedGrabInteractable, IPunInstantiateMagicC
     [SerializeField] private MeshFilter _meshFilter;
     [SerializeField] private MeshRenderer _meshRenderer;
     [SerializeField] private MeshCollider _meshCollider;
-    [SerializeField] private Rigidbody _rigidbody;
 
     public event Action<string> productGrabbed;
 
@@ -35,19 +34,20 @@ public class ProductBehaviour : NetworkedGrabInteractable, IPunInstantiateMagicC
 
         //All clients
         transformFollow.enabled = false;
+        //_rigidbody.isKinematic = true;
+        _rigidbody.useGravity = false;
         productGrabbed?.Invoke(_info.Name);
-
         //Only for owner
-        if(photonView.Owner.Equals(PhotonNetwork.LocalPlayer))
+        if (photonView.Owner.Equals(PhotonNetwork.LocalPlayer))
         {
-            if(_destroyRoutine != null)
+            if (_destroyRoutine != null)
                 StopCoroutine(_destroyRoutine);
 
             _meshFilter.mesh = _info.HighPoly;
 
             //setting PlayerWrappers ActiveProduct should only be called once a frame.
             _productID = _info.Name;
-            if(_setProductDelayed == null)
+            if (_setProductDelayed == null)
                 _setProductDelayed = StartCoroutine(SetProductDelayed());
         }
     }
@@ -68,7 +68,7 @@ public class ProductBehaviour : NetworkedGrabInteractable, IPunInstantiateMagicC
         _rigidbody.useGravity = true;
 
         //Only for owner
-        if(photonView.Owner.Equals(PhotonNetwork.LocalPlayer))
+        if (photonView.Owner.Equals(PhotonNetwork.LocalPlayer))
         {
             _destroyRoutine = StartCoroutine(DestroyDelayed());
 
@@ -76,7 +76,7 @@ public class ProductBehaviour : NetworkedGrabInteractable, IPunInstantiateMagicC
 
             //setting the PlayerWrappers ActiveProduct should only be called once a frame.
             _productID = "";
-            if(_setProductDelayed == null)
+            if (_setProductDelayed == null)
                 _setProductDelayed = StartCoroutine(SetProductDelayed());
         }
     }
@@ -97,7 +97,7 @@ public class ProductBehaviour : NetworkedGrabInteractable, IPunInstantiateMagicC
 
     void IPunInstantiateMagicCallback.OnPhotonInstantiate(PhotonMessageInfo info)
     {
-        string productName = (string) info.photonView.InstantiationData[0];
+        string productName = (string)info.photonView.InstantiationData[0];
         _info = Inventory.GetProductByName(productName);
 
         _meshFilter.mesh = _info.LowPoly;

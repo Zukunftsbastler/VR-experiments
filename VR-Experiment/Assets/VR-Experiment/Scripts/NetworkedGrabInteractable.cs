@@ -11,9 +11,7 @@ public class NetworkedGrabInteractable : MonoBehaviourPun, IPunOwnershipCallback
 {
     private bool _isBehingHeld;
     protected XRGrabInteractable _interActable;
-
-
-
+    protected Rigidbody _rigidbody;
     public bool IsBehingHeld
     {
         get => _isBehingHeld;
@@ -36,7 +34,7 @@ public class NetworkedGrabInteractable : MonoBehaviourPun, IPunOwnershipCallback
     protected virtual void Awake()
     {
         _interActable = GetComponent<XRGrabInteractable>();
-
+        _rigidbody = GetComponent<Rigidbody>();
         Assert.IsNotNull(_interActable, $"XRGrabInteractable is null, please add it to {this.gameObject}");
         Assert.IsNotNull(photonView, $"Photonview is null!");
 
@@ -52,13 +50,13 @@ public class NetworkedGrabInteractable : MonoBehaviourPun, IPunOwnershipCallback
     {
         Debug.Log($"OnSelectEntered!");
 
-        if(IsBehingHeld)
+        if (IsBehingHeld)
         {
             Debug.Log($"This object is already held, skipping");
             return;
         }
 
-        if(photonView.IsMine)
+        if (photonView.IsMine)
         {
             photonView.RPC(nameof(RPC_StartNetworkGrabbing), RpcTarget.AllBuffered);
         }
@@ -98,10 +96,10 @@ public class NetworkedGrabInteractable : MonoBehaviourPun, IPunOwnershipCallback
 
     void IPunOwnershipCallbacks.OnOwnershipRequest(PhotonView targetView, Player requestingPlayer)
     {
-        if(targetView == this.photonView && targetView.IsMine)
+        if (targetView == this.photonView && targetView.IsMine)
         {
             Debug.Log($"OwnerShip requested for: {targetView.name} name {requestingPlayer.NickName}");
-            if(IsBehingHeld)
+            if (IsBehingHeld)
             {
                 // No need to buffer the call unless important data is synced
                 photonView.RPC(nameof(RPC_OnNetworkGrabFailed), RpcTarget.All);
@@ -116,7 +114,7 @@ public class NetworkedGrabInteractable : MonoBehaviourPun, IPunOwnershipCallback
     void IPunOwnershipCallbacks.OnOwnershipTransfered(PhotonView targetView, Player previousOwner)
     {
         Debug.Log($"OwnerShip granted to {targetView.name} from {previousOwner.NickName}");
-        if(targetView == this.photonView && targetView.IsMine)
+        if (targetView == this.photonView && targetView.IsMine)
         {
             photonView.RPC(nameof(RPC_StartNetworkGrabbing), RpcTarget.AllBuffered);
         }

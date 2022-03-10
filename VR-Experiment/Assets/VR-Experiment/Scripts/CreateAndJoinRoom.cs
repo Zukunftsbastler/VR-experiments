@@ -27,7 +27,7 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
         _joinRoomUI.joinRoomButtonClicked -= JoinRoom;
         PlayerWrapper.Instance.onPropertiesChanged -= LocalPlayerPropertiesChanged;
     }
-    
+
     // --- Photon Feedback ------------------------------------------------------------------------------
     public override void OnConnectedToMaster()
     {
@@ -46,14 +46,14 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
-        PhotonNetwork.LoadLevel("Expo_Robin");
+        PhotonNetwork.LoadLevel("Expo_Gil");
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
         base.OnJoinRoomFailed(returnCode, message);
 
-        Debug.LogWarning($"Joining Room Failed. Creating room: VR-Experiment");
+        Debug.LogWarning($"Joining Room Failed. Creating room: {_roomName}");
 
         PhotonNetwork.CreateRoom(_roomName);
     }
@@ -68,7 +68,7 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
     // --------------------------------------------------------------------
     public void JoinRoom()
     {
-        if(PhotonNetwork.IsConnectedAndReady == false)
+        if (PhotonNetwork.IsConnectedAndReady == false)
             return;
 
         _joinRoomUI.gameObject.SetActive(false);
@@ -79,12 +79,12 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
     {
         string debugText = "";
 
-        if(PlayerWrapper.Instance.HasAvatar == false)
+        if (PlayerWrapper.Instance.HasAvatar == false)
         {
             debugText += $"You need to choose an avatar befor you can join a room. \n";
         }
 
-        if(PlayerWrapper.Instance.HasRole == false)
+        if (PlayerWrapper.Instance.HasRole == false)
         {
             debugText += $"You need to choose a role befor you can join a room. \n";
         }
