@@ -2,26 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AvatarColorizer : MonoBehaviour
+namespace VR_Experiment.Avatar.Core
 {
-    [SerializeField] private Renderer _head;
-    [SerializeField] private Renderer _leftHand;
-    [SerializeField] private Renderer _rightHand;
-
-    void Start()
+    public class AvatarColorizer : MonoBehaviour
     {
-        Photon.Pun.PhotonView pv = GetComponent<Photon.Pun.PhotonView>();
+        [SerializeField] private Renderer _head;
+        [SerializeField] private Renderer _leftHand;
+        [SerializeField] private Renderer _rightHand;
 
-        if (pv == null)
+        void Start()
         {
-            Debug.LogError("No photonView found.");
-            return;
+            Photon.Pun.PhotonView pv = GetComponent<Photon.Pun.PhotonView>();
+
+            if(pv == null)
+            {
+                Debug.LogError("No photonView found.");
+                return;
+            }
+
+            Color skinColor = Resources.Load<SO_PlayerColor>("Colors/PlayerColor").GetPlayerColorByActorNumber(pv.OwnerActorNr);
+
+            _head.material.color = skinColor;
+            _leftHand.material.color = skinColor;
+            _rightHand.material.color = skinColor;
         }
-
-        Color skinColor = Resources.Load<SO_PlayerColor>("Colors/PlayerColor").GetPlayerColorByActorNumber(pv.OwnerActorNr);
-
-        _head.material.color = skinColor;
-        _leftHand.material.color = skinColor;
-        _rightHand.material.color = skinColor;
     }
 }

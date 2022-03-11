@@ -3,20 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoothLogic : MonoBehaviourPun
+namespace VR_Experiment.Expo.Booth
 {
-    [SerializeField] private List<RevolvingStageBehaviour> _productStages;
-
-    private void Start()
+    public class BoothLogic : MonoBehaviourPun
     {
-        SetStageInventories();
-    }
+        [SerializeField] private List<RevolvingStageBehaviour> _productStages;
 
-    public void SetStageInventories()
-    {
-        foreach(RevolvingStageBehaviour stage in _productStages)
+        private void Start()
         {
-            stage.SetInventory();
+            SetStageInventories();
+        }
+
+        private void SetStageInventories()
+        {
+            foreach(RevolvingStageBehaviour stage in _productStages)
+            {
+                stage.SetInventory();
+            }
         }
     }
 }

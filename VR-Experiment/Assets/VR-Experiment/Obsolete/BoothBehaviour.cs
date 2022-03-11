@@ -2,9 +2,12 @@ using Photon.Pun;
 using Photon.Realtime;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using VR_Experiment.Core;
+using VR_Experiment.Expo.Booth;
+using VR_Experiment.Expo.Product;
+using VR_Experiment.Menu.UI.Core;
+using VR_Experiment.Networking;
 
 [Obsolete]
 public class BoothBehaviour : MonoBehaviourPun, IItemListCallbackListener

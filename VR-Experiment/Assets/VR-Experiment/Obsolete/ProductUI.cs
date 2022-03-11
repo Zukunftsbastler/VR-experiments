@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using VR_Experiment.Expo.Product;
 
 [Obsolete]
 public class ProductUI : MonoBehaviour

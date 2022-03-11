@@ -2,37 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using VR_Experiment.Menu.UI.Core;
 
-public class AvatarInteractable : XRBaseInteractable
+namespace VR_Experiment.Avatar.Core
 {
-    [Space]
-    [SerializeField] private AvatarInfoUI _avatarInfoUI;
-
-    private void Start()
+    public class AvatarInteractable : XRBaseInteractable
     {
-        Photon.Pun.PhotonView pv = GetComponent<Photon.Pun.PhotonView>();
+        [Space]
+        [SerializeField] private AvatarInfoUI _avatarInfoUI;
 
-        if(pv == null)
+        private void Start()
         {
-            Debug.LogError("No photonView found.");
-            return;
+            Photon.Pun.PhotonView pv = GetComponent<Photon.Pun.PhotonView>();
+
+            if(pv == null)
+            {
+                Debug.LogError("No photonView found.");
+                return;
+            }
+
+            if(IsLocalPlayer(pv))
+            {
+                //interactionLayers = InteractionLayerMask.GetMask("NotInteractable");
+            }
+
+            bool IsLocalPlayer(Photon.Pun.PhotonView photonView)
+            {
+                return pv.Owner != null && pv.Owner.IsLocal;
+            }
         }
 
-        if(IsLocalPlayer(pv))
+        protected override void OnSelectEntering(SelectEnterEventArgs args)
         {
-            interactionLayers = InteractionLayerMask.GetMask("NotInteractable");
+            base.OnSelectEntering(args);
+
+            _avatarInfoUI.ToggleUI();
         }
-
-        bool IsLocalPlayer(Photon.Pun.PhotonView photonView)
-        {
-            return pv.Owner != null && pv.Owner.IsLocal;
-        }
-    }
-
-    protected override void OnSelectEntering(SelectEnterEventArgs args)
-    {
-        base.OnSelectEntering(args);
-
-        _avatarInfoUI.ToggleUI();
     }
 }

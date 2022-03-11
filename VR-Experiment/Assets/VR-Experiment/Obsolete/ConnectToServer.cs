@@ -4,6 +4,8 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.SceneManagement;
 using System;
+using VR_Experiment.Core;
+using VR_Experiment.Networking;
 
 [Obsolete]
 public class ConnectToServer : MonoBehaviourPunCallbacks

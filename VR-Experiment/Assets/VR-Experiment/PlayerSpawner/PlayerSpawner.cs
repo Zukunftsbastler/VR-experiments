@@ -2,39 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using VR_Experiment.Core;
+using VR_Experiment.Networking;
 
-public class PlayerSpawner : SingletonBehaviour<PlayerSpawner>
+namespace VR_Experiment.Core
 {
-    [SerializeField] private PhotonRoomInstatiation _photonRoom;
-    [SerializeField] private List<Transform> _spawnPoints = new List<Transform>();
-
-    protected override void OnAwake()
+    public class PlayerSpawner : SingletonBehaviour<PlayerSpawner>
     {
-        base.OnAwake();
-        StartCoroutine(SpawnPlayer());
-    }
+        [SerializeField] private PhotonRoomInstatiation _photonRoom;
+        [SerializeField] private List<Transform> _spawnPoints = new List<Transform>();
 
-    private IEnumerator SpawnPlayer()
-    {
-        yield return _photonRoom.IsConnectedToPhoton;
-
-        int globalSlot = PlayerWrapper.Instance.GetGlobalSlot();
-        Transform spawnPoint = GetSpawnPointByActorNumber(globalSlot);
-
-        PlayerWrapper.Instance.SpawnPlayer(spawnPoint);
-    }
-
-    private Transform GetSpawnPointByActorNumber(int actorNumber)
-    {
-        if(actorNumber < 0)
+        protected override void OnAwake()
         {
-            Debug.LogWarning($"Can't spawn player at spawnpoint: {actorNumber}.");
-            return _spawnPoints.FirstOrDefault();
+            base.OnAwake();
+            StartCoroutine(SpawnPlayer());
         }
-        else
+
+        private IEnumerator SpawnPlayer()
         {
-            int index = actorNumber % _spawnPoints.Count;
-            return _spawnPoints[index];
+            yield return _photonRoom.IsConnectedToPhoton;
+
+            int globalSlot = PlayerWrapper.Instance.GetGlobalSlot();
+            Transform spawnPoint = GetSpawnPointByActorNumber(globalSlot);
+
+            PlayerWrapper.Instance.SpawnPlayer(spawnPoint);
+        }
+
+        private Transform GetSpawnPointByActorNumber(int actorNumber)
+        {
+            if(actorNumber < 0)
+            {
+                Debug.LogWarning($"Can't spawn player at spawnpoint: {actorNumber}.");
+                return _spawnPoints.FirstOrDefault();
+            }
+            else
+            {
+                int index = actorNumber % _spawnPoints.Count;
+                return _spawnPoints[index];
+            }
         }
     }
 }

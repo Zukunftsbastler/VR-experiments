@@ -1,28 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VR_Experiment.Expo.Product;
 
-public class PlayerHud : MonoBehaviour
+namespace VR_Experiment.Menu.Hud
 {
-    [SerializeField] private GameObject _popUpPrefab;
-    [SerializeField] private GameObject _pulletPointsPrefab;
-
-    private BulletPointsMessage _message;
-
-    public void DisplayProductNotification(int actorNumber, string interaction, SO_Product product)
+    public class PlayerHud : MonoBehaviour
     {
-        string title = $"Client {actorNumber} {interaction} '{product.Name}'";
+        [SerializeField] private GameObject _popUpPrefab;
+        [SerializeField] private GameObject _pulletPointsPrefab;
 
-        PopUpMessage popUp = Instantiate(_popUpPrefab, transform).GetComponent<PopUpMessage>();
-        popUp.DisplayMessage(null, title, product.Info[0]);
-    }
+        private BulletPointsMessage _message;
 
-    public void DisplayProductBulletPoints(SO_Product product)
-    {
-        if(_message != null || product == null)
-            return;
+        public void DisplayProductNotification(int actorNumber, string interaction, SO_Product product)
+        {
+            string title = $"Client {actorNumber} {interaction} '{product.Name}'";
 
-        _message = Instantiate(_pulletPointsPrefab, transform).GetComponent<BulletPointsMessage>();
-        _message.DisplayBulletPoints(product);
+            PopUpMessage popUp = Instantiate(_popUpPrefab, transform).GetComponent<PopUpMessage>();
+            popUp.DisplayMessage(null, title, product.Info[0]);
+        }
+
+        public void DisplayProductBulletPoints(SO_Product product)
+        {
+            if(_message != null || product == null)
+                return;
+
+            _message = Instantiate(_pulletPointsPrefab, transform).GetComponent<BulletPointsMessage>();
+            _message.DisplayBulletPoints(product);
+        }
     }
 }

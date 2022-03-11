@@ -1,23 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using VR_Experiment.Core;
 
-[CustomEditor(typeof(CreateAndJoinRoom))]
-public class CreateAndJoinRoomEditor : Editor
+namespace VR_Experiment.Networking
 {
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(CreateAndJoinRoom))]
+    public class CreateAndJoinRoomEditor : Editor
     {
-        DrawDefaultInspector();
-
-        CreateAndJoinRoom roomJoin = (CreateAndJoinRoom)target;
-        if (EditorApplication.isPlaying)
+        public override void OnInspectorGUI()
         {
-            if (GUILayout.Button("Editor Connect"))
+            DrawDefaultInspector();
+
+            CreateAndJoinRoom roomJoin = (CreateAndJoinRoom)target;
+            if(EditorApplication.isPlaying)
             {
-                PlayerWrapper.Instance.SetRole(VR_Experiment.Enums.Role.Visitor);
-                PlayerWrapper.Instance.SetAvatar(Resources.Load<GameObject>("Alpha_Avatar_1"), true);
-                roomJoin.JoinRoom();
+                if(GUILayout.Button("Editor Connect"))
+                {
+                    PlayerWrapper.Instance.SetRole(Role.Visitor);
+                    PlayerWrapper.Instance.SetAvatar(Resources.Load<GameObject>("Alpha_Avatar_1"), true);
+                    roomJoin.JoinRoom();
+                }
             }
         }
     }

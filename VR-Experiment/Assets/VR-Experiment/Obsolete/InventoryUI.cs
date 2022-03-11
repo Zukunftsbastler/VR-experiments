@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using VR_Experiment.Expo.Product;
+using VR_Experiment.Menu.UI.Core;
 
 [Obsolete]
 public class InventoryUI : MonoBehaviour

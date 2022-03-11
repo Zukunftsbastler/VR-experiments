@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace VR_Experiment.Enums
+namespace VR_Experiment.Core
 {
     /// <summary>
     /// The Roles for all Users.

@@ -1,17 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Photon.Realtime;
-using VR_Experiment.Enums;
 
-public class PlayerNetworkInfo_Photon : PlayerNetworkInfo
+namespace VR_Experiment.Networking
 {
-    private Player _client;
-
-    public Player Client => _client;
-
-    public PlayerNetworkInfo_Photon(Player client)
+    public class PlayerNetworkInfo_Photon : PlayerNetworkInfo
     {
-        _client = client;
+        private Player _client;
+
+        public Player Client => _client;
+
+        public PlayerNetworkInfo_Photon(Player client)
+        {
+            _client = client;
+        }
     }
 }
