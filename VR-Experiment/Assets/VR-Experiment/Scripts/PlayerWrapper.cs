@@ -239,7 +239,7 @@ public class PlayerWrapper : SingletonBehaviour<PlayerWrapper>
     }
 
     // --- Others --------------------------------------------------------------------------------------------------
-    public void SpawnPlayer(PlayerSpawnPoint spawnPoint)
+    public void SpawnPlayer(Transform spawnPoint)
     {
         //Destroy local avatar
         if(_avatarLink != null)
@@ -249,12 +249,12 @@ public class PlayerWrapper : SingletonBehaviour<PlayerWrapper>
         GameObject avatar;
         if(_networkInfo is PlayerNetworkInfo_Photon)
         {
-            avatar = PhotonNetwork.Instantiate(GetLocalAvatar(), spawnPoint.Position, Quaternion.identity);
+            avatar = PhotonNetwork.Instantiate(GetLocalAvatar(), spawnPoint.position, Quaternion.identity);
             LinkAvatarToRig(avatar);
         }
 
         //Teleport Rig
-        Rig.TeleportRig(spawnPoint.Position, spawnPoint.Orientation);
+        Rig.TeleportRig(spawnPoint.position, spawnPoint.forward);
     }
 
     private void LinkAvatarToRig(GameObject avatar)
