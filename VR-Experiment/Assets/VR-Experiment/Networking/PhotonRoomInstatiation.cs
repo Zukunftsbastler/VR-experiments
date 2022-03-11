@@ -9,7 +9,6 @@ namespace VR_Experiment.Networking
         [SerializeField] private GameObject _standartAvatar;
         [SerializeField] private Role _standartRole;
 
-
         private bool _isConnected = false;
 
         public WaitUntil IsConnectedToPhoton => new WaitUntil(IsConnected);

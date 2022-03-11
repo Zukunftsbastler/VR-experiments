@@ -24,6 +24,10 @@ namespace VR_Experiment.Menu.UI.Core
             _callbackListener = callbackListener;
         }
 
+        /// <summary>
+        /// Loading items by list of scriptable objects.
+        /// </summary>
+        /// <param name="items"></param>
         public void SetItems(List<ScriptableListItem> items)
         {
             ClearProductUIs();
@@ -37,6 +41,10 @@ namespace VR_Experiment.Menu.UI.Core
             }
         }
 
+        /// <summary>
+        /// Loading items by list of strings.
+        /// </summary>
+        /// <param name="items"></param>
         public void SetItems(List<string> items)
         {
             ClearProductUIs();
@@ -50,13 +58,19 @@ namespace VR_Experiment.Menu.UI.Core
             }
         }
 
+        /// <summary>
+        /// Select a spesific item by its name.
+        /// </summary>
+        /// <param name="itemName"></param>
+        /// <param name="isActive"></param>
+        /// <param name="withoutNotify"></param>
         public void SetItem(string itemName, bool isActive = true, bool withoutNotify = true)
         {
             GroupItemToggleUI activeItem = _groupItemToggleUIs.FirstOrDefault(i => i.ItemName.Equals(itemName));
             SetItem(activeItem, isActive, withoutNotify);
         }
 
-        public void SetItem(GroupItemToggleUI activeItem, bool isActive = true, bool withoutNotify = true)
+        private void SetItem(GroupItemToggleUI activeItem, bool isActive = true, bool withoutNotify = true)
         {
             UpdateLastActiveItem(activeItem, isActive);
 

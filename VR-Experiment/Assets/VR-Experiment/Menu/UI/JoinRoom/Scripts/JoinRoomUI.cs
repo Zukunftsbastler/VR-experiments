@@ -34,6 +34,10 @@ namespace VR_Experiment.Menu.UI.JoinRoom
             _joinButton.onClick.RemoveListener(OnJoinButtonClicked);
         }
 
+        /// <summary>
+        /// Set debug message for the user.
+        /// </summary>
+        /// <param name="text"></param>
         public void SetDebugText(string text)
         {
             _joinButton.interactable = string.IsNullOrEmpty(text);

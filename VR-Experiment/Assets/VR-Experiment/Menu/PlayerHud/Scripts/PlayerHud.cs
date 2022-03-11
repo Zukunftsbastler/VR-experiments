@@ -12,6 +12,12 @@ namespace VR_Experiment.Menu.Hud
 
         private BulletPointsMessage _message;
 
+        /// <summary>
+        /// Spawning <see cref="PopUpMessage"/>
+        /// </summary>
+        /// <param name="actorNumber"></param>
+        /// <param name="interaction"></param>
+        /// <param name="product"></param>
         public void DisplayProductNotification(int actorNumber, string interaction, SO_Product product)
         {
             string title = $"Client {actorNumber} {interaction} '{product.Name}'";
@@ -20,6 +26,10 @@ namespace VR_Experiment.Menu.Hud
             popUp.DisplayMessage(null, title, product.Info[0]);
         }
 
+        /// <summary>
+        /// Spawning <see cref="BulletPointsMessage"/>. 
+        /// </summary>
+        /// <param name="product"></param>
         public void DisplayProductBulletPoints(SO_Product product)
         {
             if(_message != null || product == null)

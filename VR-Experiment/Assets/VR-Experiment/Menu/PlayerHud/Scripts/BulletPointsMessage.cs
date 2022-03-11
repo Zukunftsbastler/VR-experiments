@@ -34,6 +34,10 @@ namespace VR_Experiment.Menu.Hud
             _showNext.action.Disable();
         }
 
+        /// <summary>
+        /// Setting the content of the message.
+        /// </summary>
+        /// <param name="product"></param>
         public void DisplayBulletPoints(SO_Product product)
         {
             _title.text = product.Name;

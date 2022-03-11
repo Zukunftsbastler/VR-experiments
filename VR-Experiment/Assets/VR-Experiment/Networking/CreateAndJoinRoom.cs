@@ -67,6 +67,9 @@ namespace VR_Experiment.Networking
         }
 
         // --------------------------------------------------------------------
+        /// <summary>
+        /// Join photon room.
+        /// </summary>
         public void JoinRoom()
         {
             if(PhotonNetwork.IsConnectedAndReady == false)

@@ -68,7 +68,7 @@ namespace VR_Experiment.XR
             }
         }
 
-        public void OnSelectExit(SelectExitEventArgs args)
+        private void OnSelectExit(SelectExitEventArgs args)
         {
             photonView.RPC(nameof(RPC_StopNetworkGrabbing), RpcTarget.AllBuffered);
             Debug.Log($"OnSelectExit!");

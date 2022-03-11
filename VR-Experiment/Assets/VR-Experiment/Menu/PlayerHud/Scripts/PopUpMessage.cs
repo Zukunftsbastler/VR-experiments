@@ -25,6 +25,12 @@ namespace VR_Experiment.Menu.Hud
             Destroy(gameObject);
         }
 
+        /// <summary>
+        /// Setting the content of the message.
+        /// </summary>
+        /// <param name="avatarPreview"></param>
+        /// <param name="title"></param>
+        /// <param name="message"></param>
         public void DisplayMessage(Sprite avatarPreview, string title, string message)
         {
             _avatarPreview.sprite = avatarPreview;

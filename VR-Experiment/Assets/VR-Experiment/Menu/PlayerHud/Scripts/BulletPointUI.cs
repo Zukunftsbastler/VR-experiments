@@ -15,6 +15,9 @@ namespace VR_Experiment.Menu.Hud
 
         public string Text { get; set; }
 
+        /// <summary>
+        /// Updating Text and design on the bulletpoint.
+        /// </summary>
         public void UpdateVisuals()
         {
             int siblingIndex = transform.GetSiblingIndex() - 1;

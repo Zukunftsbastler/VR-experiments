@@ -51,6 +51,9 @@ namespace VR_Experiment.Menu.UI.Core
             }
         }
 
+        /// <summary>
+        /// Enables or disables the UI.
+        /// </summary>
         public void ToggleUI()
         {
             _isActive = !gameObject.activeSelf;

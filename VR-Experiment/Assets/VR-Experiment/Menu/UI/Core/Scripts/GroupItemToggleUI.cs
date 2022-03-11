@@ -37,6 +37,12 @@ namespace VR_Experiment.Menu.UI.Core
             _toggle.onValueChanged.RemoveListener(OnToggleValueChanged);
         }
 
+        /// <summary>
+        /// Setting content of the toggle.
+        /// </summary>
+        /// <param name="itemName">Lable of the toggle.</param>
+        /// <param name="onProductToggleUIInvoked">Callback which invokes on toggle value change.</param>
+        /// <param name="image">Background of the toggle.</param>
         public void SetItem(string itemName, Action<bool, GroupItemToggleUI> onProductToggleUIInvoked, Sprite image = null)
         {
             _itemName = itemName;
