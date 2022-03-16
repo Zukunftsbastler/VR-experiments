@@ -7,20 +7,18 @@ using VR_Experiment.Networking;
 
 namespace VR_Experiment.Core
 {
-    public class PlayerSpawner : SingletonBehaviour<PlayerSpawner>
+    public class PlayerSpawner : MonoBehaviour
     {
-        [SerializeField] private PhotonRoomInstatiation _photonRoom;
         [SerializeField] private List<Transform> _spawnPoints = new List<Transform>();
 
-        protected override void OnAwake()
+        protected void Start()
         {
-            base.OnAwake();
             StartCoroutine(SpawnPlayer());
         }
 
         private IEnumerator SpawnPlayer()
         {
-            yield return _photonRoom.IsConnectedToPhoton;
+            yield return PhotonRoomInstatiation.Instance.IsConnectedToPhoton;
 
             int globalSlot = PlayerWrapper.Instance.GetGlobalSlot();
             Transform spawnPoint = GetSpawnPointByActorNumber(globalSlot);

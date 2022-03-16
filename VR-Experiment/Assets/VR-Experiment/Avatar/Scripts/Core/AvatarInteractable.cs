@@ -23,7 +23,7 @@ namespace VR_Experiment.Avatar.Core
 
             if(IsLocalPlayer(pv))
             {
-                //interactionLayers = InteractionLayerMask.GetMask("NotInteractable");
+                interactionLayers = InteractionLayerMask.GetMask("NotInteractable");
             }
 
             bool IsLocalPlayer(Photon.Pun.PhotonView photonView)

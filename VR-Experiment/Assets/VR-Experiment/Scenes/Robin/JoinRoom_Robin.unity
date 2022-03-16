@@ -519,7 +519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _joinRoomUI: {fileID: 1080402857}
-  _roomName: VR-Experiment_Gil
+  _roomName: VR-Experiment_Robin
 --- !u!4 &701966405
 Transform:
   m_ObjectHideFlags: 0

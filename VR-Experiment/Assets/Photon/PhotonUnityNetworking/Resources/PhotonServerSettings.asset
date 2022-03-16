@@ -52,6 +52,14 @@ MonoBehaviour:
   - RPC_StartNetworkGrabbing
   - RPC_StopNetworkGrabbing
   - RPC_OnItemToggleInvoked
+  - RPC_SetHighlightHover
+  - RPC_PointOfInterestSelectionInvoked
+  - RPC_SetSelectecHighlight
+  - RPC_SelectingPointOfInterest
+  - RPC_SetPointOfInterest
+  - RPC_ToggleRemoteHighlightSelection
+  - RPC_OnSelectionUIChanged
+  - RPC_OccupieSeat
   DisableAutoOpenWizard: 1
   ShowSettings: 1
-  DevRegionSetOnce: 0
+  DevRegionSetOnce: 1

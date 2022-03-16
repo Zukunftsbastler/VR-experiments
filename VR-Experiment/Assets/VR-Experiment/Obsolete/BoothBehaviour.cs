@@ -18,8 +18,6 @@ public class BoothBehaviour : MonoBehaviourPun, IItemListCallbackListener
         Spawned = 1,
     }
 
-    [SerializeField] private PhotonRoomInstatiation _photonRoom;
-    [Space]
     [SerializeField] private BoothOccupationUI _occupationUI;
     [SerializeField] private InventoryUI _inventoryUI;
     [SerializeField] private RevolvingStageBehaviour _stage;
@@ -33,7 +31,7 @@ public class BoothBehaviour : MonoBehaviourPun, IItemListCallbackListener
 
     private IEnumerator SetUp()
     {
-        yield return _photonRoom.IsConnectedToPhoton;
+        yield return PhotonRoomInstatiation.Instance.IsConnectedToPhoton;
 
         _occupationUI.Initialize(PlayerWrapper.Instance.CanOccupyBooths);
         _inventoryUI.Initialize(this);

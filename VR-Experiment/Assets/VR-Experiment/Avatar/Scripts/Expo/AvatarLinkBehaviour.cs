@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,9 @@ namespace VR_Experiment.Avatar.Expo
         [SerializeField] private TransformFollow _headFollow;
         [SerializeField] private TransformFollow _leftHandFollow;
         [SerializeField] private TransformFollow _rightHandFollow;
+
+        private PhotonView _photonView;
+        public PhotonView PhotonView => _photonView ??= GetComponent<PhotonView>();
 
         /// <summary>
         /// Connects the rig to a networked avater. Sets <see cref="XRRig.Head">Head</see>, <see cref="XRRig.LeftHand">left Hand</see> 

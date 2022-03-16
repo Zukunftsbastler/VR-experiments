@@ -15,7 +15,6 @@ namespace VR_Experiment.Expo.Booth
     [RequireComponent(typeof(PhotonView))]
     public class RevolvingStageBehaviour : MonoBehaviour, IItemListCallbackListener
     {
-        [SerializeField] private PhotonRoomInstatiation _photonRoom;
         [SerializeField] private ScrollableItemListUI _productSelectionUI;
         [SerializeField] private Transform _productAnchor;
         [SerializeField] private float _respawndelay = .5f;
@@ -114,7 +113,7 @@ namespace VR_Experiment.Expo.Booth
 
         private IEnumerator SetUp()
         {
-            yield return _photonRoom.IsConnectedToPhoton;
+            yield return PhotonRoomInstatiation.Instance.IsConnectedToPhoton;
 
             if(PlayerWrapper.Instance.CanManageProducts)
             {

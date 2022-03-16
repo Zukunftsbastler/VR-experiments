@@ -1,10 +1,12 @@
 using Photon.Pun;
+using Photon.Realtime;
+using System.Collections.Generic;
 using UnityEngine;
 using VR_Experiment.Core;
 
 namespace VR_Experiment.Networking
 {
-    public class PhotonRoomInstatiation : MonoBehaviourPunCallbacks
+    public class PhotonRoomInstatiation : SingletonBehaviour<PhotonRoomInstatiation>, IConnectionCallbacks, IMatchmakingCallbacks
     {
         [SerializeField] private GameObject _standartAvatar;
         [SerializeField] private Role _standartRole;
@@ -25,9 +27,20 @@ namespace VR_Experiment.Networking
             }
         }
 
-        public override void OnConnectedToMaster()
+        private void OnEnable()
         {
-            base.OnConnectedToMaster();
+            PhotonNetwork.AddCallbackTarget(this);
+        }
+
+        private void OnDisable()
+        {
+            PhotonNetwork.RemoveCallbackTarget(this);
+        }
+
+        void IConnectionCallbacks.OnConnected() { }
+
+        void IConnectionCallbacks.OnConnectedToMaster()
+        {
             Debug.Log("Connected to Mastert");
 
             if(PhotonNetwork.OfflineMode)
@@ -36,9 +49,18 @@ namespace VR_Experiment.Networking
             }
         }
 
-        public override void OnCreatedRoom()
+        void IConnectionCallbacks.OnDisconnected(DisconnectCause cause) { }
+
+        void IConnectionCallbacks.OnRegionListReceived(RegionHandler regionHandler) { }
+
+        void IConnectionCallbacks.OnCustomAuthenticationResponse(Dictionary<string, object> data) { }
+
+        void IConnectionCallbacks.OnCustomAuthenticationFailed(string debugMessage) { }
+
+        void IMatchmakingCallbacks.OnFriendListUpdate(List<FriendInfo> friendList) { }
+
+        void IMatchmakingCallbacks.OnCreatedRoom()
         {
-            base.OnCreatedRoom();
             Debug.Log("Created Room");
 
             PlayerWrapper.Instance.SetPlayerData(new PlayerNetworkInfo_Photon(PhotonNetwork.LocalPlayer), _standartAvatar, _standartRole);
@@ -46,11 +68,18 @@ namespace VR_Experiment.Networking
             _isConnected = true;
         }
 
-        public override void OnCreateRoomFailed(short returnCode, string message)
+        void IMatchmakingCallbacks.OnCreateRoomFailed(short returnCode, string message)
         {
-            base.OnCreateRoomFailed(returnCode, message);
             Debug.Log("Failed to create a Room");
         }
+
+        void IMatchmakingCallbacks.OnJoinedRoom() { }
+
+        void IMatchmakingCallbacks.OnJoinRoomFailed(short returnCode, string message) { }
+
+        void IMatchmakingCallbacks.OnJoinRandomFailed(short returnCode, string message) { }
+
+        void IMatchmakingCallbacks.OnLeftRoom() { }
 
         private bool IsConnected() => _isConnected;
     }

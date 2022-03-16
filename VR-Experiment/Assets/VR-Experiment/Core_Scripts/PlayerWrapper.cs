@@ -29,6 +29,7 @@ namespace VR_Experiment.Core
         [Obsolete]
         public bool CanOccupyBooths => GetLocalRole() > Role.Visitor;
         public bool CanManageProducts => GetLocalRole() > Role.Visitor;
+        public bool CanManagePointsOfInterest => GetLocalRole() > Role.Visitor;
 
         public XRRig Rig => _rig ??= FindObjectOfType<XRRig>();
         public PlayerHud Hud => _hud ??= FindObjectOfType<PlayerHud>();

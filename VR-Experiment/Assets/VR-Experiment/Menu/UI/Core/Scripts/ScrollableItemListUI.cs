@@ -9,7 +9,7 @@ namespace VR_Experiment.Menu.UI.Core
 {
     public class ScrollableItemListUI : MonoBehaviour
     {
-        [SerializeField] private UnityEngine.Transform _container;
+        [SerializeField] private Transform _container;
         [SerializeField] private GameObject _groupItemToggleUIPrefab;
 
         private IItemListCallbackListener _callbackListener;
@@ -56,6 +56,12 @@ namespace VR_Experiment.Menu.UI.Core
 
                 _groupItemToggleUIs.Add(toggleUI);
             }
+        }
+
+        public void DeselectLastItem()
+        {
+            if(HasLastActivItem)
+                SetItem(_lastActiveItem, false);
         }
 
         /// <summary>

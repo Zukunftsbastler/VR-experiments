@@ -8,9 +8,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/VR-Experiment/Scenes/Robin/JoinRoom_Robin.unity
     guid: 5b15862a702989a4e8c3da7e9f35dd79
-  - enabled: 1
+  - enabled: 0
     path: Assets/VR-Experiment/Scenes/Robin/Expo_Robin.unity
     guid: 46d6ecf9ffb3e934abcbea67b7dc9968
+  - enabled: 1
+    path: "Assets/VR-Experiment/Scenes/Robin/360\xB0_Robin.unity"
+    guid: e68794fc93326db4f96f8cf1803c75ec
   - enabled: 0
     path: Assets/VR-Experiment/Scenes/Gil/JoinRoom_Gil.unity
     guid: 12f073115870d7e4c8ee4b29049db23c

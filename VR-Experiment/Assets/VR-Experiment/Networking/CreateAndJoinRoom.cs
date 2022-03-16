@@ -47,7 +47,7 @@ namespace VR_Experiment.Networking
         public override void OnJoinedRoom()
         {
             base.OnJoinedRoom();
-            PhotonNetwork.LoadLevel("Expo_Robin");
+            PhotonNetwork.LoadLevel("360°_Robin");
         }
 
         public override void OnJoinRoomFailed(short returnCode, string message)
