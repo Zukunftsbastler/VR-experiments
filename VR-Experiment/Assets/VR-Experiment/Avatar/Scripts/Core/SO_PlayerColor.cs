@@ -18,7 +18,6 @@ namespace VR_Experiment.Avatar.Core
                 return _playerColors.FirstOrDefault();
             int index = actor % _playerColors.Count;
             Color c = _playerColors[index];
-            Debug.Log($"Getting color {c} for actor {actor}");
             return c;
         }
     }

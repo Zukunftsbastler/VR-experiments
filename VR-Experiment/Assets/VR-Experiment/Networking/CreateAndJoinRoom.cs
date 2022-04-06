@@ -1,5 +1,6 @@
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.UI;
 using VR_Experiment.Core;
 using VR_Experiment.Menu.UI.JoinRoom;
 
@@ -8,7 +9,14 @@ namespace VR_Experiment.Networking
     public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
     {
         [SerializeField] private JoinRoomUI _joinRoomUI;
+        [SerializeField] private Toggle _expoToggle;
+        [SerializeField] private Toggle _threesixtyToggle;
+        [Space]
+        [SerializeField] private string _expoSceneName;
+        [SerializeField] private string _threesixtySceneName;
         [SerializeField] private string _roomName;
+
+        private string sceneName;
 
         private void Start()
         {
@@ -47,7 +55,7 @@ namespace VR_Experiment.Networking
         public override void OnJoinedRoom()
         {
             base.OnJoinedRoom();
-            PhotonNetwork.LoadLevel("360°_Robin");
+            PhotonNetwork.LoadLevel(sceneName);
         }
 
         public override void OnJoinRoomFailed(short returnCode, string message)
@@ -75,8 +83,19 @@ namespace VR_Experiment.Networking
             if(PhotonNetwork.IsConnectedAndReady == false)
                 return;
 
-            _joinRoomUI.gameObject.SetActive(false);
-            PhotonNetwork.JoinRoom(_roomName);
+            sceneName = _expoToggle.isOn ? _expoSceneName :
+                _threesixtyToggle.isOn ? _threesixtySceneName : "";
+
+            if(string.IsNullOrWhiteSpace(sceneName))
+            {
+                _joinRoomUI.SetDebugText("Please ensure to select a scenario.");
+            }
+
+            if(PlayerWrapper.Instance.HasAvatar && PlayerWrapper.Instance.HasRole)
+            {
+                _joinRoomUI.gameObject.SetActive(false);
+                PhotonNetwork.JoinRoom(_roomName);
+            }
         }
 
         private void LocalPlayerPropertiesChanged()

@@ -42,24 +42,22 @@ MonoBehaviour:
   - Fire
   - HeresWhy
   - RespawnSpaceship
+  - RPC_AddDirectionPointOfInterest
+  - RPC_ChangeDisplayScene
+  - RPC_OccupieSeat
+  - RPC_OnItemToggleInvoked
+  - RPC_OnNetworkGrabFailed
   - RPC_OnOccupationChange
   - RPC_OnProductInteractionRecognized
-  - StartNetworkGrabbing
-  - StopNetworkGrabbing
-  - RPC_RecievePlayerInfo
-  - RPC_RequestPlayerInfo
-  - RPC_OnNetworkGrabFailed
+  - RPC_OnSelectionUIChanged
+  - RPC_RecieveSeatFromMaster
+  - RPC_SetHighlightHover
+  - RPC_SetPointOfInterest
+  - RPC_SetPointOfInterestData
+  - RPC_SetVibrationActive
   - RPC_StartNetworkGrabbing
   - RPC_StopNetworkGrabbing
-  - RPC_OnItemToggleInvoked
-  - RPC_SetHighlightHover
-  - RPC_PointOfInterestSelectionInvoked
-  - RPC_SetSelectecHighlight
-  - RPC_SelectingPointOfInterest
-  - RPC_SetPointOfInterest
-  - RPC_ToggleRemoteHighlightSelection
-  - RPC_OnSelectionUIChanged
-  - RPC_OccupieSeat
+  - RPC_ToggleNetworkedReticle
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

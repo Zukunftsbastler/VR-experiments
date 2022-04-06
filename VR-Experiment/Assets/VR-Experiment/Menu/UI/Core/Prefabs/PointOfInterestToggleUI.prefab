@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1991225236267347674}
   - component: {fileID: 2289508181712144418}
   - component: {fileID: 1179969415134715846}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 496131960126389383}
   - component: {fileID: 8608013497960504597}
   - component: {fileID: 1215222021575332038}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PointOfInterestToggleUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 1280}
+  m_SizeDelta: {x: 1080, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4715216462706131477
 MonoBehaviour:
@@ -231,7 +231,7 @@ GameObject:
   - component: {fileID: 8100846774397704853}
   - component: {fileID: 4509887577677849692}
   - component: {fileID: 3153306804609441931}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -307,7 +307,7 @@ GameObject:
   - component: {fileID: 4228583032799648571}
   - component: {fileID: 6011562710169940767}
   - component: {fileID: 7044983651133480398}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Checkmark
   m_TagString: Untagged
   m_Icon: {fileID: 0}

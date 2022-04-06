@@ -7,8 +7,8 @@ namespace VR_Experiment.Core
     {
         //TODO: Discuss Godmode and its implementation.
         None = 0,
-        Visitor = 1,
-        Presenter = 2,
+        Attendee = 1,
+        Moderator = 2,
         Experimenter = 3,
     }
 
@@ -17,5 +17,12 @@ namespace VR_Experiment.Core
         UpdateAndBeforRender,
         Update,
         BeforRender
+    }
+
+    public enum Hand : byte
+    {
+        None = 0,
+        Left = 1,
+        Right = 2,
     }
 }

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ee63f845b45bf048b9d00f27847ef44, type: 3}
+  m_Name: "SO_Westfl\xFCgel"
+  m_EditorClassIdentifier: 
+  _name: "Westfl\xFCgel"
+  _preview: {fileID: 21300000, guid: 3502f0a6a7b89304584f950d0b39e1ed, type: 3}
+  tourDisplay: {fileID: 0}
+  directions:
+  - position: {x: -0.01478512, y: -0.007650137, z: 0.49985978}
+    targetDisplay: {fileID: 11400000, guid: aa0429c058f5ddb468e118ad8fdcdb41, type: 2}
+  - position: {x: -0.14550324, y: -0.015286661, z: 0.4776848}
+    targetDisplay: {fileID: 11400000, guid: 50db86d7f0b0d9a4888df1b8477069e7, type: 2}
+  - position: {x: -0.014015484, y: -0.030059332, z: -0.49879637}
+    targetDisplay: {fileID: 11400000, guid: 2de386933671d1f41943a7b7f25a9536, type: 2}
+  - position: {x: -0.4388101, y: -0.026417822, z: -0.23838268}
+    targetDisplay: {fileID: 11400000, guid: 9027c62dadeeffc47ade79537e08a211, type: 2}
+  hotspots: []

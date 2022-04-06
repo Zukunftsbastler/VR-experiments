@@ -30,6 +30,8 @@ namespace VR_Experiment.Core
         [SerializeField] private PositionSetting _positionSetting;
         [SerializeField] private RotationSetting _rotationSetting;
 
+        public bool HasTarget => followTarget != null;
+
         private void OnEnable()
         {
             Application.onBeforeRender += OnBeforRender;
@@ -42,7 +44,7 @@ namespace VR_Experiment.Core
 
         private void FixedUpdate()
         {
-            if(followTarget != null && _updateFollowType != UpdateType.BeforRender)
+            if(HasTarget && _updateFollowType != UpdateType.BeforRender)
             {
                 UpdatePosition();
                 UpdateRotation();
@@ -51,7 +53,7 @@ namespace VR_Experiment.Core
 
         private void OnBeforRender()
         {
-            if(followTarget != null && _updateFollowType != UpdateType.Update)
+            if(HasTarget && _updateFollowType != UpdateType.Update)
             {
                 UpdatePosition();
                 UpdateRotation();

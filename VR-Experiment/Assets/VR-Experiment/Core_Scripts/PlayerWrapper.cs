@@ -22,17 +22,21 @@ namespace VR_Experiment.Core
         private PlayerHud _hud = null;
 
         private AvatarLinkBehaviour _avatarLink = null;
+        private bool hasSpawned;
 
         public bool HasAvatar => string.IsNullOrEmpty(GetLocalAvatar()) == false;
         public bool HasRole => GetLocalRole() != Role.None;
         public bool HasActiveProduct => string.IsNullOrEmpty(GetLocalActiveProduct()) == false;
         [Obsolete]
-        public bool CanOccupyBooths => GetLocalRole() > Role.Visitor;
-        public bool CanManageProducts => GetLocalRole() > Role.Visitor;
-        public bool CanManagePointsOfInterest => GetLocalRole() > Role.Visitor;
+        public bool CanOccupyBooths => GetLocalRole() > Role.Attendee;
+        public bool CanManageProducts => GetLocalRole() > Role.Attendee;
+        public bool CanManagePointsOfInterest => GetLocalRole() > Role.Attendee;
 
+        public Player Player => (_networkInfo as PlayerNetworkInfo_Photon).Client;
         public XRRig Rig => _rig ??= FindObjectOfType<XRRig>();
         public PlayerHud Hud => _hud ??= FindObjectOfType<PlayerHud>();
+
+        public WaitUntil HasSpawned => new WaitUntil(() => hasSpawned);
 
         public event Action onPropertiesChanged;
 
@@ -285,6 +289,7 @@ namespace VR_Experiment.Core
 
             //Teleport Rig
             Rig.TeleportRig(spawnPoint.position, spawnPoint.forward);
+            hasSpawned = true;
         }
 
         private void LinkAvatarToRig(GameObject avatar)
@@ -302,6 +307,7 @@ namespace VR_Experiment.Core
         private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
         {
             _rig = FindObjectOfType<XRRig>();
+            hasSpawned = false;
 
             if(_avatarLink != null)
             {

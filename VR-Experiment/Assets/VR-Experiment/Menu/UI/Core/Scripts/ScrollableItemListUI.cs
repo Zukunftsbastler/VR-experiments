@@ -58,6 +58,14 @@ namespace VR_Experiment.Menu.UI.Core
             }
         }
 
+        public void SetInteractable(bool active)
+        {
+            foreach(GroupItemToggleUI toggleUI in _groupItemToggleUIs)
+            {
+                toggleUI.Toggle.interactable = active;
+            }
+        }
+
         public void DeselectLastItem()
         {
             if(HasLastActivItem)

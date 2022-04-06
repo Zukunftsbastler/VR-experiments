@@ -520,6 +520,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _joinRoomUI: {fileID: 1080402857}
   _roomName: VR-Experiment_GIL
+  _sceneName: Expo_Orion_Gil
 --- !u!4 &701966405
 Transform:
   m_ObjectHideFlags: 0

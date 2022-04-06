@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98ee72aa7f57c4e409b168a4109e91ea, type: 3}
+  m_Name: "SO_Jackst\xE4dt-Zentrum"
+  m_EditorClassIdentifier: 
+  _name: "Jackst\xE4dt"
+  _preview: {fileID: 21300000, guid: d6f21fdb5ded72a47906f9af062353e3, type: 3}
+  _info:
+  - "Das Jackst\xE4dt-Zentrum  Flensburg ist eine gemeinsame Einrichtung der wirtschaftswissenschaftlichen
+    Bereiche von Europa-Universit\xE4t Flensburg und Hochschule Flensburg."
+  - "Wir sind Partner f\xFCr Unternehmen, Studierende und Wissenschaft in Forschung,
+    Lehre und Wissenstransfer rund um die Themengebiete Unternehmertum und Mittelstand."
+  - "Erm\xF6glicht wurde die Gr\xFCndung des Zentrums im Jahr 2011 durch eine F\xF6rderung
+    der Dr. Werner Jackst\xE4dt-Stiftung mit Sitz in Wuppertal."
+  - "Ebenfalls wurde das Zentrum \xFCber mehrere Jahre durch die Struktur- und Exzellenzinitiative
+    des Landes Schleswig-Holstein sowie durch die regionale Flensburger Wirtschaft
+    finanziell unterst\xFCtzt, bevor es im Jahr 2021 an beiden Flensburger Hochschulen
+    verstetigt werden konnte."
+  _asset: {fileID: 2485764335772856075, guid: 522ed7598b7e8814a8560c1cd5d7e655, type: 3}
+  _lowPoly: {fileID: -3754715893404086731, guid: 6c547c9d6d3dd8a4da5c63b7caadc7bf, type: 3}
+  _highPoly: {fileID: -3754715893404086731, guid: 6c547c9d6d3dd8a4da5c63b7caadc7bf, type: 3}
+  _materials:
+  - {fileID: 2100000, guid: 2825167e3b558ee42becb12fa0633f83, type: 2}

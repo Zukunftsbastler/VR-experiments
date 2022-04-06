@@ -16,6 +16,9 @@ namespace VR_Experiment.Avatar.Expo
         private PhotonView _photonView;
         public PhotonView PhotonView => _photonView ??= GetComponent<PhotonView>();
 
+        public Transform LeftHand => _leftHandFollow.transform;
+        public Transform RightHand => _rightHandFollow.transform;
+
         /// <summary>
         /// Connects the rig to a networked avater. Sets <see cref="XRRig.Head">Head</see>, <see cref="XRRig.LeftHand">left Hand</see> 
         /// and <see cref="XRRig.RightHand">right Hand</see> as <see cref="TransformFollow.followTarget">follow Targets</see> of this avatar.

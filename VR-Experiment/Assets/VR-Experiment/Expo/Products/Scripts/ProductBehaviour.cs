@@ -16,7 +16,6 @@ namespace VR_Experiment.Expo.Product
         [Space]
         [SerializeField] private MeshFilter _meshFilter;
         [SerializeField] private MeshRenderer _meshRenderer;
-        [SerializeField] private MeshCollider _meshCollider;
 
         public event Action<string> productGrabbed;
 
@@ -105,7 +104,6 @@ namespace VR_Experiment.Expo.Product
 
             _meshFilter.mesh = _info.LowPoly;
             _meshRenderer.materials = _info.Materials;
-            //_meshCollider.sharedMesh = _meshFilter.mesh;
         }
     }
 }

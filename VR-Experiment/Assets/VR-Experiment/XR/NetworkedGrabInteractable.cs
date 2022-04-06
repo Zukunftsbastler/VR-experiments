@@ -8,11 +8,11 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 namespace VR_Experiment.XR
 {
-    [RequireComponent(typeof(PhotonRigidbodyView), typeof(XRGrabInteractable))]
+    [RequireComponent(typeof(XRGrabInteractable))]
     public class NetworkedGrabInteractable : MonoBehaviourPun, IPunOwnershipCallbacks
     {
         private bool _isBehingHeld;
-        protected XRGrabInteractable _interActable;
+        protected XRGrabInteractable _interactable;
         protected Rigidbody _rigidbody;
         public bool IsBehingHeld
         {
@@ -35,20 +35,20 @@ namespace VR_Experiment.XR
 
         protected virtual void Awake()
         {
-            _interActable = GetComponent<XRGrabInteractable>();
+            _interactable = GetComponent<XRGrabInteractable>();
             _rigidbody = GetComponent<Rigidbody>();
-            Assert.IsNotNull(_interActable, $"XRGrabInteractable is null, please add it to {this.gameObject}");
+            Assert.IsNotNull(_interactable, $"XRGrabInteractable is null, please add it to {this.gameObject}");
             Assert.IsNotNull(photonView, $"Photonview is null!");
 
             photonView.OwnershipTransfer = OwnershipOption.Request;
 
             IsBehingHeld = false;
-            _interActable.interactionLayers = InteractionLayerMask.GetMask("Interactable");
-            _interActable.selectEntered.AddListener(OnSelectEntered);
-            _interActable.selectExited.AddListener(OnSelectExit);
+            _interactable.interactionLayers = InteractionLayerMask.GetMask("Interactable");
+            _interactable.selectEntered.AddListener(OnSelectEntered);
+            _interactable.selectExited.AddListener(OnSelectExit);
         }
 
-        private void OnSelectEntered(SelectEnterEventArgs args)
+        protected virtual void OnSelectEntered(SelectEnterEventArgs args)
         {
             Debug.Log($"OnSelectEntered!");
 
@@ -68,7 +68,7 @@ namespace VR_Experiment.XR
             }
         }
 
-        private void OnSelectExit(SelectExitEventArgs args)
+        protected virtual void OnSelectExit(SelectExitEventArgs args)
         {
             photonView.RPC(nameof(RPC_StopNetworkGrabbing), RpcTarget.AllBuffered);
             Debug.Log($"OnSelectExit!");
@@ -78,7 +78,8 @@ namespace VR_Experiment.XR
         protected virtual void RPC_StartNetworkGrabbing()
         {
             IsBehingHeld = true;
-            _interActable.interactionLayers = photonView.IsMine ? InteractionLayerMask.GetMask("Interactable") : InteractionLayerMask.GetMask($"NotInteractable");
+            _rigidbody.useGravity = false;
+            _interactable.interactionLayers = photonView.IsMine ? InteractionLayerMask.GetMask("Interactable") : InteractionLayerMask.GetMask($"NotInteractable");
             Debug.Log($"Starting Network Grabbing!");
         }
 
@@ -92,7 +93,8 @@ namespace VR_Experiment.XR
         protected virtual void RPC_StopNetworkGrabbing()
         {
             IsBehingHeld = false;
-            _interActable.interactionLayers = InteractionLayerMask.GetMask("Interactable");
+            _rigidbody.useGravity = true;
+            _interactable.interactionLayers = InteractionLayerMask.GetMask("Interactable");
             Debug.Log($"Stopping Network Grabbing!");
         }
 

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ee63f845b45bf048b9d00f27847ef44, type: 3}
+  m_Name: "SO_B\xFCro_3"
+  m_EditorClassIdentifier: 
+  _name: "B\xFCro_3"
+  _preview: {fileID: 21300000, guid: 50bbb749f2e10ae4fa06eb0b6643ccd7, type: 3}
+  tourDisplay: {fileID: 0}
+  directions:
+  - position: {x: 0.47975704, y: -0.008156657, z: 0.14005049}
+    targetDisplay: {fileID: 11400000, guid: 5a53ec744e75337499568d191bc42030, type: 2}
+  - position: {x: -0.18589273, y: -0.018049454, z: 0.46394068}
+    targetDisplay: {fileID: 11400000, guid: 1fb89bb7d0b38304db542975efec7afa, type: 2}
+  hotspots: []

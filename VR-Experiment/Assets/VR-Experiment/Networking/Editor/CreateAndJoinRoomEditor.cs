@@ -16,7 +16,7 @@ namespace VR_Experiment.Networking
             {
                 if(GUILayout.Button("Editor Connect"))
                 {
-                    PlayerWrapper.Instance.SetRole(Role.Visitor);
+                    PlayerWrapper.Instance.SetRole(Role.Attendee);
                     PlayerWrapper.Instance.SetAvatar(Resources.Load<GameObject>("Alpha_Avatar_1"), true);
                     roomJoin.JoinRoom();
                 }

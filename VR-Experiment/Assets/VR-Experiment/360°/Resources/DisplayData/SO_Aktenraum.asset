@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ee63f845b45bf048b9d00f27847ef44, type: 3}
+  m_Name: SO_Aktenraum
+  m_EditorClassIdentifier: 
+  _name: Aktenraum
+  _preview: {fileID: 21300000, guid: 7b5f8756c4327c0499d160b1313c7587, type: 3}
+  tourDisplay: {fileID: 0}
+  directions:
+  - position: {x: -0.45773098, y: -0.031451453, z: -0.19821468}
+    pointOfInterest: {fileID: 0}
+    targetDisplay: {fileID: 11400000, guid: 9027c62dadeeffc47ade79537e08a211, type: 2}
+  hotspots: []

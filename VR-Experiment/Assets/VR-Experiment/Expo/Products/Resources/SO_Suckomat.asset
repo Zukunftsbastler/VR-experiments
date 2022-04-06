@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98ee72aa7f57c4e409b168a4109e91ea, type: 3}
+  m_Name: SO_Suckomat
+  m_EditorClassIdentifier: 
+  _name: Suckomat
+  _preview: {fileID: 21300000, guid: 78b736601df34e145b113200f637e37f, type: 3}
+  _info:
+  - Vollautomatischer Masturbator mit intervallgesteuerter Saug-Stimulation.
+  - "Verwendung: F\xFCr intensive Blowjobs-Feelings - ganz ohne Handeinsatz."
+  - "Intensiv: Bietet bis zu 109 Saugimpulse/Minute mit einer Saugst\xE4rke bis 30
+    W."
+  - "Variabel: 5 Intensit\xE4ten in 5 Geschwindigkeiten f\xFCr 25 Stimulationsvarianten."
+  - 'Bequem: In der neuen Version auch steuerbar mit einer Fernbedienung.'
+  - "KFZ-Adapter: Nutzbar \xFCber den Zigarettenanz\xFCnder."
+  - "Extra langer Luftschlauch: F\xFCr einen angenehm gro\xDFen Aktionsradius."
+  - "Verst\xE4rkte Manschette: Damit Du lange Freude an der Saugstimulation hast."
+  - 'Lieferumfang: 1 x Suck-O-Mat Remote Controlled inklusive AC power Adapter 100-240
+    V (Euro Plug) und Aufbewahrungs-Box im Carbon-Look.'
+  _asset: {fileID: 596112937505107866, guid: 1494210ee6540a44d94b8c0ad899ea93, type: 3}
+  _lowPoly: {fileID: -4164788840552775905, guid: b5c2ca64c3ed50a459816d221dd3fda7, type: 3}
+  _highPoly: {fileID: -4164788840552775905, guid: b5c2ca64c3ed50a459816d221dd3fda7, type: 3}
+  _materials:
+  - {fileID: 6015436984982906993, guid: b5c2ca64c3ed50a459816d221dd3fda7, type: 3}
+  - {fileID: -1673560778466630236, guid: b5c2ca64c3ed50a459816d221dd3fda7, type: 3}
+  - {fileID: 6514736555466716287, guid: b5c2ca64c3ed50a459816d221dd3fda7, type: 3}
+  - {fileID: -6126313759571683926, guid: b5c2ca64c3ed50a459816d221dd3fda7, type: 3}
+  - {fileID: -3846018093981099296, guid: b5c2ca64c3ed50a459816d221dd3fda7, type: 3}
+  - {fileID: 4874126678125670354, guid: b5c2ca64c3ed50a459816d221dd3fda7, type: 3}
+  - {fileID: 3087894956454039513, guid: b5c2ca64c3ed50a459816d221dd3fda7, type: 3}
+  - {fileID: 412885580112000170, guid: b5c2ca64c3ed50a459816d221dd3fda7, type: 3}
