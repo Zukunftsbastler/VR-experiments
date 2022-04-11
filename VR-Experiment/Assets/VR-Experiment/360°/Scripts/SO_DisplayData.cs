@@ -9,6 +9,7 @@ public class SO_DisplayData : ScriptableListItem
 {
     [HideInInspector] public TourDisplay tourDisplay;
 
+    public bool isStartDisplay = false;
     public List<DirectionData> directions = new List<DirectionData>();
     public List<HotspotData> hotspots = new List<HotspotData>();
 }

@@ -21,7 +21,7 @@ public class TourInformationUI : MonoBehaviour, IItemListCallbackListener
 
     private Sprite _defaultSprite;
 
-    private void Start()
+    private void Awake()
     {
         _choose.onClick.AddListener(OnChooseButtonClicked);
         _confirm.onClick.AddListener(OnConfirmButtonClicked);
@@ -29,7 +29,6 @@ public class TourInformationUI : MonoBehaviour, IItemListCallbackListener
         _selectionUI.SetCallbackListener(this);
 
         _defaultSprite = _preview.sprite;
-        gameObject.SetActive(false);
     }
 
     private void OnEnable()

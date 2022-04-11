@@ -6,14 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/VR-Experiment/Scenes/Robin/JoinRoom_Robin.unity
-    guid: 5b15862a702989a4e8c3da7e9f35dd79
+    path: Assets/VR-Experiment/Scenes/Build/Join Experiment.unity
+    guid: 5ae7dbc267965f6498fa75a37602ce56
   - enabled: 1
-    path: Assets/VR-Experiment/Scenes/Gil/Expo_Orion_Gil.unity
-    guid: e3a0dddbf8568de4c82892d6438bb557
+    path: "Assets/VR-Experiment/Scenes/Build/360\xB0_Experiment.unity"
+    guid: ffd128c6bbc1d754ebf93b50d3850401
   - enabled: 1
-    path: "Assets/VR-Experiment/Scenes/Robin/360\xB0_Robin.unity"
-    guid: e68794fc93326db4f96f8cf1803c75ec
+    path: Assets/VR-Experiment/Scenes/Build/Expo_Experiment.unity
+    guid: 1ae9e6cc348e2e54c82bf1109b5f67a1
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bc04b292409a2234785e6dd2192c0b9c, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 2328d3b25cb9dae4e9235b85db5f6aae, type: 2}

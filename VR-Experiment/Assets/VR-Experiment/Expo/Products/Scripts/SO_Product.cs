@@ -5,7 +5,7 @@ using VR_Experiment.Core;
 
 namespace VR_Experiment.Expo.Product
 {
-    [CreateAssetMenu(fileName = "SO_Product", menuName = "VR-Experiment/Messestand/Product", order = 1)]
+    [CreateAssetMenu(fileName = "SO_Product", menuName = "VR-Experiment/Expo/Product", order = 1)]
     public class SO_Product : ScriptableListItem
     {
         [SerializeField, TextArea(2, 5)] private List<string> _info;

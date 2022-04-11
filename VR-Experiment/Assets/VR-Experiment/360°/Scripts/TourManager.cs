@@ -1,5 +1,4 @@
 using Photon.Pun;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +9,12 @@ using VR_Experiment.Core;
 public class TourManager : MonoBehaviourPun
 {
     [SerializeField] private GameObject _displayPrefab;
-    [Space]
-    [SerializeField] private SO_DisplayData _startDisplay;
-    [SerializeField] private List<SO_DisplayData> _tourData;
-    [Space]
+    [SerializeField] private SO_TourData _tourData;
     [SerializeField] private TourInformationUI _tourInformation;
 
     private TourDisplay _activeDisplay;
     private PointOfInterestData _activePoIData;
+    private TourData _activeTour;
 
     private void Awake()
     {
@@ -30,7 +27,7 @@ public class TourManager : MonoBehaviourPun
 
         if(_activePoIData is DirectionData directionData)
         {
-            _tourInformation.ShowPointOfInterestData(directionData, _tourData.Cast<ScriptableListItem>().ToList());
+            _tourInformation.ShowPointOfInterestData(directionData, _activeTour.displayData.Cast<ScriptableListItem>().ToList());
         }
 
         //TODO: Add case for HotspotData
@@ -48,7 +45,7 @@ public class TourManager : MonoBehaviourPun
         {
             if(active)
             {
-                directionData.targetDisplay = _tourData.FirstOrDefault(data => data.Name.Equals(dataName));
+                directionData.targetDisplay = _activeTour.displayData.FirstOrDefault(data => data.Name.Equals(dataName));
             }
             else
             {
@@ -111,18 +108,19 @@ public class TourManager : MonoBehaviourPun
 
     private void InstantiateTourDisplays()
     {
-        foreach(SO_DisplayData displayData in _tourData)
+        _activeTour = _tourData.ActiveTour;
+
+        foreach(SO_DisplayData displayData in _activeTour.displayData)
         {
             TourDisplay display = Instantiate(_displayPrefab, transform).GetComponent<TourDisplay>();
-
-            bool active = displayData.Name.Equals(_startDisplay.Name);
-            display.gameObject.SetActive(active);
             display.Initialize(displayData, this);
 
+            bool active = _activeTour.HasStartDisplay ? displayData.isStartDisplay : display.transform.childCount == 0;
             if(active)
             {
                 _activeDisplay = display;
             }
+            display.gameObject.SetActive(active);
         }
     }
 }

@@ -51,17 +51,17 @@ public class NetworkedReticle : MonoBehaviourPun, IPunObservable
     {
         if(stream.IsWriting)
         {
-            Vector3 sendPosition = _origin.transform.worldToLocalMatrix * (transform.position - _origin.transform.position);
-            stream.SendNext(sendPosition);
+            Vector3 sendDirection = _origin.transform.InverseTransformDirection(transform.position - _origin.transform.position);
+            stream.SendNext(sendDirection);
         }
         else if(info.Sender.IsLocal == false)
         {
             if(_origin != null)
             {
-                Vector3 receivedPosition = (Vector3)stream.ReceiveNext();
-                Vector3 networkedPosition = _origin.transform.localToWorldMatrix * receivedPosition;
+                Vector3 receivedDirection = (Vector3)stream.ReceiveNext();
+                Vector3 networkedDirection = _origin.transform.TransformDirection(receivedDirection);
                 
-                transform.position = _origin.transform.position + networkedPosition;
+                transform.position = _origin.transform.position + networkedDirection;
             }
         } 
     }

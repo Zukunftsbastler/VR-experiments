@@ -16,12 +16,10 @@ public class PointOfInterestUI : MonoBehaviour
 
     private Vector3 _activePosition;
 
-    private void Start()
+    private void Awake()
     {
         _hotspot.onClick.AddListener(OnAddHotspotClicked);
         _direction.onClick.AddListener(OnAddDirectionClicked);
-
-        gameObject.SetActive(false);
     }
 
     private void OnEnable()

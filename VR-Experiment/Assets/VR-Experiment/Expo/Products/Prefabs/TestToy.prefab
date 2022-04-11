@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 4836654784571239377}
   - component: {fileID: 4556858274421771987}
   m_Layer: 0
-  m_Name: DildoGrabbable
+  m_Name: TestToy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
