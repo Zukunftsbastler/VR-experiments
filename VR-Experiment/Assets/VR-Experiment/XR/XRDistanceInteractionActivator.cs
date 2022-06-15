@@ -18,13 +18,15 @@ namespace VR_Experiment.XR
         [SerializeField, Range(0f, 1f)] private float _activationThreshold = .5f;
         [SerializeField] private InputActionProperty _activateDistanceInteraction;
 
-        public event Action<XRDistanceInteractionActivator, bool> activeChanged;
+        public event Func<XRDistanceInteractionActivator, bool> AllowChange;
+        public event Action<XRDistanceInteractionActivator, bool> ActiveChanged;
 
-        private bool _lastActive;
+        private float _lastInputValue = 0;
 
         public Hand Hand => _hand;
         public bool IsActive => _rayInteractor.enabled;
         public XRRayInteractor RayInteractor => _rayInteractor;
+
 
         private void Start()
         {
@@ -35,33 +37,44 @@ namespace VR_Experiment.XR
             $"Please ensure this gameobject has a '{typeof(XRRayInteractor)}' component.");
         }
 
-        private void Update()
-        {
-            bool isActive = _activateDistanceInteraction.action.ReadValue<float>() > _activationThreshold;
-
-            if(_lastActive != isActive)
-            {
-                SetActiveDirty(isActive);
-                activeChanged?.Invoke(this, isActive);
-            }
-        }
-
         private void OnEnable()
         {
             EnableInputActions();
-            activeChanged += OnActiveChanged;
+            _activateDistanceInteraction.action.performed += OnInteractionPerformed;
         }
 
         private void OnDisable()
         {
             DisableInputActions();
-            activeChanged -= OnActiveChanged;
+            _activateDistanceInteraction.action.performed -= OnInteractionPerformed;
         }
 
-        public void SetActiveDirty(bool isActive)
+        /// <summary>
+        /// Sets the <see cref="XRRayInteractor"/> of a spesific <see cref="Core.Hand"/>
+        /// </summary>
+        /// <param name="isActive"> Defines whether the <see cref="XRRayInteractor"/> gets activated or not.</param>
+        /// <param name="setSilent"> Defines whether subscriber to <see cref="ActiveChanged"/> should be notified or not.</param>
+        public void SetActiveDirty(bool isActive, bool setSilent = false)
         {
+            if(IsActive == isActive)
+                return;
+
+            bool allowChange = false;
+            if(AllowChange != null)
+            {
+                allowChange = AllowChange.Invoke(this);
+            }
+
+            if(!allowChange)
+                return;
+
             _rayInteractor.enabled = isActive;
-        } 
+
+            if(setSilent == false)
+            {
+                ActiveChanged?.Invoke(this, isActive);
+            }
+        }
 
         private void EnableInputActions()
         {
@@ -73,12 +86,20 @@ namespace VR_Experiment.XR
             _activateDistanceInteraction.action.Disable();
         }
 
-        private void OnActiveChanged(XRDistanceInteractionActivator distanceActivator, bool isActive)
+        private void OnInteractionPerformed(InputAction.CallbackContext input)
         {
-            if(distanceActivator != this)
-                return;
+            float activeInputValue = input.action.ReadValue<float>();
 
-            _lastActive = isActive;
+            if(_lastInputValue < activeInputValue && activeInputValue > _activationThreshold)
+            {
+                SetActiveDirty(true);
+            }
+            else
+            {
+                SetActiveDirty(false);
+            }
+
+            _lastInputValue = activeInputValue;
         }
     }
 }

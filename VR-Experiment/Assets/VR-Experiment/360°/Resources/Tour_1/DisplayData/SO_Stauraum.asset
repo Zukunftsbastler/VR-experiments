@@ -15,7 +15,6 @@ MonoBehaviour:
   _name: Stauraum
   _preview: {fileID: 21300000, guid: 917b43557943f6c409bb5c8a006a4bf2, type: 3}
   tourDisplay: {fileID: 0}
-  directions:
-  - position: {x: -0.23966396, y: -0.03352585, z: 0.43768334}
-    targetDisplay: {fileID: 11400000, guid: aa0429c058f5ddb468e118ad8fdcdb41, type: 2}
+  isStartDisplay: 0
+  directions: []
   hotspots: []

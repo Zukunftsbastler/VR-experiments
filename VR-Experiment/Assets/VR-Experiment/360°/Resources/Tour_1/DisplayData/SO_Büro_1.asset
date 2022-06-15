@@ -15,11 +15,6 @@ MonoBehaviour:
   _name: "B\xFCro_1"
   _preview: {fileID: 21300000, guid: 6a55b6b28bb06ad4ba6a8d8fbc41f645, type: 3}
   tourDisplay: {fileID: 0}
-  directions:
-  - position: {x: -0.25265956, y: -0.018774485, z: 0.4308384}
-    targetDisplay: {fileID: 11400000, guid: b35c765d60d354a4b964b4962cec167a, type: 2}
-  - position: {x: 0.111759804, y: -0.029253364, z: -0.48734608}
-    targetDisplay: {fileID: 11400000, guid: 50db86d7f0b0d9a4888df1b8477069e7, type: 2}
-  - position: {x: -0.4490798, y: -0.016654301, z: -0.21950877}
-    targetDisplay: {fileID: 11400000, guid: f0cf7aded0691ad488e4a85195c6f70b, type: 2}
+  isStartDisplay: 0
+  directions: []
   hotspots: []

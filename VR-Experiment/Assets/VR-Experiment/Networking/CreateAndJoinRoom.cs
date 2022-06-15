@@ -98,7 +98,7 @@ namespace VR_Experiment.Networking
             }
         }
 
-        private void LocalPlayerPropertiesChanged()
+        private void LocalPlayerPropertiesChanged(object[] data)
         {
             string debugText = "";
 

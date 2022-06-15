@@ -28,7 +28,7 @@ namespace VR_Experiment.Avatar.Core
 
             bool IsLocalPlayer(Photon.Pun.PhotonView photonView)
             {
-                return pv.Owner != null && pv.Owner.IsLocal;
+                return photonView.Owner != null && photonView.Owner.IsLocal;
             }
         }
 

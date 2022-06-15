@@ -15,9 +15,6 @@ MonoBehaviour:
   _name: Treppe_1.OG
   _preview: {fileID: 21300000, guid: 4baa667bb3329cf4ebcf79f68ab6b90a, type: 3}
   tourDisplay: {fileID: 0}
-  directions:
-  - position: {x: -0.4193836, y: -0.23804016, z: -0.13190766}
-    targetDisplay: {fileID: 11400000, guid: aa0429c058f5ddb468e118ad8fdcdb41, type: 2}
-  - position: {x: -0.26108167, y: 0.18105516, z: 0.55130357}
-    targetDisplay: {fileID: 11400000, guid: 2236141ab2297a944b17c3600d54b542, type: 2}
+  isStartDisplay: 0
+  directions: []
   hotspots: []

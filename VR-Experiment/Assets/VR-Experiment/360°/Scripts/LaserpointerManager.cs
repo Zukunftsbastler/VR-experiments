@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Photon.Realtime;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,8 +26,10 @@ public class LaserpointerManager : MonoBehaviour
     [SerializeField] private InputActionProperty _leftHandSelect;
     [SerializeField] private InputActionProperty _rightHandSelect;
 
-    private XRDistanceInteractionActivator _activeDistanceInteractor;
+    private XRDistanceInteractionActivator _activeDistanceActivator;
     private NetworkedReticle _networkedRedicle;
+
+    private bool _forceActive;
 
     private void Start()
     {
@@ -35,11 +38,11 @@ public class LaserpointerManager : MonoBehaviour
 
     private void Update()
     {
-        if(_activeDistanceInteractor != null && _activeDistanceInteractor.IsActive)
+        if(_activeDistanceActivator != null && _activeDistanceActivator.IsActive)
         {
             Vector3 position;
 
-            XRRayInteractor activeRayIntaractor = _activeDistanceInteractor.RayInteractor;
+            XRRayInteractor activeRayIntaractor = _activeDistanceActivator.RayInteractor;
             if(activeRayIntaractor.TryGetCurrent3DRaycastHit(out RaycastHit rayInteractorHit))
             {
                 position = rayInteractorHit.point;
@@ -69,14 +72,24 @@ public class LaserpointerManager : MonoBehaviour
 
     private void OnEnable()
     {
-        _leftDistanceActivator.activeChanged += OnActiveChanged;
-        _rightDistanceActivator.activeChanged += OnActiveChanged;
+        _leftDistanceActivator.AllowChange += AllowActivatorChange;
+        _leftDistanceActivator.ActiveChanged += OnActiveChanged;
+        
+        _rightDistanceActivator.AllowChange += AllowActivatorChange;
+        _rightDistanceActivator.ActiveChanged += OnActiveChanged;
+
+        PlayerWrapper.Instance.onPropertiesChanged += LocalPlayerPropertiesChanged;
     }
 
     private void OnDisable()
     {
-        _leftDistanceActivator.activeChanged -= OnActiveChanged;
-        _rightDistanceActivator.activeChanged -= OnActiveChanged;
+        _leftDistanceActivator.AllowChange -= AllowActivatorChange;
+        _leftDistanceActivator.ActiveChanged -= OnActiveChanged;
+
+        _rightDistanceActivator.AllowChange -= AllowActivatorChange;
+        _rightDistanceActivator.ActiveChanged -= OnActiveChanged;
+
+        PlayerWrapper.Instance.onPropertiesChanged += LocalPlayerPropertiesChanged;
     }
 
     public Color GetColorByActorNumber(int actorNumber)
@@ -88,58 +101,66 @@ public class LaserpointerManager : MonoBehaviour
     {
         yield return PlayerWrapper.Instance.HasSpawned;
 
+        CheckForceActive(PlayerWrapper.Instance.GetLocalRole());
         _networkedRedicle = PhotonNetwork.Instantiate(_networkedReticlePrefab.name, Vector3.zero, Quaternion.identity).GetComponent<NetworkedReticle>();
+    }
+
+    private bool AllowActivatorChange(XRDistanceInteractionActivator distanceActivator)
+    {
+        if(_activeDistanceActivator == distanceActivator)
+        {
+            return !_forceActive;
+        }
+
+        return true;
     }
 
     private void OnActiveChanged(XRDistanceInteractionActivator distanceActivator, bool isActive)
     {
+        // Check what action has been performed => active or not.
         if(isActive)
         {
-            if(_activeDistanceInteractor != null && _activeDistanceInteractor.IsActive)
+            // Check for other active activator and disable it
+            if(_activeDistanceActivator != null && _activeDistanceActivator.IsActive 
+                && _activeDistanceActivator != distanceActivator)
             {
-                _activeDistanceInteractor.SetActiveDirty(false);
-                ToggleInput(false, _activeDistanceInteractor.Hand);
+                _activeDistanceActivator.SetActiveDirty(false, true);
+                HandleSelectActionSubscription(false, _activeDistanceActivator.Hand);
             }
 
-            _activeDistanceInteractor = distanceActivator;
-            _networkedRedicle.ToggleReticle(true, _activeDistanceInteractor.Hand, _localReticle);
-            ToggleInput(true, _activeDistanceInteractor.Hand);
+            _activeDistanceActivator = distanceActivator;
+            _networkedRedicle.ToggleReticle(true, _activeDistanceActivator.Hand, _localReticle);
+            HandleSelectActionSubscription(true, _activeDistanceActivator.Hand);
         }
         else
         {
-            ToggleInput(false, _activeDistanceInteractor.Hand);
+            if(_activeDistanceActivator == null || _activeDistanceActivator != distanceActivator)
+                return;
+
+            HandleSelectActionSubscription(false, _activeDistanceActivator.Hand);
             _networkedRedicle.ToggleReticle(false);
-            _activeDistanceInteractor = null;
+            _activeDistanceActivator = null;
         }
 
-        void ToggleInput(bool active, Hand hand)
+        void HandleSelectActionSubscription(bool active, Hand hand)
         {
-            switch(hand)
+            InputAction action = hand switch
             {
-                case Hand.None:
-                    break;
-                case Hand.Left:
-                    if(active)
-                    {
-                        _leftHandSelect.action.performed += OnSelectActionPerformed;
-                    }
-                    else
-                    {
-                        _leftHandSelect.action.performed -= OnSelectActionPerformed;
-                    }
-                    break;
-                case Hand.Right:
-                    if(active)
-                    {
-                        _rightHandSelect.action.performed += OnSelectActionPerformed;
-                    }
-                    else
-                    {
-                        _rightHandSelect.action.performed -= OnSelectActionPerformed;
-                    }
-                    break;
-                default:
-                    break;
+                Hand.Left => _leftHandSelect.action,
+                Hand.Right => _rightHandSelect.action,
+                _ => null
+            };
+
+            if(action != null)
+            {
+                if(active)
+                {
+                    action.performed += OnSelectActionPerformed;
+                }
+                else
+                {
+                    action.performed -= OnSelectActionPerformed;
+                }
             }
         }
     }
@@ -149,10 +170,34 @@ public class LaserpointerManager : MonoBehaviour
         if(PlayerWrapper.Instance.CanManagePointsOfInterest == false)
             return;
 
-        if(_activeDistanceInteractor.RayInteractor.TryGetCurrent3DRaycastHit(out _) || 
-            _activeDistanceInteractor.RayInteractor.TryGetCurrentUIRaycastResult(out _))
+        if(_activeDistanceActivator.RayInteractor.TryGetCurrent3DRaycastHit(out _) || 
+            _activeDistanceActivator.RayInteractor.TryGetCurrentUIRaycastResult(out _))
             return;
 
         _pointOfInterest.ToggleUI(_localReticle.position);
+    }
+
+    private void CheckForceActive(Role role)
+    {
+        _forceActive = role > Role.Attendee;
+
+        Debug.LogWarning($"Check for forceActive: {_forceActive}");
+
+        if(_activeDistanceActivator != null)
+        {
+            _activeDistanceActivator.SetActiveDirty(_forceActive, false);
+        }
+        else
+        {
+            _rightDistanceActivator.SetActiveDirty(_forceActive, true);
+        }
+    }
+
+    private void LocalPlayerPropertiesChanged(object[] data)
+    {
+        if(data[0] is Role role)
+        {
+            CheckForceActive(role);
+        }
     }
 }

@@ -15,7 +15,6 @@ MonoBehaviour:
   _name: Serverraum
   _preview: {fileID: 21300000, guid: dede179fa96a4434581d1f027531bbf1, type: 3}
   tourDisplay: {fileID: 0}
-  directions:
-  - position: {x: 0.39460334, y: -0.025529617, z: -0.30613548}
-    targetDisplay: {fileID: 11400000, guid: 2236141ab2297a944b17c3600d54b542, type: 2}
+  isStartDisplay: 0
+  directions: []
   hotspots: []

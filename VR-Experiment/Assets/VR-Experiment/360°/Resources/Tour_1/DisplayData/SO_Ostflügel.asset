@@ -15,15 +15,6 @@ MonoBehaviour:
   _name: "Ostfl\xFCgel"
   _preview: {fileID: 21300000, guid: 74b820fc9cf417b4d9123068784c43da, type: 3}
   tourDisplay: {fileID: 0}
-  directions:
-  - position: {x: -0.015105772, y: -0.031588186, z: 0.49854395}
-    targetDisplay: {fileID: 11400000, guid: 5a53ec744e75337499568d191bc42030, type: 2}
-  - position: {x: 0.4931748, y: -0.008140302, z: -0.08129053}
-    targetDisplay: {fileID: 11400000, guid: 1fb89bb7d0b38304db542975efec7afa, type: 2}
-  - position: {x: 0.056637537, y: -0.019434929, z: -0.4967639}
-    targetDisplay: {fileID: 11400000, guid: aa0429c058f5ddb468e118ad8fdcdb41, type: 2}
-  - position: {x: -0.38274202, y: -0.017056143, z: 0.32139575}
-    targetDisplay: {fileID: 11400000, guid: 516ed6b118416dd4d8185b28d5c1a2ac, type: 2}
-  - position: {x: -0.34261617, y: -0.00020164251, z: -0.3640435}
-    targetDisplay: {fileID: 11400000, guid: 2709d1dbdd912f54b8cc48b908831982, type: 2}
+  isStartDisplay: 0
+  directions: []
   hotspots: []

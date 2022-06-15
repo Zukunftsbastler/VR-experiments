@@ -8,8 +8,9 @@ using VR_Experiment.Core;
 [RequireComponent(typeof(PhotonView))]
 public class TourManager : MonoBehaviourPun
 {
-    [SerializeField] private GameObject _displayPrefab;
     [SerializeField] private SO_TourData _tourData;
+    [SerializeField] private Transform _tourWrapper;
+    [SerializeField] private GameObject _displayPrefab;
     [SerializeField] private TourInformationUI _tourInformation;
 
     private TourDisplay _activeDisplay;
@@ -41,21 +42,36 @@ public class TourManager : MonoBehaviourPun
     [PunRPC]
     private void RPC_SetPointOfInterestData(bool active, string dataName)
     {
-        if(_activePoIData is DirectionData directionData)
+        
+        if(active)
         {
-            if(active)
+            if(_activePoIData is DirectionData directionData)
             {
-                directionData.targetDisplay = _activeTour.displayData.FirstOrDefault(data => data.Name.Equals(dataName));
+                directionData.ListItem = _activeTour.displayData.FirstOrDefault(data => data.Name.Equals(dataName));
             }
-            else
-            {
-                _activeDisplay.Data.directions.Remove(directionData);
-                Destroy(directionData.pointOfInterest.gameObject);
+
+            //TODO: Add case for HotspotData
+            //if(_activePoIData is HotspotData hotspotData)
+            //{
+            //    //Take data from hotspot list.
+            //}
+        }
+        else
+        {
+            DestroyPointOfInterest(_activePoIData);
+        }
+    }
+
+    public void DestroyPointOfInterest(PointOfInterestData pointOfInterestData)
+    {
+        if(pointOfInterestData is DirectionData directionData)
+        {
+            _activeDisplay.Data.directions.Remove(directionData);
+            Destroy(directionData.pointOfInterest.gameObject);
 
 #if UNITY_EDITOR
-                UnityEditor.EditorUtility.SetDirty(_activeDisplay.Data);
+            UnityEditor.EditorUtility.SetDirty(_activeDisplay.Data);
 #endif
-            }
         }
 
         //TODO: Add case for HotspotData
@@ -67,13 +83,18 @@ public class TourManager : MonoBehaviourPun
 
     public void ChangeDisplayScene()
     {
-        photonView.RPC(nameof(RPC_ChangeDisplayScene), RpcTarget.AllBuffered, _activePoIData.ListItem.Name);
+        ChangeDisplayScene(_activePoIData);
+    }
+
+    public void ChangeDisplayScene(PointOfInterestData pointOfInterestData)
+    {
+        photonView.RPC(nameof(RPC_ChangeDisplayScene), RpcTarget.AllBuffered, pointOfInterestData.ListItem.Name);
     }
 
     [PunRPC]
     private void RPC_ChangeDisplayScene(string dataName)
     {
-        DirectionData directionData = _activeDisplay.Data.directions.FirstOrDefault(direction => direction.targetDisplay.Name.Equals(dataName));
+        DirectionData directionData = _activeDisplay.Data.directions.FirstOrDefault(direction => direction.ListItem.Name.Equals(dataName));
 
         if(directionData == null)
         {
@@ -82,20 +103,21 @@ public class TourManager : MonoBehaviourPun
         }
 
         _activeDisplay.gameObject.SetActive(false);
-        _activeDisplay = directionData.targetDisplay.tourDisplay;
+        _activeDisplay = (directionData.ListItem as SO_DisplayData).tourDisplay;
         _activeDisplay.gameObject.SetActive(true);
     }
 
     public void AddDirection(Vector3 position)
     {
-        photonView.RPC(nameof(RPC_AddDirectionPointOfInterest), RpcTarget.AllBuffered, position);
+        Vector3 inversePosition = _activeDisplay.transform.InverseTransformPoint(position);
+        photonView.RPC(nameof(RPC_AddDirectionPointOfInterest), RpcTarget.AllBuffered, inversePosition);
     }
 
     [PunRPC]
-    private void RPC_AddDirectionPointOfInterest(Vector3 position)
+    private void RPC_AddDirectionPointOfInterest(Vector3 inversePosition)
     {
         DirectionData directionToAdd = new DirectionData();
-        directionToAdd.position = _activeDisplay.transform.InverseTransformPoint(position);
+        directionToAdd.position = inversePosition;
         directionToAdd.pointOfInterest = _activeDisplay.SpawnPointOfInterest(directionToAdd, this);
 
         _activeDisplay.Data.directions.Add(directionToAdd);
@@ -112,7 +134,7 @@ public class TourManager : MonoBehaviourPun
 
         foreach(SO_DisplayData displayData in _activeTour.displayData)
         {
-            TourDisplay display = Instantiate(_displayPrefab, transform).GetComponent<TourDisplay>();
+            TourDisplay display = Instantiate(_displayPrefab, _tourWrapper).GetComponent<TourDisplay>();
             display.Initialize(displayData, this);
 
             bool active = _activeTour.HasStartDisplay ? displayData.isStartDisplay : display.transform.childCount == 0;

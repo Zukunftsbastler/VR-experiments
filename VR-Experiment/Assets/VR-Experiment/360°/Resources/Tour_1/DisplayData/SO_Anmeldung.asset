@@ -15,9 +15,8 @@ MonoBehaviour:
   _name: Anmeldung
   _preview: {fileID: 21300000, guid: 8d396968b567f19428b18c6a27854935, type: 3}
   tourDisplay: {fileID: 0}
+  isStartDisplay: 0
   directions:
-  - position: {x: -0.49257976, y: -0.016215647, z: 0.021149551}
-    targetDisplay: {fileID: 11400000, guid: 9027c62dadeeffc47ade79537e08a211, type: 2}
-  - position: {x: 0.037312984, y: -0.019841267, z: -0.49827275}
-    targetDisplay: {fileID: 11400000, guid: f0cf7aded0691ad488e4a85195c6f70b, type: 2}
+  - position: {x: -0.0121250395, y: -0.0069980263, z: -0.5000617}
+    _targetDisplay: {fileID: 11400000, guid: aa0429c058f5ddb468e118ad8fdcdb41, type: 2}
   hotspots: []

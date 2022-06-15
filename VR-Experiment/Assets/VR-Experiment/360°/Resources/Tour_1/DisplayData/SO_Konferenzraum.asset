@@ -15,9 +15,6 @@ MonoBehaviour:
   _name: Konferenzraum
   _preview: {fileID: 21300000, guid: 876b15a95a6bdd34abcbe41bdc4afced, type: 3}
   tourDisplay: {fileID: 0}
-  directions:
-  - position: {x: 0.026259733, y: -0.036805857, z: 0.4979202}
-    targetDisplay: {fileID: 11400000, guid: ad9b981a213cd2044bdb7f7bb6fcd754, type: 2}
-  - position: {x: -0.499796, y: -0.008642745, z: 0.012267089}
-    targetDisplay: {fileID: 11400000, guid: 2236141ab2297a944b17c3600d54b542, type: 2}
+  isStartDisplay: 0
+  directions: []
   hotspots: []

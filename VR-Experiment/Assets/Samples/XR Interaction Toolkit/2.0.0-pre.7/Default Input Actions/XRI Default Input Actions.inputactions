@@ -738,6 +738,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Edit",
+                    "type": "Button",
+                    "id": "b72f17f1-bd7f-484c-9d77-c32693389163",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1112,6 +1121,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Hud Interaction Delete",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0297dc73-3157-4d7b-b9d5-6ec892e49da2",
+                    "path": "<XRController>{RightHand}/primaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Edit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -16,13 +16,5 @@ MonoBehaviour:
   _preview: {fileID: 21300000, guid: 0efc498212a607a418e39a943b1036e5, type: 3}
   tourDisplay: {fileID: 0}
   isStartDisplay: 1
-  directions:
-  - position: {x: 0.42804122, y: -0.11044287, z: 0.23332909}
-    targetDisplay: {fileID: 11400000, guid: 27bb1d77f35479840a30eccd87b2c728, type: 2}
-  - position: {x: 0.44423094, y: 0.22233453, z: 0.05717122}
-    targetDisplay: {fileID: 11400000, guid: cb8c16450576ada46b3ac77b8b803338, type: 2}
-  - position: {x: 0.0067105046, y: -0.022993578, z: -0.49951148}
-    targetDisplay: {fileID: 11400000, guid: 2236141ab2297a944b17c3600d54b542, type: 2}
-  - position: {x: -0.0472233, y: -0.01165576, z: 0.49736318}
-    targetDisplay: {fileID: 11400000, guid: f0cf7aded0691ad488e4a85195c6f70b, type: 2}
+  directions: []
   hotspots: []

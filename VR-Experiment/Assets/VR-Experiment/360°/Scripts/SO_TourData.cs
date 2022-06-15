@@ -20,14 +20,12 @@ public class TourData
     public SO_DisplayData[] displayData;
     public SO_HotspotData[] hotspotData;
 
-    public bool HasStartDisplay { get; private set; }
+    public bool HasStartDisplay => displayData.Any(dD => dD.isStartDisplay);
 
     public TourData(string name, SO_DisplayData[] displayData, SO_HotspotData[] hotspotData)
     {
         this.name = name;
         this.displayData = displayData;
         this.hotspotData = hotspotData;
-
-        HasStartDisplay = this.displayData.Any(dD => dD.isStartDisplay);
     }
 }

@@ -24,7 +24,7 @@ public class TourDisplay : MonoBehaviour
         //}
     }
 
-    public void Initialize( SO_DisplayData displayData, TourManager tourManager)
+    public void Initialize(SO_DisplayData displayData, TourManager tourManager)
     {
         for(int i = 0; i < transform.childCount; i++)
         {
@@ -79,7 +79,6 @@ public class TourDisplay : MonoBehaviour
         foreach(HotspotData hotspot in _displayData.hotspots)
         {
             hotspot.pointOfInterest = SpawnPointOfInterest(hotspot, tourManager);
-            hotspot.pointOfInterest.TourManager = tourManager;
         }
     }
 }

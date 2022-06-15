@@ -40,6 +40,11 @@ namespace VR_Experiment.Avatar.Expo
             _headFollow.followTarget = rigHead;
             _leftHandFollow.followTarget = rigLeftHand;
             _rightHandFollow.followTarget = rigRightHand;
+
+            if(_headFollow.TryGetComponentInChildren(out MeshRenderer renderer))
+            {
+                renderer.enabled = false;
+            }
         }
     }
 }

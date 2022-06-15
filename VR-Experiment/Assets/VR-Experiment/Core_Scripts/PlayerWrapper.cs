@@ -38,7 +38,7 @@ namespace VR_Experiment.Core
 
         public WaitUntil HasSpawned => new WaitUntil(() => hasSpawned);
 
-        public event Action onPropertiesChanged;
+        public event Action<object[]> onPropertiesChanged;
 
         private void OnEnable()
         {
@@ -72,7 +72,15 @@ namespace VR_Experiment.Core
             });
 
                 if(propertiesHaveChanged)
-                    onPropertiesChanged?.Invoke();
+                {
+                    object[] data = new object[]
+                    {
+                        "",
+                        Role.None,
+                        ""
+                    };
+                    onPropertiesChanged?.Invoke(data);
+                }
             }
         }
 
@@ -104,7 +112,13 @@ namespace VR_Experiment.Core
                 });
 
                 if(propertiesHaveChanged)
-                    onPropertiesChanged?.Invoke();
+                {
+                    object[] data = new object[]
+                    {
+                        avatarName
+                    };
+                    onPropertiesChanged?.Invoke(data);
+                }
             }
         }
 
@@ -121,7 +135,13 @@ namespace VR_Experiment.Core
                 });
 
                 if(propertiesHaveChanged)
-                    onPropertiesChanged?.Invoke();
+                {
+                    object[] data = new object[]
+                    {
+                        role
+                    };
+                    onPropertiesChanged?.Invoke(data);
+                }
             }
         }
 
@@ -138,7 +158,13 @@ namespace VR_Experiment.Core
                 });
 
                 if(propertiesHaveChanged)
-                    onPropertiesChanged?.Invoke();
+                {
+                    object[] data = new object[]
+                    {
+                        productName
+                    };
+                    onPropertiesChanged?.Invoke(data);
+                }
             }
         }
 

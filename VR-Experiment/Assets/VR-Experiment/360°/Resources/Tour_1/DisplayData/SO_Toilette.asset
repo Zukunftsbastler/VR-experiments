@@ -15,7 +15,6 @@ MonoBehaviour:
   _name: Toilette
   _preview: {fileID: 21300000, guid: 39f18b3d236996f47b01057febe64336, type: 3}
   tourDisplay: {fileID: 0}
-  directions:
-  - position: {x: 0.044155147, y: -0.03630304, z: -0.49664614}
-    targetDisplay: {fileID: 11400000, guid: f0cf7aded0691ad488e4a85195c6f70b, type: 2}
+  isStartDisplay: 0
+  directions: []
   hotspots: []
