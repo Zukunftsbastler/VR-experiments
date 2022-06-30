@@ -58,6 +58,7 @@ MonoBehaviour:
   - RPC_StartNetworkGrabbing
   - RPC_StopNetworkGrabbing
   - RPC_ToggleNetworkedReticle
+  - RPC_SyncVoiceSettings
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

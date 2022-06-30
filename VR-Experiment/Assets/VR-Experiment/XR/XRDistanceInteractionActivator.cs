@@ -59,7 +59,7 @@ namespace VR_Experiment.XR
             if(IsActive == isActive)
                 return;
 
-            bool allowChange = false;
+            bool allowChange = true;
             if(AllowChange != null)
             {
                 allowChange = AllowChange.Invoke(this);

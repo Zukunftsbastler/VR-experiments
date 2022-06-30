@@ -65,11 +65,11 @@ namespace VR_Experiment.Core
             if(_networkInfo is PlayerNetworkInfo_Photon photonInfo)
             {
                 bool propertiesHaveChanged = photonInfo.Client.SetCustomProperties(new ExitGames.Client.Photon.Hashtable()
-            {
-                {AVATAR_KEY, ""},
-                {ROLE_KEY, Role.None},
-                {PRODUCT_KEY, ""},
-            });
+                {
+                    {AVATAR_KEY, ""},
+                    {ROLE_KEY, Role.None},
+                    {PRODUCT_KEY, ""},
+                });
 
                 if(propertiesHaveChanged)
                 {
@@ -131,7 +131,7 @@ namespace VR_Experiment.Core
             {
                 bool propertiesHaveChanged = photonInfo.Client.SetCustomProperties(new ExitGames.Client.Photon.Hashtable()
                 {
-                    { ROLE_KEY, role }
+                    {ROLE_KEY, role}
                 });
 
                 if(propertiesHaveChanged)
@@ -154,7 +154,7 @@ namespace VR_Experiment.Core
             {
                 bool propertiesHaveChanged = photonInfo.Client.SetCustomProperties(new ExitGames.Client.Photon.Hashtable()
                 {
-                    { PRODUCT_KEY, productName }
+                    {PRODUCT_KEY, productName}
                 });
 
                 if(propertiesHaveChanged)
