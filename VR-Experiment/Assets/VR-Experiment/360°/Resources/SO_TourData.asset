@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 986db7691659e334da150268e7fd0441, type: 3}
   m_Name: SO_TourData
   m_EditorClassIdentifier: 
-  _activeTour: Tour_1
+  _activeTour: Tour_2
   tourData:
   - name: Tour_1
     displayData:
@@ -34,3 +34,11 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 84059eb7fa656db438ba3e739b32ac8a, type: 2}
     - {fileID: 11400000, guid: 14f0dd355753d874f9fa05d8040c4696, type: 2}
     - {fileID: 11400000, guid: 8bbc543f94abe0045b1b17d6ec903402, type: 2}
+  - name: Tour_2
+    displayData:
+    - {fileID: 11400000, guid: 6dbd48d57528a4b4598530b154500c12, type: 2}
+    - {fileID: 11400000, guid: ca024717ba7507343bb5ed88bebdb06c, type: 2}
+    - {fileID: 11400000, guid: d7dd27fe6b386c74590aca0c8982e186, type: 2}
+    - {fileID: 11400000, guid: bdec045a3d804f841a81afa106593138, type: 2}
+    - {fileID: 11400000, guid: 39f13439217d7f6479c34ac4d56702e5, type: 2}
+    hotspotData: []
