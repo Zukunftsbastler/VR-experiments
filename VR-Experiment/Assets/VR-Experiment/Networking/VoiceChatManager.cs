@@ -40,9 +40,22 @@ namespace VR_Experiment.Networking
             _clients.Remove(player.ActorNumber);
         }
 
+        public AvatarSoundSettings GetAvatarSettings(Player player)
+        {
+            if(_clients.TryGetValue(player.ActorNumber, out AvatarSoundSettings settings))
+            {
+                return settings;
+            }
+            else
+            {
+                Debug.LogWarning($"Trying to {nameof(GetAvatarSettings)} of unregistered player '{player.ActorNumber}' - NO SETTINGS FOUND!");
+                return null;
+            }
+        }
+
         public void SyncVoiceSettings(Player player, VoiceChatSettings settings)
         {
-            _photonView.RPC(nameof(RPC_SyncVoiceSettings), RpcTarget.Others, player.ActorNumber, settings);
+            _photonView.RPC(nameof(RPC_SyncVoiceSettings), RpcTarget.OthersBuffered, player.ActorNumber, settings);
         }
 
         [PunRPC]
@@ -53,13 +66,13 @@ namespace VR_Experiment.Networking
 
         void IInRoomCallbacks.OnPlayerEnteredRoom(Player newPlayer) 
         {
-            if(PhotonNetwork.IsMasterClient)
-            {
-                foreach(var client in _clients)
-                {
-                    _photonView.RPC(nameof(RPC_SyncVoiceSettings), newPlayer, client.Key, client.Value.GetSettings());
-                }
-            }
+            //if(PhotonNetwork.IsMasterClient)
+            //{
+            //    foreach(var client in _clients)
+            //    {
+            //        _photonView.RPC(nameof(RPC_SyncVoiceSettings), newPlayer, client.Key, client.Value.GetSettings());
+            //    }
+            //}
         }
 
         void IInRoomCallbacks.OnPlayerLeftRoom(Player otherPlayer) { }

@@ -2,6 +2,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using VR_Experiment.Core;
 
 namespace VR_Experiment.Networking
@@ -37,6 +38,18 @@ namespace VR_Experiment.Networking
             PhotonNetwork.RemoveCallbackTarget(this);
         }
 
+        public void ExitExperiment()
+        {
+            if(_isConnected)
+            { 
+                PhotonNetwork.Disconnect();
+            }
+            else
+            {
+                SceneManager.LoadScene("Join Experiment", LoadSceneMode.Single);
+            }
+        }
+
         void IConnectionCallbacks.OnConnected() { }
 
         void IConnectionCallbacks.OnConnectedToMaster()
@@ -49,7 +62,10 @@ namespace VR_Experiment.Networking
             }
         }
 
-        void IConnectionCallbacks.OnDisconnected(DisconnectCause cause) { }
+        void IConnectionCallbacks.OnDisconnected(DisconnectCause cause) 
+        {
+            SceneManager.LoadScene("Join Experiment", LoadSceneMode.Single);
+        }
 
         void IConnectionCallbacks.OnRegionListReceived(RegionHandler regionHandler) { }
 

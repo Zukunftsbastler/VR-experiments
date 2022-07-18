@@ -24,12 +24,20 @@ namespace VR_Experiment.Avatar
 
         private void OnEnable()
         {
-            VoiceChatManager.Instance.Register(_photonView.Owner, this);
+            if(VoiceChatManager.HasInstance)
+                VoiceChatManager.Instance.Register(_photonView.Owner, this);
+
+            if(DistanceVisualizationManager.HasInstance)
+                DistanceVisualizationManager.Instance.Register(_photonView.Owner, transform);
         }
 
         private void OnDisable()
         {
-            VoiceChatManager.Instance.Unregister(_photonView.Owner);
+            if(VoiceChatManager.HasInstance)
+                VoiceChatManager.Instance.Unregister(_photonView.Owner);
+
+            if(DistanceVisualizationManager.HasInstance)
+                DistanceVisualizationManager.Instance.Unregister(_photonView.Owner);
         }
 
         public void SetSettings(VoiceChatSettings settings)
