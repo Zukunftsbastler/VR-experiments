@@ -11,6 +11,9 @@ namespace VR_Experiment.Menu.UI.Core
 {
     public class SoundSettingUI : MonoBehaviour
     {
+        [SerializeField] private bool _useFixedSettings;
+        [SerializeField] private AvatarSoundSettings _avatarSoundSettings;
+        [Space]
         [SerializeField] private Button _voiceChatButton;
         [SerializeField] private Button _saveSoundButton;
         [SerializeField] private Button _cancelSoundButton;
@@ -26,8 +29,12 @@ namespace VR_Experiment.Menu.UI.Core
         [SerializeField] private TextMeshProUGUI _distanceValue;
         [SerializeField] private Slider _distanceSlider;
 
+        private const float VALUE_MULTIPLIER = 0.1f;
+        private const float INVERSE_VALUE_MULTIPLIER = 10f;
+        private const float DIST_MULTIPLIER = 0.5f;
+        private const float INVERS_DIST_MULTIPLIER = 2f;
+
         private VoiceChatSettings _startSettings;
-        private AvatarSoundSettings _avatarSoundSettings;
 
         private void Start()
         {
@@ -36,7 +43,9 @@ namespace VR_Experiment.Menu.UI.Core
 
         private void OnEnable()
         {
-            StartCoroutine(SetUpAvatarSettings());
+            if(!_useFixedSettings)
+                StartCoroutine(SetUpAvatarSettings());
+
             _voiceChatButton.gameObject.SetActive(PlayerWrapper.Instance.GetLocalRole() == Role.Experimenter);
 
             _voiceChatButton.onClick.AddListener(DisplayVoiceChatSettings);
@@ -74,13 +83,13 @@ namespace VR_Experiment.Menu.UI.Core
 
             _startSettings = _avatarSoundSettings.GetSettings();
             _volumeValue.text = $"{_startSettings.volume}";
-            _volumeSlider.value = _startSettings.volume;
+            _volumeSlider.value = _startSettings.volume * INVERSE_VALUE_MULTIPLIER;
             _pitchValue.text = $"{_startSettings.pitch}";
-            _pitchSlider.value = _startSettings.pitch;
+            _pitchSlider.value = _startSettings.pitch * INVERSE_VALUE_MULTIPLIER;
             _spatialBlendValue.text = $"{_startSettings.spatialBlend}";
-            _spatialBlendSlider.value = _startSettings.spatialBlend;
+            _spatialBlendSlider.value = _startSettings.spatialBlend * INVERSE_VALUE_MULTIPLIER;
             _distanceValue.text = $"{_startSettings.distance}";
-            _distanceSlider.value = _startSettings.distance;
+            _distanceSlider.value = _startSettings.distance * INVERS_DIST_MULTIPLIER;
         }
 
         private void SaveSoundChanges()
@@ -97,26 +106,30 @@ namespace VR_Experiment.Menu.UI.Core
 
         private void OnVolumeChange(float value)
         {
-            _volumeValue.text = $"{value:0.00}";
-            _avatarSoundSettings.SetVolume(value);
+            float multipliedValue = value * VALUE_MULTIPLIER;
+            _volumeValue.text = $"{multipliedValue:0.00}";
+            _avatarSoundSettings.SetVolume(multipliedValue);
         }
 
         private void OnPitchChange(float value)
         {
-            _pitchValue.text = $"{value:0.00}";
-            _avatarSoundSettings.SetPitch(value);
+            float multipliedValue = value * VALUE_MULTIPLIER;
+            _pitchValue.text = $"{multipliedValue:0.00}";
+            _avatarSoundSettings.SetPitch(multipliedValue);
         }
 
         private void OnSpatialBlendChange(float value)
         {
-            _spatialBlendValue.text = $"{value:0.00}";
-            _avatarSoundSettings.SetSpatialBlend(value);
+            float multipliedValue = value * VALUE_MULTIPLIER;
+            _spatialBlendValue.text = $"{multipliedValue:0.00}";
+            _avatarSoundSettings.SetSpatialBlend(multipliedValue);
         }
 
         private void OnDistanceChange(float value)
         {
-            _distanceValue.text = $"{value:0}";
-            _avatarSoundSettings.SetMinDistance(value);
+            float multipliedValue = value * DIST_MULTIPLIER;
+            _distanceValue.text = $"{multipliedValue:0.0}";
+            _avatarSoundSettings.SetMinDistance(multipliedValue);
         }
     }
 }

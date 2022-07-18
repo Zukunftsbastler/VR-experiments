@@ -27,19 +27,6 @@ namespace VR_Experiment.Menu.UI.Core
         [SerializeField] private Text _role;
         [SerializeField] private Text _product;
         [SerializeField] private Button _productInfoButton;
-        [SerializeField] private Button _voiceChatButton;
-        [Header("Sound Settings")]
-        [SerializeField] private GameObject _soundContainer;
-        [SerializeField] private TextMeshProUGUI _volumeValue;
-        [SerializeField] private Slider _volumeSlider;
-        [SerializeField] private TextMeshProUGUI _pitchValue;
-        [SerializeField] private Slider _pitchSlider;
-        [SerializeField] private TextMeshProUGUI _spatialBlendValue;
-        [SerializeField] private Slider _spatialBlendSlider;
-        [SerializeField] private TextMeshProUGUI _distanceValue;
-        [SerializeField] private Slider _distanceSlider;
-        [SerializeField] private Button _saveSoundButton;
-        [SerializeField] private Button _cancelSoundButton;
 
         private bool _isActive;
         private VoiceChatSettings _startSettings;
@@ -48,17 +35,7 @@ namespace VR_Experiment.Menu.UI.Core
 
         private void OnEnable()
         {
-            _voiceChatButton.gameObject.SetActive(PlayerWrapper.Instance.GetLocalRole() == Role.Experimenter);
-            
             _productInfoButton.onClick.AddListener(DisplayProductInfo);
-            _voiceChatButton.onClick.AddListener(DisplayVoiceChatSettings);
-
-            _volumeSlider.onValueChanged.AddListener(OnVolumeChange);
-            _pitchSlider.onValueChanged.AddListener(OnPitchChange);
-            _spatialBlendSlider.onValueChanged.AddListener(OnSpatialBlendChange);
-            _distanceSlider.onValueChanged.AddListener(OnDistanceChange);
-            _saveSoundButton.onClick.AddListener(SaveSoundChanges);
-            _cancelSoundButton.onClick.AddListener(DiscardSoundChanges);
 
             Application.onBeforeRender += OnBeforRender;
             PhotonNetwork.AddCallbackTarget(this);
@@ -67,14 +44,6 @@ namespace VR_Experiment.Menu.UI.Core
         private void OnDisable()
         {
             _productInfoButton.onClick.RemoveListener(DisplayProductInfo);
-            _voiceChatButton.onClick.RemoveListener(DisplayVoiceChatSettings);
-
-            _volumeSlider.onValueChanged.RemoveListener(OnVolumeChange);
-            _pitchSlider.onValueChanged.RemoveListener(OnPitchChange);
-            _spatialBlendSlider.onValueChanged.RemoveListener(OnSpatialBlendChange);
-            _distanceSlider.onValueChanged.RemoveListener(OnDistanceChange);
-            _saveSoundButton.onClick.RemoveListener(SaveSoundChanges);
-            _cancelSoundButton.onClick.RemoveListener(DiscardSoundChanges);
 
             Application.onBeforeRender -= OnBeforRender;
             PhotonNetwork.RemoveCallbackTarget(this);
@@ -107,13 +76,6 @@ namespace VR_Experiment.Menu.UI.Core
 
                 SetInfoUI();
             }
-            else
-            {
-                if(_soundContainer.activeSelf)
-                {
-                    DiscardSoundChanges();
-                }
-            }
         }
 
         private void DisplayProductInfo()
@@ -122,62 +84,6 @@ namespace VR_Experiment.Menu.UI.Core
             SO_Product product = Inventory.GetProductByName(productName);
 
             PlayerWrapper.Instance.Hud.DisplayProductBulletPoints(product);
-        }
-
-        private void DisplayVoiceChatSettings()
-        {
-            _defaultContainer.SetActive(false);
-            _soundContainer.SetActive(true);
-
-            _startSettings = _avatarSoundSettings.GetSettings();
-            _volumeValue.text = $"{_startSettings.volume}";
-            _volumeSlider.value = _startSettings.volume;
-            _pitchValue.text = $"{_startSettings.pitch}";
-            _pitchSlider.value = _startSettings.pitch;
-            _spatialBlendValue.text = $"{_startSettings.spatialBlend}";
-            _spatialBlendSlider.value = _startSettings.spatialBlend;
-            _distanceValue.text = $"{_startSettings.distance}";
-            _distanceSlider.value = _startSettings.distance;
-        }
-
-        private void OnVolumeChange(float value)
-        {
-            _volumeValue.text = $"{value:0.00}";
-            _avatarSoundSettings.SetVolume(value);
-        }
-
-        private void OnPitchChange(float value)
-        {
-            _pitchValue.text = $"{value:0.00}";
-            _avatarSoundSettings.SetPitch(value);
-        }
-
-        private void OnSpatialBlendChange(float value)
-        {
-            _spatialBlendValue.text = $"{value:0.00}";
-            _avatarSoundSettings.SetSpatialBlend(value);
-        }
-
-        private void OnDistanceChange(float value)
-        {
-            _distanceValue.text = $"{value:0}";
-            _avatarSoundSettings.SetMinDistance(value);
-        }
-
-        private void SaveSoundChanges()
-        {
-            VoiceChatManager.Instance.SyncVoiceSettings(photonView.Owner, _avatarSoundSettings.GetSettings());
-
-            _soundContainer.SetActive(false);
-            _defaultContainer.SetActive(true);
-        }
-
-        private void DiscardSoundChanges()
-        {
-            _avatarSoundSettings.SetSettings(_startSettings);
-
-            _soundContainer.SetActive(false);
-            _defaultContainer.SetActive(true);
         }
 
         private void UpdateVisualization()
